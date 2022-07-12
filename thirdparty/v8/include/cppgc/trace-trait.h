@@ -28,8 +28,8 @@ struct TraceTraitImpl;
 /**
  * Callback for invoking tracing on a given object.
  *
- * \param visitor The visitor to dispatch to.
- * \param object The object to invoke tracing on.
+ * param visitor The visitor to dispatch to.
+ * param object The object to invoke tracing on.
  */
 using TraceCallback = void (*)(Visitor* visitor, const void* object);
 
@@ -68,8 +68,8 @@ struct TraceTraitBase {
   /**
    * Accessor for retrieving a TraceDescriptor to process an object of type T.
    *
-   * \param self The object to be processed.
-   * \returns a TraceDescriptor to process the object.
+   * param self The object to be processed.
+   * returns a TraceDescriptor to process the object.
    */
   static TraceDescriptor GetTraceDescriptor(const void* self) {
     return internal::TraceTraitImpl<T>::GetTraceDescriptor(
@@ -79,8 +79,8 @@ struct TraceTraitBase {
   /**
    * Function invoking the tracing for an object of type T.
    *
-   * \param visitor The visitor to dispatch to.
-   * \param self The object to invoke tracing on.
+   * param visitor The visitor to dispatch to.
+   * param self The object to invoke tracing on.
    */
   static void Trace(Visitor* visitor, const void* self) {
     static_cast<const T*>(self)->Trace(visitor);

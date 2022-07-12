@@ -39,9 +39,9 @@ using EntropySource = bool (*)(unsigned char* buffer, size_t length);
  * change the return address on the stack can use this to resolve the stack
  * location to wherever the profiler stashed the original return address.
  *
- * \param return_addr_location A location on stack where a machine
+ * param return_addr_location A location on stack where a machine
  *    return address resides.
- * \returns Either return_addr_location, or else a pointer to the profiler's
+ * returns Either return_addr_location, or else a pointer to the profiler's
  *    copy of the original return address.
  *
  * \note The resolver function must not cause garbage collection.
@@ -257,7 +257,7 @@ class V8_EXPORT V8 {
   /**
    * Activate trap-based bounds checking for WebAssembly.
    *
-   * \param use_v8_signal_handler Whether V8 should install its own signal
+   * param use_v8_signal_handler Whether V8 should install its own signal
    * handler or rely on the embedder's.
    */
   static bool EnableWebAssemblyTrapHandler(bool use_v8_signal_handler);

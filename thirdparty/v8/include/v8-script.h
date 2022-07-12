@@ -543,8 +543,8 @@ class V8_EXPORT ScriptCompiler {
    * produced by the same version of V8, and the embedder needs to ensure the
    * cached data is the correct one for the given script.
    *
-   * \param source Script source code.
-   * \return Compiled script object (context independent; for running it must be
+   * param source Script source code.
+   * return Compiled script object (context independent; for running it must be
    *   bound to a context).
    */
   static V8_WARN_UNUSED_RESULT MaybeLocal<UnboundScript> CompileUnboundScript(
@@ -555,11 +555,11 @@ class V8_EXPORT ScriptCompiler {
   /**
    * Compiles the specified script (bound to current context).
    *
-   * \param source Script source code.
-   * \param pre_data Pre-parsing data, as obtained by ScriptData::PreCompile()
+   * param source Script source code.
+   * param pre_data Pre-parsing data, as obtained by ScriptData::PreCompile()
    *   using pre_data speeds compilation if it's done multiple times.
    *   Owned by caller, no references are kept when this function returns.
-   * \return Compiled script object, bound to the context that was active
+   * return Compiled script object, bound to the context that was active
    *   when this function was called. When run it will always use this
    *   context.
    */

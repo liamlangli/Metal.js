@@ -94,19 +94,19 @@ class V8_EXPORT Unwinder {
    *
    * Available on x64, ARM64 and ARM32.
    *
-   * \param code_pages A list of all of the ranges in which V8 has allocated
+   * param code_pages A list of all of the ranges in which V8 has allocated
    * executable code. The caller should obtain this list by calling
    * Isolate::CopyCodePages() during the same interrupt/thread suspension that
    * captures the stack.
-   * \param register_state The current registers. This is an in-out param that
+   * param register_state The current registers. This is an in-out param that
    * will be overwritten with the register values after unwinding, on success.
-   * \param stack_base The resulting stack pointer and frame pointer values are
+   * param stack_base The resulting stack pointer and frame pointer values are
    * bounds-checked against the stack_base and the original stack pointer value
    * to ensure that they are valid locations in the given stack. If these values
    * or any intermediate frame pointer values used during unwinding are ever out
    * of these bounds, unwinding will fail.
    *
-   * \return True on success.
+   * return True on success.
    */
   static bool TryUnwindV8Frames(const JSEntryStubs& entry_stubs,
                                 size_t code_pages_length,

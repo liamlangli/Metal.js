@@ -34,7 +34,7 @@ class V8_EXPORT V8_NODISCARD OverrideEmbedderStackStateScope final {
   /**
    * Constructs a scoped object that automatically enters and leaves the scope.
    *
-   * \param heap_handle The corresponding heap.
+   * param heap_handle The corresponding heap.
    */
   explicit OverrideEmbedderStackStateScope(HeapHandle& heap_handle,
                                            EmbedderStackState state);
@@ -67,7 +67,7 @@ class V8_EXPORT StandaloneTestingHeap final {
    * Perform an incremental step. This will also schedule concurrent steps if
    * needed.
    *
-   * \param stack_state The state of the stack during the step.
+   * param stack_state The state of the stack during the step.
    */
   bool PerformMarkingStep(EmbedderStackState stack_state);
 
@@ -75,7 +75,7 @@ class V8_EXPORT StandaloneTestingHeap final {
    * Finalize the current garbage collection cycle atomically.
    * Assumes that garbage collection is in progress.
    *
-   * \param stack_state The state of the stack for finalizing the garbage
+   * param stack_state The state of the stack for finalizing the garbage
    * collection cycle.
    */
   void FinalizeGarbageCollection(EmbedderStackState stack_state);
@@ -84,7 +84,7 @@ class V8_EXPORT StandaloneTestingHeap final {
    * Toggle main thread marking on/off. Allows to stress concurrent marking
    * (e.g. to better detect data races).
    *
-   * \param should_mark Denotes whether the main thread should contribute to
+   * param should_mark Denotes whether the main thread should contribute to
    * marking. Defaults to true.
    */
   void ToggleMainThreadMarking(bool should_mark);

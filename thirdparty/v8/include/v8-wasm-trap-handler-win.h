@@ -20,7 +20,7 @@ namespace v8 {
  * The parameter to this function corresponds to the one passed to a Windows
  * vectored exception handler. Use this function only on Windows.
  *
- * \param exception An EXCEPTION_POINTERS* as provided to the exception handler.
+ * param exception An EXCEPTION_POINTERS* as provided to the exception handler.
  */
 V8_EXPORT bool TryHandleWebAssemblyTrapWindows(EXCEPTION_POINTERS* exception);
 

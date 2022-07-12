@@ -145,19 +145,19 @@ template <typename T>
 class PropertyCallbackInfo {
  public:
   /**
-   * \return The isolate of the property access.
+   * return The isolate of the property access.
    */
   V8_INLINE Isolate* GetIsolate() const;
 
   /**
-   * \return The data set in the configuration, i.e., in
+   * return The data set in the configuration, i.e., in
    * `NamedPropertyHandlerConfiguration` or
    * `IndexedPropertyHandlerConfiguration.`
    */
   V8_INLINE Local<Value> Data() const;
 
   /**
-   * \return The receiver. In many cases, this is the object on which the
+   * return The receiver. In many cases, this is the object on which the
    * property access was intercepted. When using
    * `Reflect.get`, `Function.prototype.call`, or similar functions, it is the
    * object passed in as receiver or thisArg.
@@ -200,7 +200,7 @@ class PropertyCallbackInfo {
   V8_INLINE Local<Object> This() const;
 
   /**
-   * \return The object in the prototype chain of the receiver that has the
+   * return The object in the prototype chain of the receiver that has the
    * interceptor. Suppose you have `x` and its prototype is `y`, and `y`
    * has an interceptor. Then `info.This()` is `x` and `info.Holder()` is `y`.
    * The Holder() could be a hidden object (the global object, rather
@@ -211,7 +211,7 @@ class PropertyCallbackInfo {
   V8_INLINE Local<Object> Holder() const;
 
   /**
-   * \return The return value of the callback.
+   * return The return value of the callback.
    * Can be changed by calling Set().
    * \code
    * info.GetReturnValue().Set(...)
@@ -221,7 +221,7 @@ class PropertyCallbackInfo {
   V8_INLINE ReturnValue<T> GetReturnValue() const;
 
   /**
-   * \return True if the intercepted function should throw if an error occurs.
+   * return True if the intercepted function should throw if an error occurs.
    * Usually, `true` corresponds to `'use strict'`.
    *
    * \note Always `false` when intercepting `Reflect.set()`

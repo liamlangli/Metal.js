@@ -65,7 +65,7 @@ class V8_EXPORT Visitor {
   /**
    * Trace method for raw pointers. Prefer the versions for managed pointers.
    *
-   * \param member Reference retaining an object.
+   * param member Reference retaining an object.
    */
   template <typename T>
   void Trace(const T* t) {
@@ -81,7 +81,7 @@ class V8_EXPORT Visitor {
   /**
    * Trace method for Member.
    *
-   * \param member Member reference retaining an object.
+   * param member Member reference retaining an object.
    */
   template <typename T>
   void Trace(const Member<T>& member) {
@@ -93,7 +93,7 @@ class V8_EXPORT Visitor {
   /**
    * Trace method for WeakMember.
    *
-   * \param weak_member WeakMember reference weakly retaining an object.
+   * param weak_member WeakMember reference weakly retaining an object.
    */
   template <typename T>
   void Trace(const WeakMember<T>& weak_member) {
@@ -119,7 +119,7 @@ class V8_EXPORT Visitor {
    * Trace method for inlined objects that are not allocated themselves but
    * otherwise follow managed heap layout and have a Trace() method.
    *
-   * \param object reference of the inlined object.
+   * param object reference of the inlined object.
    */
   template <typename T>
   void Trace(const T& object) {
@@ -137,7 +137,7 @@ class V8_EXPORT Visitor {
    * Registers a weak callback method on the object of type T. See
    * LivenessBroker for an usage example.
    *
-   * \param object of type T specifying a weak callback method.
+   * param object of type T specifying a weak callback method.
    */
   template <typename T, void (T::*method)(const LivenessBroker&)>
   void RegisterWeakCallbackMethod(const T* object) {
@@ -147,7 +147,7 @@ class V8_EXPORT Visitor {
   /**
    * Trace method for EphemeronPair.
    *
-   * \param ephemeron_pair EphemeronPair reference weakly retaining a key object
+   * param ephemeron_pair EphemeronPair reference weakly retaining a key object
    * and strongly retaining a value object in case the key object is alive.
    */
   template <typename K, typename V>
@@ -162,8 +162,8 @@ class V8_EXPORT Visitor {
    * Trace method for a single ephemeron. Used for tracing a raw ephemeron in
    * which the `key` and `value` are kept separately.
    *
-   * \param weak_member_key WeakMember reference weakly retaining a key object.
-   * \param member_value Member reference with ephemeron semantics.
+   * param weak_member_key WeakMember reference weakly retaining a key object.
+   * param member_value Member reference with ephemeron semantics.
    */
   template <typename KeyType, typename ValueType>
   void TraceEphemeron(const WeakMember<KeyType>& weak_member_key,
@@ -192,8 +192,8 @@ class V8_EXPORT Visitor {
    * which the `key` and `value` are kept separately. Note that this overload
    * is for non-GarbageCollected `value`s that can be traced though.
    *
-   * \param key `WeakMember` reference weakly retaining a key object.
-   * \param value Reference weakly retaining a value object. Note that
+   * param key `WeakMember` reference weakly retaining a key object.
+   * param value Reference weakly retaining a value object. Note that
    *   `ValueType` here should not be `Member`. It is expected that
    *   `TraceTrait<ValueType>::GetTraceDescriptor(value)` returns a
    *   `TraceDescriptor` with a null base pointer but a valid trace method.
@@ -225,7 +225,7 @@ class V8_EXPORT Visitor {
   /**
    * Trace method that strongifies a WeakMember.
    *
-   * \param weak_member WeakMember reference retaining an object.
+   * param weak_member WeakMember reference retaining an object.
    */
   template <typename T>
   void TraceStrongly(const WeakMember<T>& weak_member) {
@@ -237,9 +237,9 @@ class V8_EXPORT Visitor {
   /**
    * Trace method for weak containers.
    *
-   * \param object reference of the weak container.
-   * \param callback to be invoked.
-   * \param data custom data that is passed to the callback.
+   * param object reference of the weak container.
+   * param callback to be invoked.
+   * param data custom data that is passed to the callback.
    */
   template <typename T>
   void TraceWeakContainer(const T* object, WeakCallback callback,
@@ -254,7 +254,7 @@ class V8_EXPORT Visitor {
    * Registers a slot containing a reference to an object allocated on a
    * compactable space. Such references maybe be arbitrarily moved by the GC.
    *
-   * \param slot location of reference to object that might be moved by the GC.
+   * param slot location of reference to object that might be moved by the GC.
    */
   template <typename T>
   void RegisterMovableReference(const T** slot) {
@@ -269,8 +269,8 @@ class V8_EXPORT Visitor {
   /**
    * Registers a weak callback that is invoked during garbage collection.
    *
-   * \param callback to be invoked.
-   * \param data custom data that is passed to the callback.
+   * param callback to be invoked.
+   * param data custom data that is passed to the callback.
    */
   virtual void RegisterWeakCallback(WeakCallback callback, const void* data) {}
 
@@ -279,11 +279,11 @@ class V8_EXPORT Visitor {
    * Should be called by Trace methods of types that are not safe to trace
    * concurrently.
    *
-   * \param parameter tells the trace callback which object was deferred.
-   * \param callback to be invoked for tracing on the mutator thread.
-   * \param deferred_size size of deferred object.
+   * param parameter tells the trace callback which object was deferred.
+   * param callback to be invoked for tracing on the mutator thread.
+   * param deferred_size size of deferred object.
    *
-   * \returns false if the object does not need to be deferred (i.e. currently
+   * returns false if the object does not need to be deferred (i.e. currently
    * traced on the mutator thread) and true otherwise (i.e. currently traced on
    * a concurrent thread).
    */

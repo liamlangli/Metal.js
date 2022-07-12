@@ -19,9 +19,9 @@ namespace v8 {
  * The parameters to this function correspond to those passed to a Posix signal
  * handler. Use this function only on Linux and Mac.
  *
- * \param sig_code The signal code, e.g. SIGSEGV.
- * \param info A pointer to the siginfo_t struct provided to the signal handler.
- * \param context A pointer to a ucontext_t struct provided to the signal
+ * param sig_code The signal code, e.g. SIGSEGV.
+ * param info A pointer to the siginfo_t struct provided to the signal handler.
+ * param context A pointer to a ucontext_t struct provided to the signal
  * handler.
  */
 V8_EXPORT bool TryHandleWebAssemblyTrapPosix(int sig_code, siginfo_t* info,

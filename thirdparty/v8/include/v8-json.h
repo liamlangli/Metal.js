@@ -23,9 +23,9 @@ class V8_EXPORT JSON {
    * Tries to parse the string |json_string| and returns it as value if
    * successful.
    *
-   * \param the context in which to parse and create the value.
-   * \param json_string The string to parse.
-   * \return The corresponding value if successfully parsed.
+   * param the context in which to parse and create the value.
+   * param json_string The string to parse.
+   * return The corresponding value if successfully parsed.
    */
   static V8_WARN_UNUSED_RESULT MaybeLocal<Value> Parse(
       Local<Context> context, Local<String> json_string);
@@ -34,8 +34,8 @@ class V8_EXPORT JSON {
    * Tries to stringify the JSON-serializable object |json_object| and returns
    * it as string if successful.
    *
-   * \param json_object The JSON-serializable object to stringify.
-   * \return The corresponding string if successfully stringified.
+   * param json_object The JSON-serializable object to stringify.
+   * return The corresponding string if successfully stringified.
    */
   static V8_WARN_UNUSED_RESULT MaybeLocal<String> Stringify(
       Local<Context> context, Local<Value> json_object,

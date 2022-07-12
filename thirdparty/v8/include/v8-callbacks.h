@@ -133,7 +133,7 @@ enum JitCodeEventOptions {
 /**
  * Callback function passed to SetJitCodeEventHandler.
  *
- * \param event code add, move or removal event.
+ * param event code add, move or removal event.
  */
 using JitCodeEventHandler = void (*)(const JitCodeEvent* event);
 

@@ -159,10 +159,10 @@ class MakeGarbageCollectedTraitBase
   /**
    * Allocates memory for an object of type T.
    *
-   * \param handle AllocationHandle identifying the heap to allocate the object
+   * param handle AllocationHandle identifying the heap to allocate the object
    *   on.
-   * \param size The size that should be reserved for the object.
-   * \returns the memory to construct an object of type T on.
+   * param size The size that should be reserved for the object.
+   * returns the memory to construct an object of type T on.
    */
   V8_INLINE static void* Allocate(AllocationHandle& handle, size_t size) {
     static_assert(
@@ -187,7 +187,7 @@ class MakeGarbageCollectedTraitBase
    * Marks an object as fully constructed, resulting in precise handling by the
    * garbage collector.
    *
-   * \param payload The base pointer the object is allocated at.
+   * param payload The base pointer the object is allocated at.
    */
   V8_INLINE static void MarkObjectAsFullyConstructed(const void* payload) {
     internal::MakeGarbageCollectedTraitInternal::MarkObjectAsFullyConstructed(
@@ -270,9 +270,9 @@ struct PostConstructionCallbackTrait {
  * Constructs a managed object of type T where T transitively inherits from
  * GarbageCollected.
  *
- * \param args List of arguments with which an instance of T will be
+ * param args List of arguments with which an instance of T will be
  *   constructed.
- * \returns an instance of type T.
+ * returns an instance of type T.
  */
 template <typename T, typename... Args>
 V8_INLINE T* MakeGarbageCollected(AllocationHandle& handle, Args&&... args) {
@@ -287,10 +287,10 @@ V8_INLINE T* MakeGarbageCollected(AllocationHandle& handle, Args&&... args) {
  * GarbageCollected. Created objects will have additional bytes appended to
  * it. Allocated memory would suffice for `sizeof(T) + additional_bytes`.
  *
- * \param additional_bytes Denotes how many bytes to append to T.
- * \param args List of arguments with which an instance of T will be
+ * param additional_bytes Denotes how many bytes to append to T.
+ * param args List of arguments with which an instance of T will be
  *   constructed.
- * \returns an instance of type T.
+ * returns an instance of type T.
  */
 template <typename T, typename... Args>
 V8_INLINE T* MakeGarbageCollected(AllocationHandle& handle,

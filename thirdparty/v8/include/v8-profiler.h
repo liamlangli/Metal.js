@@ -312,18 +312,18 @@ class V8_EXPORT CpuProfilingOptions {
   static const unsigned kNoSampleLimit = UINT_MAX;
 
   /**
-   * \param mode Type of computation of stack frame line numbers.
-   * \param max_samples The maximum number of samples that should be recorded by
+   * param mode Type of computation of stack frame line numbers.
+   * param max_samples The maximum number of samples that should be recorded by
    *                    the profiler. Samples obtained after this limit will be
    *                    discarded.
-   * \param sampling_interval_us controls the profile-specific target
+   * param sampling_interval_us controls the profile-specific target
    *                             sampling interval. The provided sampling
    *                             interval will be snapped to the next lowest
    *                             non-zero multiple of the profiler's sampling
    *                             interval, set via SetSamplingInterval(). If
    *                             zero, the sampling interval will be equal to
    *                             the profiler's sampling interval.
-   * \param filter_context If specified, profiles will only contain frames
+   * param filter_context If specified, profiles will only contain frames
    *                       using this context. Other frames will be elided.
    */
   CpuProfilingOptions(

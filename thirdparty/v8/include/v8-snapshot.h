@@ -85,8 +85,8 @@ class V8_EXPORT SnapshotCreator {
    * Initialize and enter an isolate, and set it up for serialization.
    * The isolate is either created from scratch or from an existing snapshot.
    * The caller keeps ownership of the argument snapshot.
-   * \param existing_blob existing snapshot from which to create this one.
-   * \param external_references a null-terminated array of external references
+   * param existing_blob existing snapshot from which to create this one.
+   * param external_references a null-terminated array of external references
    *        that must be equivalent to CreateParams::external_references.
    */
   SnapshotCreator(Isolate* isolate,
@@ -97,8 +97,8 @@ class V8_EXPORT SnapshotCreator {
    * Create and enter an isolate, and set it up for serialization.
    * The isolate is either created from scratch or from an existing snapshot.
    * The caller keeps ownership of the argument snapshot.
-   * \param existing_blob existing snapshot from which to create this one.
-   * \param external_references a null-terminated array of external references
+   * param existing_blob existing snapshot from which to create this one.
+   * param external_references a null-terminated array of external references
    *        that must be equivalent to CreateParams::external_references.
    */
   SnapshotCreator(const intptr_t* external_references = nullptr,
@@ -111,7 +111,7 @@ class V8_EXPORT SnapshotCreator {
   ~SnapshotCreator();
 
   /**
-   * \returns the isolate prepared by the snapshot creator.
+   * returns the isolate prepared by the snapshot creator.
    */
   Isolate* GetIsolate();
 
@@ -120,7 +120,7 @@ class V8_EXPORT SnapshotCreator {
    * The snapshot will not contain the global proxy, and we expect one or a
    * global object template to create one, to be provided upon deserialization.
    *
-   * \param callback optional callback to serialize internal fields.
+   * param callback optional callback to serialize internal fields.
    */
   void SetDefaultContext(Local<Context> context,
                          SerializeInternalFieldsCallback callback =
@@ -130,9 +130,9 @@ class V8_EXPORT SnapshotCreator {
    * Add additional context to be included in the snapshot blob.
    * The snapshot will include the global proxy.
    *
-   * \param callback optional callback to serialize internal fields.
+   * param callback optional callback to serialize internal fields.
    *
-   * \returns the index of the context in the snapshot blob.
+   * returns the index of the context in the snapshot blob.
    */
   size_t AddContext(Local<Context> context,
                     SerializeInternalFieldsCallback callback =
@@ -142,7 +142,7 @@ class V8_EXPORT SnapshotCreator {
    * Attach arbitrary V8::Data to the context snapshot, which can be retrieved
    * via Context::GetDataFromSnapshotOnce after deserialization. This data does
    * not survive when a new snapshot is created from an existing snapshot.
-   * \returns the index for retrieval.
+   * returns the index for retrieval.
    */
   template <class T>
   V8_INLINE size_t AddData(Local<Context> context, Local<T> object);
@@ -151,7 +151,7 @@ class V8_EXPORT SnapshotCreator {
    * Attach arbitrary V8::Data to the isolate snapshot, which can be retrieved
    * via Isolate::GetDataFromSnapshotOnce after deserialization. This data does
    * not survive when a new snapshot is created from an existing snapshot.
-   * \returns the index for retrieval.
+   * returns the index for retrieval.
    */
   template <class T>
   V8_INLINE size_t AddData(Local<T> object);
@@ -159,9 +159,9 @@ class V8_EXPORT SnapshotCreator {
   /**
    * Created a snapshot data blob.
    * This must not be called from within a handle scope.
-   * \param function_code_handling whether to include compiled function code
+   * param function_code_handling whether to include compiled function code
    *        in the snapshot.
-   * \returns { nullptr, 0 } on failure, and a startup snapshot on success. The
+   * returns { nullptr, 0 } on failure, and a startup snapshot on success. The
    *        caller acquires ownership of the data array in the return value.
    */
   StartupData CreateBlob(FunctionCodeHandling function_code_handling);

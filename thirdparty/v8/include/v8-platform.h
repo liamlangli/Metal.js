@@ -604,7 +604,7 @@ class VirtualAddressSpace {
    * Used as granularity for all page-related operations except for allocation,
    * which use the allocation_granularity(), see below.
    *
-   * \returns the page size in bytes.
+   * returns the page size in bytes.
    */
   size_t page_size() const { return page_size_; }
 
@@ -614,21 +614,21 @@ class VirtualAddressSpace {
    * page_size(). In practice, this is equal to the page size on most OSes, but
    * on Windows it is usually 64KB, while the page size is 4KB.
    *
-   * \returns the allocation granularity in bytes.
+   * returns the allocation granularity in bytes.
    */
   size_t allocation_granularity() const { return allocation_granularity_; }
 
   /**
    * The base address of the address space managed by this instance.
    *
-   * \returns the base address of this address space.
+   * returns the base address of this address space.
    */
   Address base() const { return base_; }
 
   /**
    * The size of the address space managed by this instance.
    *
-   * \returns the size of this address space in bytes.
+   * returns the size of this address space in bytes.
    */
   size_t size() const { return size_; }
 
@@ -636,7 +636,7 @@ class VirtualAddressSpace {
    * The maximum page permissions that pages allocated inside this space can
    * obtain.
    *
-   * \returns the maximum page permissions.
+   * returns the maximum page permissions.
    */
   PagePermissions max_page_permissions() const { return max_page_permissions_; }
 
@@ -644,7 +644,7 @@ class VirtualAddressSpace {
    * Sets the random seed so that GetRandomPageAddress() will generate
    * repeatable sequences of random addresses.
    *
-   * \param The seed for the PRNG.
+   * param The seed for the PRNG.
    */
   virtual void SetRandomSeed(int64_t seed) = 0;
 
@@ -652,28 +652,28 @@ class VirtualAddressSpace {
    * Returns a random address inside this address space, suitable for page
    * allocations hints.
    *
-   * \returns a random address aligned to allocation_granularity().
+   * returns a random address aligned to allocation_granularity().
    */
   virtual Address RandomPageAddress() = 0;
 
   /**
    * Allocates private memory pages with the given alignment and permissions.
    *
-   * \param hint If nonzero, the allocation is attempted to be placed at the
+   * param hint If nonzero, the allocation is attempted to be placed at the
    * given address first. If that fails, the allocation is attempted to be
    * placed elsewhere, possibly nearby, but that is not guaranteed. Specifying
    * zero for the hint always causes this function to choose a random address.
    * The hint, if specified, must be aligned to the specified alignment.
    *
-   * \param size The size of the allocation in bytes. Must be a multiple of the
+   * param size The size of the allocation in bytes. Must be a multiple of the
    * allocation_granularity().
    *
-   * \param alignment The alignment of the allocation in bytes. Must be a
+   * param alignment The alignment of the allocation in bytes. Must be a
    * multiple of the allocation_granularity() and should be a power of two.
    *
-   * \param permissions The page permissions of the newly allocated pages.
+   * param permissions The page permissions of the newly allocated pages.
    *
-   * \returns the start address of the allocated pages on success, zero on
+   * returns the start address of the allocated pages on success, zero on
    * failure.
    */
   static constexpr Address kNoHint = 0;
@@ -687,10 +687,10 @@ class VirtualAddressSpace {
    * This function will terminate the process on failure as this implies a bug
    * in the client. As such, there is no return value.
    *
-   * \param address The start address of the pages to free. This address must
+   * param address The start address of the pages to free. This address must
    * have been obtained through a call to AllocatePages.
    *
-   * \param size The size in bytes of the region to free. This must match the
+   * param size The size in bytes of the region to free. This must match the
    * size passed to AllocatePages when the pages were allocated.
    */
   virtual void FreePages(Address address, size_t size) = 0;
@@ -698,15 +698,15 @@ class VirtualAddressSpace {
   /**
    * Sets permissions of all allocated pages in the given range.
    *
-   * \param address The start address of the range. Must be aligned to
+   * param address The start address of the range. Must be aligned to
    * page_size().
    *
-   * \param size The size in bytes of the range. Must be a multiple
+   * param size The size in bytes of the range. Must be a multiple
    * of page_size().
    *
-   * \param permissions The new permissions for the range.
+   * param permissions The new permissions for the range.
    *
-   * \returns true on success, false otherwise.
+   * returns true on success, false otherwise.
    */
   virtual V8_WARN_UNUSED_RESULT bool SetPagePermissions(
       Address address, size_t size, PagePermissions permissions) = 0;
@@ -719,13 +719,13 @@ class VirtualAddressSpace {
    * guard regions can usually not fail in subspaces if the region does not
    * overlap with another region, subspace, or page allocation.
    *
-   * \param address The start address of the guard region. Must be aligned to
+   * param address The start address of the guard region. Must be aligned to
    * the allocation_granularity().
    *
-   * \param size The size of the guard region in bytes. Must be a multiple of
+   * param size The size of the guard region in bytes. Must be a multiple of
    * the allocation_granularity().
    *
-   * \returns true on success, false otherwise.
+   * returns true on success, false otherwise.
    */
   virtual V8_WARN_UNUSED_RESULT bool AllocateGuardRegion(Address address,
                                                          size_t size) = 0;
@@ -736,11 +736,11 @@ class VirtualAddressSpace {
    * This function will terminate the process on failure as this implies a bug
    * in the client. As such, there is no return value.
    *
-   * \param address The start address of the guard region to free. This address
+   * param address The start address of the guard region to free. This address
    * must have previously been used as address parameter in a successful
    * invocation of AllocateGuardRegion.
    *
-   * \param size The size in bytes of the guard region to free. This must match
+   * param size The size in bytes of the guard region to free. This must match
    * the size passed to AllocateGuardRegion when the region was created.
    */
   virtual void FreeGuardRegion(Address address, size_t size) = 0;
@@ -748,20 +748,20 @@ class VirtualAddressSpace {
   /**
    * Allocates shared memory pages with the given permissions.
    *
-   * \param hint Placement hint. See AllocatePages.
+   * param hint Placement hint. See AllocatePages.
    *
-   * \param size The size of the allocation in bytes. Must be a multiple of the
+   * param size The size of the allocation in bytes. Must be a multiple of the
    * allocation_granularity().
    *
-   * \param permissions The page permissions of the newly allocated pages.
+   * param permissions The page permissions of the newly allocated pages.
    *
-   * \param handle A platform-specific handle to a shared memory object. See
+   * param handle A platform-specific handle to a shared memory object. See
    * the SharedMemoryHandleFromX routines above for ways to obtain these.
    *
-   * \param offset The offset in the shared memory object at which the mapping
+   * param offset The offset in the shared memory object at which the mapping
    * should start. Must be a multiple of the allocation_granularity().
    *
-   * \returns the start address of the allocated pages on success, zero on
+   * returns the start address of the allocated pages on success, zero on
    * failure.
    */
   virtual V8_WARN_UNUSED_RESULT Address
@@ -774,10 +774,10 @@ class VirtualAddressSpace {
    * This function will terminate the process on failure as this implies a bug
    * in the client. As such, there is no return value.
    *
-   * \param address The start address of the pages to free. This address must
+   * param address The start address of the pages to free. This address must
    * have been obtained through a call to AllocateSharedPages.
    *
-   * \param size The size in bytes of the region to free. This must match the
+   * param size The size in bytes of the region to free. This must match the
    * size passed to AllocateSharedPages when the pages were allocated.
    */
   virtual void FreeSharedPages(Address address, size_t size) = 0;
@@ -785,7 +785,7 @@ class VirtualAddressSpace {
   /**
    * Whether this instance can allocate subspaces or not.
    *
-   * \returns true if subspaces can be allocated, false if not.
+   * returns true if subspaces can be allocated, false if not.
    */
   virtual bool CanAllocateSubspaces() = 0;
 
@@ -796,19 +796,19 @@ class VirtualAddressSpace {
    * lifetime of the subspace. As such, it is guaranteed that page allocations
    * on the parent space cannot end up inside a subspace.
    *
-   * \param hint Hints where the subspace should be allocated. See
+   * param hint Hints where the subspace should be allocated. See
    * AllocatePages() for more details.
    *
-   * \param size The size in bytes of the subspace. Must be a multiple of the
+   * param size The size in bytes of the subspace. Must be a multiple of the
    * allocation_granularity().
    *
-   * \param alignment The alignment of the subspace in bytes. Must be a multiple
+   * param alignment The alignment of the subspace in bytes. Must be a multiple
    * of the allocation_granularity() and should be a power of two.
    *
-   * \param max_page_permissions The maximum permissions that pages allocated in
+   * param max_page_permissions The maximum permissions that pages allocated in
    * the subspace can obtain.
    *
-   * \returns a new subspace or nullptr on failure.
+   * returns a new subspace or nullptr on failure.
    */
   virtual std::unique_ptr<VirtualAddressSpace> AllocateSubspace(
       Address hint, size_t size, size_t alignment,
@@ -827,7 +827,7 @@ class VirtualAddressSpace {
    * hint to the OS that the pages are no longer needed. It does not guarantee
    * that the pages will be discarded immediately or at all.
    *
-   * \returns true on success, false otherwise. Since this method is only a
+   * returns true on success, false otherwise. Since this method is only a
    * hint, a successful invocation does not imply that pages have been removed.
    */
   virtual V8_WARN_UNUSED_RESULT bool DiscardSystemPages(Address address,
@@ -842,7 +842,7 @@ class VirtualAddressSpace {
    * zero-initialized again. The memory must have been previously allocated by a
    * call to AllocatePages.
    *
-   * \returns true on success, false otherwise.
+   * returns true on success, false otherwise.
    */
   virtual V8_WARN_UNUSED_RESULT bool DecommitPages(Address address,
                                                    size_t size) = 0;

@@ -53,8 +53,8 @@ namespace subtle {
  * destructors on objects that would be reclaimed in the same garbage collection
  * cycle.
  *
- * \param heap_handle The corresponding heap.
- * \param object Reference to an object that is of type `GarbageCollected` and
+ * param heap_handle The corresponding heap.
+ * param object Reference to an object that is of type `GarbageCollected` and
  *   should be immediately reclaimed.
  */
 template <typename T>
@@ -79,11 +79,11 @@ void FreeUnreferencedObject(HeapHandle& heap_handle, T& object) {
  *
  * The `object` must be live when calling `Resize()`.
  *
- * \param object Reference to an object that is of type `GarbageCollected` and
+ * param object Reference to an object that is of type `GarbageCollected` and
  *   should be resized.
- * \param additional_bytes Bytes in addition to sizeof(T) that the object should
+ * param additional_bytes Bytes in addition to sizeof(T) that the object should
  *   provide.
- * \returns true when the operation was successful and the result can be relied
+ * returns true when the operation was successful and the result can be relied
  *   on, and false otherwise.
  */
 template <typename T>

@@ -53,28 +53,28 @@ class V8_EXPORT SourceLocation final {
    * Returns the name of the function associated with the position represented
    * by this object, if any.
    *
-   * \returns the function name as cstring.
+   * returns the function name as cstring.
    */
   constexpr const char* Function() const { return function_; }
 
   /**
    * Returns the name of the current source file represented by this object.
    *
-   * \returns the file name as cstring.
+   * returns the file name as cstring.
    */
   constexpr const char* FileName() const { return file_; }
 
   /**
    * Returns the line number represented by this object.
    *
-   * \returns the line number.
+   * returns the line number.
    */
   constexpr size_t Line() const { return line_; }
 
   /**
    * Returns a human-readable string representing this object.
    *
-   * \returns a human-readable string representing source location information.
+   * returns a human-readable string representing source location information.
    */
   std::string ToString() const;
 

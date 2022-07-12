@@ -68,12 +68,12 @@ class V8_EXPORT Template : public Data {
    * are called instead of getting and setting the property directly
    * on the JavaScript object.
    *
-   * \param name The name of the property for which an accessor is added.
-   * \param getter The callback to invoke when getting the property.
-   * \param setter The callback to invoke when setting the property.
-   * \param data A piece of data that will be passed to the getter and setter
+   * param name The name of the property for which an accessor is added.
+   * param getter The callback to invoke when getting the property.
+   * param setter The callback to invoke when setting the property.
+   * param data A piece of data that will be passed to the getter and setter
    *   callbacks whenever they are invoked.
-   * \param settings Access control settings for the accessor. This is a bit
+   * param settings Access control settings for the accessor. This is a bit
    *   field consisting of one of more of
    *   DEFAULT = 0, ALL_CAN_READ = 1, or ALL_CAN_WRITE = 2.
    *   The default is to not allow cross-context access.
@@ -81,9 +81,9 @@ class V8_EXPORT Template : public Data {
    *   ALL_CAN_WRITE means that all cross-context writes are allowed.
    *   The combination ALL_CAN_READ | ALL_CAN_WRITE can be used to allow all
    *   cross-context access.
-   * \param attribute The attributes of the property for which an accessor
+   * param attribute The attributes of the property for which an accessor
    *   is added.
-   * \param signature The signature describes valid receivers for the accessor
+   * param signature The signature describes valid receivers for the accessor
    *   and is used to perform implicit instance checks against them. If the
    *   receiver is incompatible (i.e. is not an instance of the constructor as
    *   defined by FunctionTemplate::HasInstance()), an implicit TypeError is
@@ -153,9 +153,9 @@ class V8_EXPORT Template : public Data {
  * Use `info.GetReturnValue().Set()` to set the return value of the
  * intercepted get request.
  *
- * \param property The name of the property for which the request was
+ * param property The name of the property for which the request was
  * intercepted.
- * \param info Information about the intercepted request, such as
+ * param info Information about the intercepted request, such as
  * isolate, receiver, return value, or whether running in `'use strict`' mode.
  * See `PropertyCallbackInfo`.
  *
@@ -196,11 +196,11 @@ using GenericNamedPropertyGetterCallback =
  * did not intercept the request, i.e., if the request should be handled as
  * if no interceptor is present, do not not call `Set()`.
  *
- * \param property The name of the property for which the request was
+ * param property The name of the property for which the request was
  * intercepted.
- * \param value The value which the property will have if the request
+ * param value The value which the property will have if the request
  * is not intercepted.
- * \param info Information about the intercepted request, such as
+ * param info Information about the intercepted request, such as
  * isolate, receiver, return value, or whether running in `'use strict'` mode.
  * See `PropertyCallbackInfo`.
  *
@@ -219,9 +219,9 @@ using GenericNamedPropertySetterCallback =
  * Use `info.GetReturnValue().Set(value)` to set the property attributes. The
  * value is an integer encoding a `v8::PropertyAttribute`.
  *
- * \param property The name of the property for which the request was
+ * param property The name of the property for which the request was
  * intercepted.
- * \param info Information about the intercepted request, such as
+ * param info Information about the intercepted request, such as
  * isolate, receiver, return value, or whether running in `'use strict'` mode.
  * See `PropertyCallbackInfo`.
  *
@@ -244,9 +244,9 @@ using GenericNamedPropertyQueryCallback =
  * `info.GetReturnValue().Set(value)` with a boolean `value`. The `value` is
  * used as the return value of `delete`.
  *
- * \param property The name of the property for which the request was
+ * param property The name of the property for which the request was
  * intercepted.
- * \param info Information about the intercepted request, such as
+ * param info Information about the intercepted request, such as
  * isolate, receiver, return value, or whether running in `'use strict'` mode.
  * See `PropertyCallbackInfo`.
  *
@@ -278,11 +278,11 @@ using GenericNamedPropertyEnumeratorCallback =
  * did not intercept the request, i.e., if the request should be handled as
  * if no interceptor is present, do not not call `Set()`.
  *
- * \param property The name of the property for which the request was
+ * param property The name of the property for which the request was
  * intercepted.
- * \param desc The property descriptor which is used to define the
+ * param desc The property descriptor which is used to define the
  * property if the request is not intercepted.
- * \param info Information about the intercepted request, such as
+ * param info Information about the intercepted request, such as
  * isolate, receiver, return value, or whether running in `'use strict'` mode.
  * See `PropertyCallbackInfo`.
  *
@@ -300,7 +300,7 @@ using GenericNamedPropertyDefinerCallback =
  * can be converted to a PropertyDescriptor, e.g., a `v8::value` returned from
  * `v8::Object::getOwnPropertyDescriptor`.
  *
- * \param property The name of the property for which the request was
+ * param property The name of the property for which the request was
  * intercepted.
  * \info Information about the intercepted request, such as
  * isolate, receiver, return value, or whether running in `'use strict'` mode.
@@ -806,12 +806,12 @@ class V8_EXPORT ObjectTemplate : public Template {
    * are called instead of getting and setting the property directly
    * on the JavaScript object.
    *
-   * \param name The name of the property for which an accessor is added.
-   * \param getter The callback to invoke when getting the property.
-   * \param setter The callback to invoke when setting the property.
-   * \param data A piece of data that will be passed to the getter and setter
+   * param name The name of the property for which an accessor is added.
+   * param getter The callback to invoke when getting the property.
+   * param setter The callback to invoke when setting the property.
+   * param data A piece of data that will be passed to the getter and setter
    *   callbacks whenever they are invoked.
-   * \param settings Access control settings for the accessor. This is a bit
+   * param settings Access control settings for the accessor. This is a bit
    *   field consisting of one of more of
    *   DEFAULT = 0, ALL_CAN_READ = 1, or ALL_CAN_WRITE = 2.
    *   The default is to not allow cross-context access.
@@ -819,9 +819,9 @@ class V8_EXPORT ObjectTemplate : public Template {
    *   ALL_CAN_WRITE means that all cross-context writes are allowed.
    *   The combination ALL_CAN_READ | ALL_CAN_WRITE can be used to allow all
    *   cross-context access.
-   * \param attribute The attributes of the property for which an accessor
+   * param attribute The attributes of the property for which an accessor
    *   is added.
-   * \param signature The signature describes valid receivers for the accessor
+   * param signature The signature describes valid receivers for the accessor
    *   and is used to perform implicit instance checks against them. If the
    *   receiver is incompatible (i.e. is not an instance of the constructor as
    *   defined by FunctionTemplate::HasInstance()), an implicit TypeError is
@@ -877,13 +877,13 @@ class V8_EXPORT ObjectTemplate : public Template {
    * this object template, the provided callback is invoked instead of
    * accessing the property directly on the JavaScript object.
    *
-   * \param getter The callback to invoke when getting a property.
-   * \param setter The callback to invoke when setting a property.
-   * \param query The callback to invoke to check if an object has a property.
-   * \param deleter The callback to invoke when deleting a property.
-   * \param enumerator The callback to invoke to enumerate all the indexed
+   * param getter The callback to invoke when getting a property.
+   * param setter The callback to invoke when setting a property.
+   * param query The callback to invoke to check if an object has a property.
+   * param deleter The callback to invoke when deleting a property.
+   * param enumerator The callback to invoke to enumerate all the indexed
    *   properties of an object.
-   * \param data A piece of data that will be passed to the callbacks
+   * param data A piece of data that will be passed to the callbacks
    *   whenever they are invoked.
    */
   // TODO(dcarney): deprecate

@@ -59,11 +59,11 @@ class V8_EXPORT MeasureMemoryDelegate {
   /**
    * This function is called when memory measurement finishes.
    *
-   * \param context_sizes_in_bytes a vector of (context, size) pairs that
+   * param context_sizes_in_bytes a vector of (context, size) pairs that
    *   includes each context for which ShouldMeasure returned true and that
    *   was not garbage collected while the memory measurement was in progress.
    *
-   * \param unattributed_size_in_bytes total size of objects that were not
+   * param unattributed_size_in_bytes total size of objects that were not
    *   attributed to any context (i.e. are likely shared objects).
    */
   virtual void MeasurementComplete(
@@ -75,11 +75,11 @@ class V8_EXPORT MeasureMemoryDelegate {
    * Returns a default delegate that resolves the given promise when
    * the memory measurement completes.
    *
-   * \param isolate the current isolate
-   * \param context the current context
-   * \param promise_resolver the promise resolver that is given the
+   * param isolate the current isolate
+   * param context the current context
+   * param promise_resolver the promise resolver that is given the
    *   result of the memory measurement.
-   * \param mode the detail level of the result.
+   * param mode the detail level of the result.
    */
   static std::unique_ptr<MeasureMemoryDelegate> Default(
       Isolate* isolate, Local<Context> context,

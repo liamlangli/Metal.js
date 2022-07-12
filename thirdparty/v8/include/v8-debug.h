@@ -143,8 +143,8 @@ class V8_EXPORT StackTrace {
   /**
    * Grab a snapshot of the current JavaScript execution stack.
    *
-   * \param frame_limit The maximum number of stack frames we want to capture.
-   * \param options Enumerates the set of things we will capture for each
+   * param frame_limit The maximum number of stack frames we want to capture.
+   * param options Enumerates the set of things we will capture for each
    *   StackFrame.
    */
   static Local<StackTrace> CurrentStackTrace(

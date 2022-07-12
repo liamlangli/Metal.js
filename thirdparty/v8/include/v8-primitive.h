@@ -169,15 +169,15 @@ class V8_EXPORT String : public Name {
    * Copies up to length characters into the output buffer.
    * Only null-terminates if there is enough space in the buffer.
    *
-   * \param buffer The buffer into which the string will be copied.
-   * \param start The starting position within the string at which
+   * param buffer The buffer into which the string will be copied.
+   * param start The starting position within the string at which
    * copying begins.
-   * \param length The number of characters to copy from the string.  For
+   * param length The number of characters to copy from the string.  For
    *    WriteUtf8 the number of bytes in the buffer.
-   * \param nchars_ref The number of characters written, can be NULL.
-   * \param options Various options that might affect performance of this or
+   * param nchars_ref The number of characters written, can be NULL.
+   * param options Various options that might affect performance of this or
    *    subsequent operations.
-   * \return The number of characters copied to the buffer excluding the null
+   * return The number of characters copied to the buffer excluding the null
    *    terminator.  For WriteUtf8: The number of bytes copied to the buffer
    *    including the null terminator (if written).
    */

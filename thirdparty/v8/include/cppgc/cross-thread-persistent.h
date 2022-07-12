@@ -241,7 +241,7 @@ class BasicCrossThreadPersistent final : public CrossThreadPersistentBase,
   /**
    * Assigns a nullptr.
    *
-   * \returns the handle.
+   * returns the handle.
    */
   BasicCrossThreadPersistent& operator=(std::nullptr_t) {
     Clear();
@@ -251,7 +251,7 @@ class BasicCrossThreadPersistent final : public CrossThreadPersistentBase,
   /**
    * Assigns the sentinel pointer.
    *
-   * \returns the handle.
+   * returns the handle.
    */
   BasicCrossThreadPersistent& operator=(SentinelPointer s) {
     PersistentRegionLock guard;
@@ -264,7 +264,7 @@ class BasicCrossThreadPersistent final : public CrossThreadPersistentBase,
    *
    * Note: **Not thread-safe.**
    *
-   * \returns a pointer to the stored object.
+   * returns a pointer to the stored object.
    */
   // CFI cast exemption to allow passing SentinelPointer through T* and support
   // heterogeneous assignments between different Member and Persistent handles
@@ -286,7 +286,7 @@ class BasicCrossThreadPersistent final : public CrossThreadPersistentBase,
    *
    * Note: **Not thread-safe.**
    *
-   * \returns a pointer to the stored object.
+   * returns a pointer to the stored object.
    */
   T* Release() {
     T* result = Get();
@@ -299,7 +299,7 @@ class BasicCrossThreadPersistent final : public CrossThreadPersistentBase,
    *
    * Note: **Not thread-safe.**
    *
-   * \returns true if an actual object has been stored and false otherwise.
+   * returns true if an actual object has been stored and false otherwise.
    */
   explicit operator bool() const { return Get(); }
 
@@ -308,7 +308,7 @@ class BasicCrossThreadPersistent final : public CrossThreadPersistentBase,
    *
    * Note: **Not thread-safe.**
    *
-   * \returns the object.
+   * returns the object.
    */
   operator T*() const { return Get(); }
 

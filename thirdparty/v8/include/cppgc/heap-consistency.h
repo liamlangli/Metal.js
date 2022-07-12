@@ -32,15 +32,15 @@ class HeapConsistency final {
   /**
    * Gets the required write barrier type for a specific write.
    *
-   * \param slot Slot containing the pointer to the object. The slot itself
+   * param slot Slot containing the pointer to the object. The slot itself
    *   must reside in an object that has been allocated using
    *   `MakeGarbageCollected()`.
-   * \param value The pointer to the object. May be an interior pointer to an
+   * param value The pointer to the object. May be an interior pointer to an
    *   interface of the actual object.
-   * \param params Parameters that may be used for actual write barrier calls.
+   * param params Parameters that may be used for actual write barrier calls.
    *   Only filled if return value indicates that a write barrier is needed. The
    *   contents of the `params` are an implementation detail.
-   * \returns whether a write barrier is needed and which barrier to invoke.
+   * returns whether a write barrier is needed and which barrier to invoke.
    */
   static V8_INLINE WriteBarrierType GetWriteBarrierType(
       const void* slot, const void* value, WriteBarrierParams& params) {
@@ -50,16 +50,16 @@ class HeapConsistency final {
   /**
    * Gets the required write barrier type for a specific write.
    *
-   * \param slot Slot to some part of an object. The object must not necessarily
+   * param slot Slot to some part of an object. The object must not necessarily
        have been allocated using `MakeGarbageCollected()` but can also live
        off-heap or on stack.
-   * \param params Parameters that may be used for actual write barrier calls.
+   * param params Parameters that may be used for actual write barrier calls.
    *   Only filled if return value indicates that a write barrier is needed. The
    *   contents of the `params` are an implementation detail.
-   * \param callback Callback returning the corresponding heap handle. The
+   * param callback Callback returning the corresponding heap handle. The
    *   callback is only invoked if the heap cannot otherwise be figured out. The
    *   callback must not allocate.
-   * \returns whether a write barrier is needed and which barrier to invoke.
+   * returns whether a write barrier is needed and which barrier to invoke.
    */
   template <typename HeapHandleCallback>
   static V8_INLINE WriteBarrierType
@@ -73,12 +73,12 @@ class HeapConsistency final {
    * This version is meant to be used in conjunction with with a marking write
    * barrier barrier which doesn't consider the slot.
    *
-   * \param value The pointer to the object. May be an interior pointer to an
+   * param value The pointer to the object. May be an interior pointer to an
    *   interface of the actual object.
-   * \param params Parameters that may be used for actual write barrier calls.
+   * param params Parameters that may be used for actual write barrier calls.
    *   Only filled if return value indicates that a write barrier is needed. The
    *   contents of the `params` are an implementation detail.
-   * \returns whether a write barrier is needed and which barrier to invoke.
+   * returns whether a write barrier is needed and which barrier to invoke.
    */
   static V8_INLINE WriteBarrierType
   GetWriteBarrierType(const void* value, WriteBarrierParams& params) {
@@ -89,8 +89,8 @@ class HeapConsistency final {
    * Conservative Dijkstra-style write barrier that processes an object if it
    * has not yet been processed.
    *
-   * \param params The parameters retrieved from `GetWriteBarrierType()`.
-   * \param object The pointer to the object. May be an interior pointer to a
+   * param params The parameters retrieved from `GetWriteBarrierType()`.
+   * param object The pointer to the object. May be an interior pointer to a
    *   an interface of the actual object.
    */
   static V8_INLINE void DijkstraWriteBarrier(const WriteBarrierParams& params,
@@ -102,14 +102,14 @@ class HeapConsistency final {
    * Conservative Dijkstra-style write barrier that processes a range of
    * elements if they have not yet been processed.
    *
-   * \param params The parameters retrieved from `GetWriteBarrierType()`.
-   * \param first_element Pointer to the first element that should be processed.
+   * param params The parameters retrieved from `GetWriteBarrierType()`.
+   * param first_element Pointer to the first element that should be processed.
    *   The slot itself must reside in an object that has been allocated using
    *   `MakeGarbageCollected()`.
-   * \param element_size Size of the element in bytes.
-   * \param number_of_elements Number of elements that should be processed,
+   * param element_size Size of the element in bytes.
+   * param number_of_elements Number of elements that should be processed,
    *   starting with `first_element`.
-   * \param trace_callback The trace callback that should be invoked for each
+   * param trace_callback The trace callback that should be invoked for each
    *   element if necessary.
    */
   static V8_INLINE void DijkstraWriteBarrierRange(
@@ -125,8 +125,8 @@ class HeapConsistency final {
    * Steele-style write barrier that re-processes an object if it has already
    * been processed.
    *
-   * \param params The parameters retrieved from `GetWriteBarrierType()`.
-   * \param object The pointer to the object which must point to an object that
+   * param params The parameters retrieved from `GetWriteBarrierType()`.
+   * param object The pointer to the object which must point to an object that
    *   has been allocated using `MakeGarbageCollected()`. Interior pointers are
    *   not supported.
    */
@@ -139,8 +139,8 @@ class HeapConsistency final {
    * Generational barrier for maintaining consistency when running with multiple
    * generations.
    *
-   * \param params The parameters retrieved from `GetWriteBarrierType()`.
-   * \param slot Slot containing the pointer to the object. The slot itself
+   * param params The parameters retrieved from `GetWriteBarrierType()`.
+   * param slot Slot containing the pointer to the object. The slot itself
    *   must reside in an object that has been allocated using
    *   `MakeGarbageCollected()`.
    */
@@ -153,8 +153,8 @@ class HeapConsistency final {
    * Generational barrier for source object that may contain outgoing pointers
    * to objects in young generation.
    *
-   * \param params The parameters retrieved from `GetWriteBarrierType()`.
-   * \param inner_pointer Pointer to the source object.
+   * param params The parameters retrieved from `GetWriteBarrierType()`.
+   * param inner_pointer Pointer to the source object.
    */
   static V8_INLINE void GenerationalBarrierForSourceObject(
       const WriteBarrierParams& params, const void* inner_pointer) {
@@ -179,7 +179,7 @@ class V8_EXPORT V8_NODISCARD DisallowGarbageCollectionScope final {
 
  public:
   /**
-   * \returns whether garbage collections are currently allowed.
+   * returns whether garbage collections are currently allowed.
    */
   static bool IsGarbageCollectionAllowed(HeapHandle& heap_handle);
 
@@ -187,7 +187,7 @@ class V8_EXPORT V8_NODISCARD DisallowGarbageCollectionScope final {
    * Enters a disallow garbage collection scope. Must be paired with `Leave()`.
    * Prefer a scope instance of `DisallowGarbageCollectionScope`.
    *
-   * \param heap_handle The corresponding heap.
+   * param heap_handle The corresponding heap.
    */
   static void Enter(HeapHandle& heap_handle);
 
@@ -195,7 +195,7 @@ class V8_EXPORT V8_NODISCARD DisallowGarbageCollectionScope final {
    * Leaves a disallow garbage collection scope. Must be paired with `Enter()`.
    * Prefer a scope instance of `DisallowGarbageCollectionScope`.
    *
-   * \param heap_handle The corresponding heap.
+   * param heap_handle The corresponding heap.
    */
   static void Leave(HeapHandle& heap_handle);
 
@@ -203,7 +203,7 @@ class V8_EXPORT V8_NODISCARD DisallowGarbageCollectionScope final {
    * Constructs a scoped object that automatically enters and leaves a disallow
    * garbage collection scope based on its lifetime.
    *
-   * \param heap_handle The corresponding heap.
+   * param heap_handle The corresponding heap.
    */
   explicit DisallowGarbageCollectionScope(HeapHandle& heap_handle);
   ~DisallowGarbageCollectionScope();
@@ -232,7 +232,7 @@ class V8_EXPORT V8_NODISCARD NoGarbageCollectionScope final {
    * Enters a no garbage collection scope. Must be paired with `Leave()`. Prefer
    * a scope instance of `NoGarbageCollectionScope`.
    *
-   * \param heap_handle The corresponding heap.
+   * param heap_handle The corresponding heap.
    */
   static void Enter(HeapHandle& heap_handle);
 
@@ -240,7 +240,7 @@ class V8_EXPORT V8_NODISCARD NoGarbageCollectionScope final {
    * Leaves a no garbage collection scope. Must be paired with `Enter()`. Prefer
    * a scope instance of `NoGarbageCollectionScope`.
    *
-   * \param heap_handle The corresponding heap.
+   * param heap_handle The corresponding heap.
    */
   static void Leave(HeapHandle& heap_handle);
 
@@ -248,7 +248,7 @@ class V8_EXPORT V8_NODISCARD NoGarbageCollectionScope final {
    * Constructs a scoped object that automatically enters and leaves a no
    * garbage collection scope based on its lifetime.
    *
-   * \param heap_handle The corresponding heap.
+   * param heap_handle The corresponding heap.
    */
   explicit NoGarbageCollectionScope(HeapHandle& heap_handle);
   ~NoGarbageCollectionScope();

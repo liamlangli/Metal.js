@@ -66,14 +66,14 @@ class V8_EXPORT ResourceConstraints {
    * provided heap size limit. The heap size includes both the young and
    * the old generation.
    *
-   * \param initial_heap_size_in_bytes The initial heap size or zero.
+   * param initial_heap_size_in_bytes The initial heap size or zero.
    *    By default V8 starts with a small heap and dynamically grows it to
    *    match the set of live objects. This may lead to ineffective
    *    garbage collections at startup if the live set is large.
    *    Setting the initial heap size avoids such garbage collections.
    *    Note that this does not affect young generation garbage collections.
    *
-   * \param maximum_heap_size_in_bytes The hard limit for the heap size.
+   * param maximum_heap_size_in_bytes The hard limit for the heap size.
    *    When the heap size approaches this limit, V8 will perform series of
    *    garbage collections and invoke the NearHeapLimitCallback. If the garbage
    *    collections do not help and the callback does not increase the limit,
@@ -86,9 +86,9 @@ class V8_EXPORT ResourceConstraints {
    * Configures the constraints with reasonable default values based on the
    * capabilities of the current device the VM is running on.
    *
-   * \param physical_memory The total amount of physical memory on the current
+   * param physical_memory The total amount of physical memory on the current
    *   device, in bytes.
-   * \param virtual_memory_limit The amount of virtual memory on the current
+   * param virtual_memory_limit The amount of virtual memory on the current
    *   device, in bytes, or zero, if there is no limit.
    */
   void ConfigureDefaults(uint64_t physical_memory,
@@ -758,11 +758,11 @@ class V8_EXPORT Isolate {
   /**
    * Get the memory usage of a space in the heap.
    *
-   * \param space_statistics The HeapSpaceStatistics object to fill in
+   * param space_statistics The HeapSpaceStatistics object to fill in
    *   statistics.
-   * \param index The index of the space to get statistics from, which ranges
+   * param index The index of the space to get statistics from, which ranges
    *   from 0 to NumberOfHeapSpaces() - 1.
-   * \returns true on success.
+   * returns true on success.
    */
   bool GetHeapSpaceStatistics(HeapSpaceStatistics* space_statistics,
                               size_t index);
@@ -775,11 +775,11 @@ class V8_EXPORT Isolate {
   /**
    * Get statistics about objects in the heap.
    *
-   * \param object_statistics The HeapObjectStatistics object to fill in
+   * param object_statistics The HeapObjectStatistics object to fill in
    *   statistics of objects of given type, which were live in the previous GC.
-   * \param type_index The index of the type of object to fill details about,
+   * param type_index The index of the type of object to fill details about,
    *   which ranges from 0 to NumberOfTrackedHeapObjectTypes() - 1.
-   * \returns true on success.
+   * returns true on success.
    */
   bool GetHeapObjectStatisticsAtLastGC(HeapObjectStatistics* object_statistics,
                                        size_t type_index);
@@ -787,9 +787,9 @@ class V8_EXPORT Isolate {
   /**
    * Get statistics about code and its metadata in the heap.
    *
-   * \param object_statistics The HeapCodeStatistics object to fill in
+   * param object_statistics The HeapCodeStatistics object to fill in
    *   statistics of code, bytecode and their metadata.
-   * \returns true on success.
+   * returns true on success.
    */
   bool GetHeapCodeAndMetadataStatistics(HeapCodeStatistics* object_statistics);
 
@@ -799,10 +799,10 @@ class V8_EXPORT Isolate {
    * Enqueues a memory measurement request and invokes the delegate with the
    * results.
    *
-   * \param delegate the delegate that defines which contexts to measure and
+   * param delegate the delegate that defines which contexts to measure and
    *   reports the results.
    *
-   * \param execution promptness executing the memory measurement.
+   * param execution promptness executing the memory measurement.
    *   The kEager value is expected to be used only in tests.
    */
   bool MeasureMemory(
@@ -811,11 +811,11 @@ class V8_EXPORT Isolate {
 
   /**
    * Get a call stack sample from the isolate.
-   * \param state Execution state.
-   * \param frames Caller allocated buffer to store stack frames.
-   * \param frames_limit Maximum number of frames to capture. The buffer must
+   * param state Execution state.
+   * param frames Caller allocated buffer to store stack frames.
+   * param frames_limit Maximum number of frames to capture. The buffer must
    *                     be large enough to hold the number of frames.
-   * \param sample_info The sample info is filled up by the function
+   * param sample_info The sample info is filled up by the function
    *                    provides number of actual captured stack frames and
    *                    the current VM state.
    * \note GetStackSample should only be called when the JS thread is paused or
@@ -833,9 +833,9 @@ class V8_EXPORT Isolate {
    * to garbage collect the JavaScript objects that keep the externally
    * allocated memory alive.
    *
-   * \param change_in_bytes the change in externally allocated memory that is
+   * param change_in_bytes the change in externally allocated memory that is
    *   kept alive by JavaScript objects.
-   * \returns the adjusted value.
+   * returns the adjusted value.
    */
   int64_t AdjustAmountOfExternalAllocatedMemory(int64_t change_in_bytes);
 
@@ -971,7 +971,7 @@ class V8_EXPORT Isolate {
   /**
    * This is an experimental feature and may still change significantly.
 
-   * \returns the C++ heap managed by V8. Only available if such a heap has been
+   * returns the C++ heap managed by V8. Only available if such a heap has been
    *   attached using `AttachCppHeap()`.
    */
   CppHeap* GetCppHeap() const;
@@ -1392,8 +1392,8 @@ class V8_EXPORT Isolate {
    * Allows the host application to provide the address of a function that is
    * notified each time code is added, moved or removed.
    *
-   * \param options options for the JIT code event handler.
-   * \param event_handler the JIT code event handler, which will be invoked
+   * param options options for the JIT code event handler.
+   * param event_handler the JIT code event handler, which will be invoked
    *     each time code is added, moved or removed.
    * \note \p event_handler won't get notified of existent code.
    * \note since code removal notifications are not currently issued, the
@@ -1416,7 +1416,7 @@ class V8_EXPORT Isolate {
   /**
    * Modifies the stack limit for this Isolate.
    *
-   * \param stack_limit An address beyond which the Vm's stack may not grow.
+   * param stack_limit An address beyond which the Vm's stack may not grow.
    *
    * \note  If you are using threads then you should hold the V8::Locker lock
    *     while setting the stack limit and you must set a non-default stack

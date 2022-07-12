@@ -92,13 +92,13 @@ class V8_EXPORT CppHeap {
   virtual ~CppHeap() = default;
 
   /**
-   * \returns the opaque handle for allocating objects using
+   * returns the opaque handle for allocating objects using
    * `MakeGarbageCollected()`.
    */
   cppgc::AllocationHandle& GetAllocationHandle();
 
   /**
-   * \returns the opaque heap handle which may be used to refer to this heap in
+   * returns the opaque heap handle which may be used to refer to this heap in
    *   other APIs. Valid as long as the underlying `CppHeap` is alive.
    */
   cppgc::HeapHandle& GetHeapHandle();
@@ -112,9 +112,9 @@ class V8_EXPORT CppHeap {
   void Terminate();
 
   /**
-   * \param detail_level specifies whether should return detailed
+   * param detail_level specifies whether should return detailed
    *   statistics or only brief summary statistics.
-   * \returns current CppHeap statistics regarding memory consumption
+   * returns current CppHeap statistics regarding memory consumption
    *   and utilization.
    */
   cppgc::HeapStatistics CollectStatistics(
@@ -123,8 +123,8 @@ class V8_EXPORT CppHeap {
   /**
    * Collects statistics for the given spaces and reports them to the receiver.
    *
-   * \param custom_spaces a collection of custom space indicies.
-   * \param receiver an object that gets the results.
+   * param custom_spaces a collection of custom space indicies.
+   * param receiver an object that gets the results.
    */
   void CollectCustomSpaceStatisticsAtLastGC(
       std::vector<cppgc::CustomSpaceIndex> custom_spaces,
@@ -140,14 +140,14 @@ class V8_EXPORT CppHeap {
   /**
    * Performs a stop-the-world garbage collection for testing purposes.
    *
-   * \param stack_state The stack state to assume for the garbage collection.
+   * param stack_state The stack state to assume for the garbage collection.
    */
   void CollectGarbageForTesting(cppgc::EmbedderStackState stack_state);
 
   /**
    * Performs a stop-the-world minor garbage collection for testing purposes.
    *
-   * \param stack_state The stack state to assume for the garbage collection.
+   * param stack_state The stack state to assume for the garbage collection.
    */
   void CollectGarbageInYoungGenerationForTesting(
       cppgc::EmbedderStackState stack_state);
@@ -186,8 +186,8 @@ class CustomSpaceStatisticsReceiver {
    * Reports the size of a space at the last GC. It is called for each space
    * that was requested in `CollectCustomSpaceStatisticsAtLastGC()`.
    *
-   * \param space_index The index of the space.
-   * \param bytes The total size of live objects in the space at the last GC.
+   * param space_index The index of the space.
+   * param bytes The total size of live objects in the space at the last GC.
    *    It is zero if there was no GC yet.
    */
   virtual void AllocatedBytes(cppgc::CustomSpaceIndex space_index,

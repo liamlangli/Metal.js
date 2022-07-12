@@ -68,15 +68,15 @@ class V8_EXPORT Context : public Data {
    * Creates a new context and returns a handle to the newly allocated
    * context.
    *
-   * \param isolate The isolate in which to create the context.
+   * param isolate The isolate in which to create the context.
    *
-   * \param extensions An optional extension configuration containing
+   * param extensions An optional extension configuration containing
    * the extensions to be installed in the newly created context.
    *
-   * \param global_template An optional object template from which the
+   * param global_template An optional object template from which the
    * global object for the newly created context will be created.
    *
-   * \param global_object An optional global object to be reused for
+   * param global_object An optional global object to be reused for
    * the newly created context. This global object must have been
    * created by a previous call to Context::New with the same global
    * template. The state of the global object will be completely reset
@@ -95,18 +95,18 @@ class V8_EXPORT Context : public Data {
    * is no way to provide a global object template since we do not create
    * a new global object from template, but we can reuse a global object.
    *
-   * \param isolate See v8::Context::New.
+   * param isolate See v8::Context::New.
    *
-   * \param context_snapshot_index The index of the context snapshot to
+   * param context_snapshot_index The index of the context snapshot to
    * deserialize from. Use v8::Context::New for the default snapshot.
    *
-   * \param embedder_fields_deserializer Optional callback to deserialize
+   * param embedder_fields_deserializer Optional callback to deserialize
    * internal fields. It should match the SerializeInternalFieldCallback used
    * to serialize.
    *
-   * \param extensions See v8::Context::New.
+   * param extensions See v8::Context::New.
    *
-   * \param global_object See v8::Context::New.
+   * param global_object See v8::Context::New.
    */
   static MaybeLocal<Context> FromSnapshot(
       Isolate* isolate, size_t context_snapshot_index,

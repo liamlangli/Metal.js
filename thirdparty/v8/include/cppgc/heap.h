@@ -119,7 +119,7 @@ class V8_EXPORT Heap {
     /**
      * Creates reasonable defaults for instantiating a Heap.
      *
-     * \returns the HeapOptions that can be passed to `Heap::Create()`.
+     * returns the HeapOptions that can be passed to `Heap::Create()`.
      */
     static HeapOptions Default() { return {}; }
 
@@ -160,9 +160,9 @@ class V8_EXPORT Heap {
   /**
    * Creates a new heap that can be used for object allocation.
    *
-   * \param platform implemented and provided by the embedder.
-   * \param options HeapOptions specifying various properties for the Heap.
-   * \returns a new Heap instance.
+   * param platform implemented and provided by the embedder.
+   * param options HeapOptions specifying various properties for the Heap.
+   * returns a new Heap instance.
    */
   static std::unique_ptr<Heap> Create(
       std::shared_ptr<Platform> platform,
@@ -173,24 +173,24 @@ class V8_EXPORT Heap {
   /**
    * Forces garbage collection.
    *
-   * \param source String specifying the source (or caller) triggering a
+   * param source String specifying the source (or caller) triggering a
    *   forced garbage collection.
-   * \param reason String specifying the reason for the forced garbage
+   * param reason String specifying the reason for the forced garbage
    *   collection.
-   * \param stack_state The embedder stack state, see StackState.
+   * param stack_state The embedder stack state, see StackState.
    */
   void ForceGarbageCollectionSlow(
       const char* source, const char* reason,
       StackState stack_state = StackState::kMayContainHeapPointers);
 
   /**
-   * \returns the opaque handle for allocating objects using
+   * returns the opaque handle for allocating objects using
    * `MakeGarbageCollected()`.
    */
   AllocationHandle& GetAllocationHandle();
 
   /**
-   * \returns the opaque heap handle which may be used to refer to this heap in
+   * returns the opaque heap handle which may be used to refer to this heap in
    *   other APIs. Valid as long as the underlying `Heap` is alive.
    */
   HeapHandle& GetHeapHandle();
