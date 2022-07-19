@@ -28,6 +28,10 @@ let cancal_swapchain_callback: @convention(block) (_ value: JSValue) -> Void = {
 }
 
 var context = JSContext()!
+public func get_context() -> JSContext {
+    return context
+}
+
 public func runtime_export() {
     register_console(context)
 
@@ -48,8 +52,7 @@ public func runtime_evaluate(_ path: String) {
         do {
             let source = try String(contentsOf: url, encoding: .utf8)
             print("[debug] evaluate script source\n\(source)")
-            let result = context.evaluateScript(source)
-            print("evaluate result \(result!.toString() ?? "")")
+            context.evaluateScript(source)
         } catch {
             print("unexpected error occured while reading file \(url.path)")
         }

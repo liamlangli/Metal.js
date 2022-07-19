@@ -9,8 +9,31 @@ import Foundation
 import JavaScriptCore
 import Metal
 
+@objc protocol GPUBufferProtocol : JSExport {
+    func upload(_ data: JSObjectRef, _ size: Int) -> Void
+}
+
+@objc public class GPUBuffer : NSObject, GPUBufferProtocol{
+    var buffer: MTLBuffer
+    
+    public init(_ buffer: MTLBuffer) {
+        self.buffer = buffer
+    }
+    
+    func upload(_ data: JSObjectRef, _ size: Int) {
+//        let data_buffer = JSObjectGetPrivate(data)
+//        let pointer = JSObjectGetArrayBufferBytesPtr(get_context_ref(), data, nil)
+//        memcpy(pointer, data_buffer, size)
+    }
+
+}
+
 @objc protocol DeviceProtocol : JSExport {
-    func create_command_queue() -> CommandQueue;
+    func create_command_queue() -> CommandQueue
+    func create_library(_ path: String) -> MTLLibrary?
+    func create_library_default() -> MTLLibrary
+    
+    func create_buffer(_ size: Int, _ options: UInt) -> GPUBuffer;
 }
 
 @objc public class Device : NSObject, DeviceProtocol {
@@ -22,11 +45,37 @@ import Metal
     func create_command_queue() -> CommandQueue {
         return CommandQueue(device)
     }
+    
+    func create_library(_ path: String) ->  MTLLibrary? {
+        return nil
+    }
+    
+    func create_library_default() -> MTLLibrary {
+        return device.makeDefaultLibrary()!
+    }
+    
+    func create_buffer(_ size: Int, _ options: UInt) -> GPUBuffer {
+        let buffer = device.makeBuffer(length: size, options: MTLResourceOptions(rawValue: options))
+        return GPUBuffer(buffer!)
+    }
 }
 
+@objc protocol LibraryProtocol {
+    func make_function(_ name: String) -> MTLFunction?
+}
+@objc public class Library : NSObject, LibraryProtocol {
+    let library: MTLLibrary
+    public init(_ library: MTLLibrary) {
+        self.library = library
+    }
+    
+    func make_function(_ name: String) -> Optional<MTLFunction> {
+        return library.makeFunction(name: name)
+    }
+}
 
 @objc public protocol CommandQueueProtocol {
-    func create_command_buffer() -> CommandBuffer;
+    func create_command_buffer() -> CommandBuffer
 }
 
 @objc public class CommandQueue: NSObject, CommandQueueProtocol {
