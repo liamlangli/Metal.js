@@ -1,0 +1,11 @@
+{
+  "name": "@union_native/metal.js",
+  "version": "0.0.2",
+  "description": "metal.js javascript binding export.",
+  "main": "",
+  "types": "index.d.ts",
+  "repository": "https://github.com/liamlangli/Metal.js",
+  "author": "liamlangli<lilang8936@gmail.com>",
+  "license": "MIT",
+  "private": false
+}

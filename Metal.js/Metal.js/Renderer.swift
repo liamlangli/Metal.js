@@ -213,6 +213,8 @@ class Renderer: NSObject, MTKViewDelegate {
 
         _ = inFlightSemaphore.wait(timeout: DispatchTime.distantFuture)
         
+        runtime_tick()
+        
         if let commandBuffer = commandQueue.makeCommandBuffer() {
             let semaphore = inFlightSemaphore
             commandBuffer.addCompletedHandler { (_ commandBuffer)-> Swift.Void in
@@ -220,7 +222,6 @@ class Renderer: NSObject, MTKViewDelegate {
             }
             
             self.updateDynamicBufferState()
-            
             self.updateGameState()
             
             /// Delay getting the currentRenderPassDescriptor until we absolutely need it to avoid

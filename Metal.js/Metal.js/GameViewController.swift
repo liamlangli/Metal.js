@@ -40,5 +40,8 @@ class GameViewController: NSViewController {
         renderer.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
 
         mtkView.delegate = renderer
+        
+        runtime_export()
+        runtime_evaluate("example/public/index.js")
     }
 }

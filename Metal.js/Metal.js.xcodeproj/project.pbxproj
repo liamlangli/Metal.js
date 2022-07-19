@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C5E30FC2886F5D200C9CD9B /* example in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3CE6C11C2886F4AE00C893F4 /* example */; };
+		3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FD2887018B00C9CD9B /* Console.swift */; };
 		3CE6C0F72886DE5F00C893F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0F62886DE5F00C893F4 /* AppDelegate.swift */; };
 		3CE6C0F92886DE5F00C893F4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0F82886DE5F00C893F4 /* GameViewController.swift */; };
 		3CE6C0FB2886DE5F00C893F4 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0FA2886DE5F00C893F4 /* Renderer.swift */; };
@@ -16,9 +18,26 @@
 		3CE6C10D2886DE7C00C893F4 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE6C10B2886DE7C00C893F4 /* Metal.framework */; };
 		3CE6C10E2886DE7C00C893F4 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE6C10C2886DE7C00C893F4 /* MetalKit.framework */; };
 		3CE6C1102886DE8200C893F4 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE6C10F2886DE8200C893F4 /* JavaScriptCore.framework */; };
+		3CE6C1132886E53E00C893F4 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C1122886E53E00C893F4 /* Device.swift */; };
+		3CE6C1152886E5F100C893F4 /* Runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C1142886E5F100C893F4 /* Runtime.swift */; };
+		3CE6C1192886EEDA00C893F4 /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C1182886EEDA00C893F4 /* Encoder.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3C5E30FB2886F5BA00C9CD9B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				3C5E30FC2886F5D200C9CD9B /* example in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		3C5E30FD2887018B00C9CD9B /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
 		3CE6C0F32886DE5F00C893F4 /* Metal.js.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal.js.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE6C0F62886DE5F00C893F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CE6C0F82886DE5F00C893F4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +50,10 @@
 		3CE6C10B2886DE7C00C893F4 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		3CE6C10C2886DE7C00C893F4 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		3CE6C10F2886DE8200C893F4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		3CE6C1122886E53E00C893F4 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		3CE6C1142886E5F100C893F4 /* Runtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runtime.swift; sourceTree = "<group>"; };
+		3CE6C1182886EEDA00C893F4 /* Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encoder.swift; sourceTree = "<group>"; };
+		3CE6C11C2886F4AE00C893F4 /* example */ = {isa = PBXFileReference; lastKnownFileType = folder; name = example; path = ../example; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +73,7 @@
 		3CE6C0EA2886DE5F00C893F4 = {
 			isa = PBXGroup;
 			children = (
+				3CE6C11C2886F4AE00C893F4 /* example */,
 				3CE6C0F52886DE5F00C893F4 /* Metal.js */,
 				3CE6C0F42886DE5F00C893F4 /* Products */,
 				3CE6C10A2886DE7C00C893F4 /* Frameworks */,
@@ -67,6 +91,7 @@
 		3CE6C0F52886DE5F00C893F4 /* Metal.js */ = {
 			isa = PBXGroup;
 			children = (
+				3CE6C1112886E52E00C893F4 /* script */,
 				3CE6C0F62886DE5F00C893F4 /* AppDelegate.swift */,
 				3CE6C0F82886DE5F00C893F4 /* GameViewController.swift */,
 				3CE6C0FA2886DE5F00C893F4 /* Renderer.swift */,
@@ -89,6 +114,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3CE6C1112886E52E00C893F4 /* script */ = {
+			isa = PBXGroup;
+			children = (
+				3CE6C1122886E53E00C893F4 /* Device.swift */,
+				3CE6C1142886E5F100C893F4 /* Runtime.swift */,
+				3CE6C1182886EEDA00C893F4 /* Encoder.swift */,
+				3C5E30FD2887018B00C9CD9B /* Console.swift */,
+			);
+			path = script;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -99,6 +135,7 @@
 				3CE6C0EF2886DE5F00C893F4 /* Sources */,
 				3CE6C0F02886DE5F00C893F4 /* Frameworks */,
 				3CE6C0F12886DE5F00C893F4 /* Resources */,
+				3C5E30FB2886F5BA00C9CD9B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -159,9 +196,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CE6C1192886EEDA00C893F4 /* Encoder.swift in Sources */,
+				3CE6C1132886E53E00C893F4 /* Device.swift in Sources */,
 				3CE6C0FD2886DE5F00C893F4 /* Shaders.metal in Sources */,
+				3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */,
 				3CE6C0F92886DE5F00C893F4 /* GameViewController.swift in Sources */,
 				3CE6C0FB2886DE5F00C893F4 /* Renderer.swift in Sources */,
+				3CE6C1152886E5F100C893F4 /* Runtime.swift in Sources */,
 				3CE6C0F72886DE5F00C893F4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +343,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 584W9873CW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -330,6 +372,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 584W9873CW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
