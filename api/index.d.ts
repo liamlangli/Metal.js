@@ -200,7 +200,8 @@ declare interface PipelineColorAttachmentDescriptor {
     blend_enable: boolean;
 }
 
-declare interface VertexDescriptor {}
+// this might be unnecessary requirement
+declare interface VertexDescriptor {} 
 
 declare interface PipelineDescriptor {
     label: string;

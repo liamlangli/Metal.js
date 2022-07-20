@@ -25,10 +25,12 @@ typedef struct
     float4 position [[position]];
 } VertexOut;
 
-vertex ColorInOut base_vert(simd_float3 in [[stage_in]])
+vertex ColorInOut base_vert(
+    uint vertex_id [[vertex_id]]
+    constant simd_float3 *in [[stage_in]])
 {
     VertexOut out;
-    float4 position = float4(in.position, 1.0);
+    float4 position = float4(in[vertex_id], 1.0);
     return out;
 }
 
