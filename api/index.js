@@ -26,6 +26,23 @@ const ResourceTrackingModeTracked   = Tracked                   << ResourceHazar
 const ResourceCPUCacheModeDefault       = DefaultCacheMode  << ResourceCPUCacheModeShift;
 const ResourceCPUCacheModeWriteCombined = WriteCombined     << ResourceCPUCacheModeShift;
 
+const Texture1D = 0;
+const Texture1DArray = 1;
+const Texture2D = 2;
+const Texture2DArray = 3;
+const Texture2DMultisample = 4;
+const TextureCube = 5;
+const TextureCubeArray = 6;
+const Texture3D = 7;
+const Texture2DMultisampleArray = 8;
+const TextureBuffer = 9;
+
+const Unknown = 0;
+const ShaderRead = 1;
+const ShaderWrite = 2;
+const ShaderTarget = 3;
+const PixelFormatView = 4;
+
 const A8Unorm = 1;
 const R8Unorm = 10;
 const R8Unorm_sRGB = 11;
@@ -96,6 +113,15 @@ const Depth32Float_Stencil8 = 260;
 const X32_Stencil8 = 261;
 const X24_Stencil8 = 262;
 
+const Never = 0;
+const Less = 1;
+const Equal = 2;
+const LessEqual = 3;
+const Greater = 4;
+const NotEqual = 5;
+const GreaterEqual = 6;
+const Always = 7;
+
 const NoneCull = 0;
 const Front = 1;
 const Back = 2;
@@ -114,3 +140,38 @@ const TriangleStripe = 4;
 
 const Uint16Index = 0;
 const Uint32Index = 1;
+
+const DontCare = 0;
+const Load = 1;
+const Clear = 2;
+const Store = 1;
+const MultisampleResolve = 2;
+const StoreAndMultisampleResolve = 3;
+const StoreUnknown = 4;
+const CustomSampleDepthStore = 5;
+
+const Zero = 0;
+const One = 1;
+
+const SrcColor = 2;
+const OneMinusSrcColor = 3;
+const SrcAlpha = 4;
+const OneMinusSrcAlpha =5 ;
+
+const DstColor = 6;
+const OneMinusDstColor = 7;
+const DstAlpha = 8;
+const OneMinusDstAlpha = 9;
+
+const SrcAlphaSaturated = 10;
+
+const BlendColor = 11;
+const OneMinusBlendColor = 12;
+const BlendAlpha = 13;
+const OneMinusBlendAlpha = 14;
+
+const Add = 0;
+const Subtract = 1;
+const ReverseSubtract = 2;
+const Min = 3;
+const Max = 4;

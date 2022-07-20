@@ -11,6 +11,13 @@ Float32Array |
 Float64Array |
 BigInt64Array;
 
+declare interface Color {
+    r: number;
+    g: number;
+    b: number;
+    a: number;
+}
+
 // metal
 declare interface StorageMode {}
 declare const Shared: StorageMode;
@@ -20,7 +27,7 @@ declare const Memoryless: StorageMode;
 
 declare interface CPUCacheMode {}
 declare const DefaultCacheMode: CPUCacheMode;
-declare const WriteCombined: GPUCacheMode;
+declare const WriteCombined: CPUCacheMode;
 
 declare interface HazardTrackingMode {}
 declare const DefaultHazardTrackingMode : HazardTrackingMode;
@@ -39,6 +46,25 @@ declare const ResourceTrackingModeTracked: ResourceOption;
 
 declare const ResourceCPUCacheModeDefault: ResourceOption;
 declare const ResourceCPUCacheModeWriteCombined: ResourceOption;
+
+declare interface TextureType {}
+declare const Texture1D: TextureType;
+declare const Texture1DArray: TextureType;
+declare const Texture2D: TextureType;
+declare const Texture2DArray: TextureType;
+declare const Texture2DMultisample: TextureType;
+declare const TextureCube: TextureType;
+declare const TextureCubeArray: TextureType;
+declare const Texture3D: TextureType;
+declare const Texture2DMultisampleArray: TextureType;
+declare const TextureBuffer: TextureType;
+
+declare interface TextureUsage {}
+declare const Unknown: TextureUsage;
+declare const ShaderRead: TextureUsage;
+declare const ShaderWrite: TextureUsage;
+declare const ShaderTarget: TextureUsage;
+declare const PixelFormatView: TextureUsage;
 
 declare interface PixelFormat {}
 declare const A8Unorm: PixelFormat;
@@ -115,6 +141,16 @@ declare const X24_Stencil8: DepthStencilFormat;
 
 // TODO: compressed format declare
 
+declare interface DepthCompareFunction {}
+declare const Never: DepthCompareFunction;
+declare const Less: DepthCompareFunction;
+declare const Equal: DepthCompareFunction;
+declare const LessEqual: DepthCompareFunction;
+declare const Greater: DepthCompareFunction;
+declare const NotEqual: DepthCompareFunction;
+declare const GreaterEqual: DepthCompareFunction;
+declare const Always: DepthCompareFunction;
+
 declare interface CullMode {}
 declare const NoneCull: CullMode;
 declare const Front: CullMode;
@@ -139,8 +175,45 @@ declare interface IndexType {}
 declare const Uint16Index: IndexType;
 declare const Uint32Index: IndexType;
 
-declare interface RenderPassDescriptor {}
-declare interface ComputePassDescriptor {}
+declare interface LoadAction {}
+declare interface StoreAction {}
+declare const DontCare: LoadAction & StoreAction;
+declare const Load: LoadAction;
+declare const Clear: LoadAction;
+declare const Store: StoreAction;
+declare const MultisampleResolve: StoreAction;
+declare const StoreAndMultisampleResolve: StoreAction;
+declare const StoreUnknown: StoreAction;
+declare const CustomSampleDepthStore: StoreAction;
+
+declare interface BlendFactor {};
+declare const Zero: BlendFactor;
+declare const One: BlendFactor;
+
+declare const SrcColor: BlendFactor;
+declare const OneMinusSrcColor: BlendFactor;
+declare const SrcAlpha: BlendFactor;
+declare const OneMinusSrcAlpha: BlendFactor;
+
+declare const DstColor: BlendFactor;
+declare const OneMinusDstColor: BlendFactor;
+declare const DstAlpha: BlendFactor;
+declare const OneMinusDstAlpha: BlendFactor;
+
+declare const SrcAlphaSaturated: BlendFactor;
+
+declare const BlendColor: BlendFactor;
+declare const OneMinusBlendColor: BlendFactor;
+declare const BlendAlpha: BlendFactor;
+declare const OneMinusBlendAlpha: BlendFactor;
+declare const Zero: BlendFactor;
+
+declare interface BlendOperation {};
+declare const Add: BlendOperation;
+declare const Subtract: BlendOperation;
+declare const ReverseSubtract: BlendOperation;
+declare const Min: BlendOperation;
+declare const Max: BlendOperation;
 
 declare interface RenderCommandEncoder {
     label: string;
@@ -148,7 +221,7 @@ declare interface RenderCommandEncoder {
     set_viewport(x: number, y: number, width: number, height: number, near: number, far: number): void;
     set_cull_mode(mode: CullMode): void;
     set_front_facing(facing: Winding): void;
-    set_render_pipeline_state(pipeline_state: PipelineState): void;
+    set_render_pipeline_state(pipeline_state: RenderPipelineState): void;
     set_depth_stencil_state(depth_stencil_state: DepthStencilState): void;
 
     push_debug_group(name: string): void;
@@ -174,7 +247,9 @@ declare interface ComputeCommandEncoder {
 
 declare interface CommandBuffer {
     create_render_command_encoder(render_pass_descriptor: RenderPassDescriptor): RenderCommandEncoder;
-    create_compute_command_encoder(compute_pass_descriptor: ComputePassDescriptor): ComputeCommandEncoder;
+    create_compute_command_encoder(): ComputeCommandEncoder;
+
+    present(drawable: Drawable): void;
 }
 
 declare interface CommandQueue {
@@ -192,39 +267,103 @@ declare interface GPUTexture {
 }
 
 declare interface Library {
-    make_function(name: string): GPUProgram;
+    create_function(name: string): GPUProgram;
 }
 
-declare interface PipelineColorAttachmentDescriptor {
-    pixel_format: PixelFormat;
-    blend_enable: boolean;
+declare interface AttachmentDescriptor {
+    texture: GPUTexture;
+    level: number;
+    slice: number;
+    load_action: LoadAction;
+    store_action: StoreAction;
+}
+
+declare interface RenderPassColorAttachmentDescriptor extends AttachmentDescriptor {
+    clear_color: Color;
+}
+
+declare interface RenderPassDepthAttachmentDescriptor extends AttachmentDescriptor {
+    clear_color: Color;
+}
+
+declare interface RenderPassDescriptor {
+    color_attachment_at(index: number): RenderPassColorAttachmentDescriptor;
+    depth_attachment: RenderPassDepthAttachmentDescriptor;
 }
 
 // this might be unnecessary requirement
 declare interface VertexDescriptor {} 
 
-declare interface PipelineDescriptor {
-    label: string;
-    vertex_function: GPUProgram;
-    fragment_function: GPUProgram;
+declare interface RenderPipelineColorAttachmentDescriptor {
+    pixel_format: PixelFormat;
+    blend_enable: boolean;
+
+    src_rgb_blend_factor: BlendFactor;
+    src_alpha_blend_factor: BlendFactor;
+
+    dst_rgb_blend_factor: BlendFactor;
+    dst_alpha_blend_factor: BlendFactor;
+
+    rgb_blend_operation: BlendOperation;
+    alpha_blend_operation: BlendOperation;
+
+    color_write: boolean;
 }
 
-declare interface DepthStencilDescriptor {}
+declare interface ComputePipelineDescriptor {}
 
-declare interface TextureDescriptor {}
+declare interface RenderPipelineDescriptor {
+    label: string;
 
-declare interface PipelineState {}
+    sample_count: number;
+    vertex_function: GPUProgram;
+    fragment_function: GPUProgram;
 
+    color_attachment_at(index: number): RenderPipelineColorAttachmentDescriptor;
+    depth_attachment_pixel_format: DepthStencilFormat;
+    stencil_attachment_pixel_format: DepthStencilFormat
+}
+
+declare interface DepthStencilDescriptor {
+    depth_write: boolean;
+    compare_function: DepthCompareFunction;
+}
+
+declare interface TextureDescriptor {
+    type: TextureType;
+    pixel_format: PixelFormat;
+    width: number;
+    height: number;
+    depth: number;
+    mipmap_level_count: number;
+    sample_count: number;
+    array_length: number;
+
+    options: ResourceOption;
+    cpu_cache_mode: CPUCacheMode;
+    storage_mode: StorageMode;
+    hazard_tracking_mode: HazardTrackingMode;
+
+    usage: TextureUsage;
+    allow_gpu_optimized_contents: boolean;
+}
+
+declare interface RenderPipelineState {}
+declare interface ComputePipelineState {}
 declare interface DepthStencilState {}
 
 declare interface Device {
     create_command_queue(): CommandQueue;
     create_buffer(size: number, options: ResourceOption): GPUBuffer;
     create_texture(descriptor: TextureDescriptor): GPUTexture;
-    create_library_from_source(source: string): Library?;
+    create_library_from_source(source: string): Library | null;
 
-    create_depth_stencil_state(descriptor: DepthStencilDescriptor): DepthStencilState?;
-    create_pipeline_state(descriptor: PipelineDescriptor): PipelineState?;
+    create_depth_stencil_descriptor(): DepthStencilDescriptor;
+    create_depth_stencil_state(descriptor: DepthStencilDescriptor): DepthStencilState | null;
+    create_render_pipeline_descriptor(): RenderPipelineDescriptor;
+    create_render_pipeline_state(descriptor: RenderPipelineDescriptor): RenderPipelineState | null;
+    create_compute_pipeline_descriptor(): RenderPipelineDescriptor;
+    create_compute_pipeline_state(descriptor: ComputePipelineDescriptor): ComputePipelineState | null;
 
     prefer_frame_per_second(fps: number): void;
 }

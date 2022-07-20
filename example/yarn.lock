@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@union_native/metal.js@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@union_native/metal.js/-/metal.js-0.0.4.tgz#5fe1ce7dbb74a85997febe04b6309252a869758d"
-  integrity sha512-YtD9fch7GehIG49SjZlwuFeYRxyWA9qxN+m8mZCnw+MkHlXjeksHmRAsTmzlF466FtkcbOrhlSfyJk6c+IEH4g==
+"@union_native/metal.js@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@union_native/metal.js/-/metal.js-0.0.6.tgz#77a99c217d01f1055de5debd6c0e2bbe1740f0c4"
+  integrity sha512-9DpEyVFFPUqjFylwcbnXeWDeMfvyjjO6obGqahCIkwdS0E4WyZICABJcZb0we1aDrVWeRlryZGZgRj4XbgPDKA==
 
 esbuild-android-64@0.14.49:
   version "0.14.49"
