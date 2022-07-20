@@ -10,7 +10,7 @@ import JavaScriptCore
 import Metal
 
 @objc protocol GPUBufferProtocol : JSExport {
-    func upload(_ data: JSObjectRef, _ size: Int) -> Void
+    func upload(_ data: JSValue) -> Void
 }
 
 @objc public class GPUBuffer : NSObject, GPUBufferProtocol{
@@ -20,10 +20,20 @@ import Metal
         self.buffer = buffer
     }
     
-    func upload(_ data: JSObjectRef, _ size: Int) {
-//        let data_buffer = JSObjectGetPrivate(data)
-//        let pointer = JSObjectGetArrayBufferBytesPtr(get_context_ref(), data, nil)
-//        memcpy(pointer, data_buffer, size)
+    func upload(_ data: JSValue) {
+        let context_ref = get_context().jsGlobalContextRef
+        let ref = data.jsValueRef
+        let type = JSValueGetTypedArrayType(context_ref, ref, nil)
+        if type == kJSTypedArrayTypeNone {
+            print("invalid buffer object")
+            return
+        }
+        
+        let size = JSObjectGetTypedArrayByteLength(context_ref, ref, nil)
+        let ptr = JSObjectGetTypedArrayBytesPtr(context_ref, ref, nil)
+        
+        let gpu_ptr = UnsafeMutableRawPointer(buffer.contents()).bindMemory(to: UInt8.self, capacity: size)
+        memcpy(gpu_ptr, ptr, size)
     }
 
 }
