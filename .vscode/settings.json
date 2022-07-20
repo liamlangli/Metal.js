@@ -1,9 +1,15 @@
 {
     "cSpell.words": [
+        "ABGR",
+        "BGRA",
         "esbuild",
         "liamlangli",
         "Memoryless",
         "metallib",
-        "swapchain"
+        "simd",
+        "stdlib",
+        "struct",
+        "swapchain",
+        "Unorm"
     ]
 }

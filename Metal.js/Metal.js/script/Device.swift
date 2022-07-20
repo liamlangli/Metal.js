@@ -60,6 +60,15 @@ import Metal
         return nil
     }
     
+    func create_library_from_source(_ source: String) -> MTLLibrary? {
+        do {
+            return try device.makeLibrary(source: source, options: nil)
+        } catch let error {
+            print("shader compile error: \(error.localizedDescription)")
+        }
+        return nil
+    }
+    
     func create_library_default() -> MTLLibrary {
         return device.makeDefaultLibrary()!
     }

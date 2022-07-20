@@ -47,11 +47,16 @@ public func runtime_export() {
     }
 }
 
+public func runtime_initialize() {
+    runtime_evaluate("api/index.js")
+    runtime_export()
+}
+
 public func runtime_evaluate(_ path: String) {
     if let url = Bundle.main.url(forResource: path, withExtension: "") {
         do {
             let source = try String(contentsOf: url, encoding: .utf8)
-            print("[debug] evaluate script source\n\(source)")
+            print("[debug] evaluate script source\n \(url.path)")
             context.evaluateScript(source)
         } catch {
             print("unexpected error occured while reading file \(url.path)")

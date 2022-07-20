@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C3A578E2888197D007C5AD4 /* api in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3C3A578D2888197D007C5AD4 /* api */; };
 		3C5E30FC2886F5D200C9CD9B /* example in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3CE6C11C2886F4AE00C893F4 /* example */; };
 		3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FD2887018B00C9CD9B /* Console.swift */; };
 		3C5E3100288711AA00C9CD9B /* GPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FF288711AA00C9CD9B /* GPU.swift */; };
@@ -31,6 +32,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				3C3A578E2888197D007C5AD4 /* api in CopyFiles */,
 				3C5E30FC2886F5D200C9CD9B /* example in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,6 +40,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3C3A578D2888197D007C5AD4 /* api */ = {isa = PBXFileReference; lastKnownFileType = folder; name = api; path = ../api; sourceTree = "<group>"; };
 		3C5E30FD2887018B00C9CD9B /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
 		3C5E30FF288711AA00C9CD9B /* GPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPU.swift; sourceTree = "<group>"; };
 		3CE6C0F32886DE5F00C893F4 /* Metal.js.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal.js.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +78,7 @@
 		3CE6C0EA2886DE5F00C893F4 = {
 			isa = PBXGroup;
 			children = (
+				3C3A578D2888197D007C5AD4 /* api */,
 				3CE6C11C2886F4AE00C893F4 /* example */,
 				3CE6C0F52886DE5F00C893F4 /* Metal.js */,
 				3CE6C0F42886DE5F00C893F4 /* Products */,
