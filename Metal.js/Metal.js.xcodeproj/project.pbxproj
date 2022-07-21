@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C3A578E2888197D007C5AD4 /* api in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3C3A578D2888197D007C5AD4 /* api */; };
+		3C3A57902889A9DE007C5AD4 /* Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A578F2889A9DE007C5AD4 /* Render.swift */; };
 		3C5E30FC2886F5D200C9CD9B /* example in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3CE6C11C2886F4AE00C893F4 /* example */; };
 		3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FD2887018B00C9CD9B /* Console.swift */; };
 		3C5E3100288711AA00C9CD9B /* GPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FF288711AA00C9CD9B /* GPU.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		3C3A578D2888197D007C5AD4 /* api */ = {isa = PBXFileReference; lastKnownFileType = folder; name = api; path = ../api; sourceTree = "<group>"; };
+		3C3A578F2889A9DE007C5AD4 /* Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Render.swift; sourceTree = "<group>"; };
 		3C5E30FD2887018B00C9CD9B /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
 		3C5E30FF288711AA00C9CD9B /* GPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPU.swift; sourceTree = "<group>"; };
 		3CE6C0F32886DE5F00C893F4 /* Metal.js.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal.js.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 				3CE6C1182886EEDA00C893F4 /* Encoder.swift */,
 				3C5E30FD2887018B00C9CD9B /* Console.swift */,
 				3C5E30FF288711AA00C9CD9B /* GPU.swift */,
+				3C3A578F2889A9DE007C5AD4 /* Render.swift */,
 			);
 			path = script;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				3CE6C0FD2886DE5F00C893F4 /* Shaders.metal in Sources */,
 				3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */,
 				3CE6C0F92886DE5F00C893F4 /* GameViewController.swift in Sources */,
+				3C3A57902889A9DE007C5AD4 /* Render.swift in Sources */,
 				3CE6C0FB2886DE5F00C893F4 /* Renderer.swift in Sources */,
 				3CE6C1152886E5F100C893F4 /* Runtime.swift in Sources */,
 				3CE6C0F72886DE5F00C893F4 /* AppDelegate.swift in Sources */,

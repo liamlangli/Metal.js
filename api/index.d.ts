@@ -269,7 +269,7 @@ declare interface Library {
     create_function(name: string): GPUProgram;
 }
 
-declare interface PassAttachmentDescriptor {
+declare interface RenderPassAttachmentDescriptor {
     texture: GPUTexture;
     level: number;
     slice: number;
@@ -277,17 +277,22 @@ declare interface PassAttachmentDescriptor {
     store_action: StoreAction;
 }
 
-declare interface RenderPassColorAttachmentDescriptor extends PassAttachmentDescriptor {
+declare interface RenderPassColorAttachmentDescriptor extends RenderPassAttachmentDescriptor {
     clear_color: Color;
 }
 
-declare interface RenderPassDepthAttachmentDescriptor extends PassAttachmentDescriptor {
-    clear_color: Color;
+declare interface RenderPassDepthAttachmentDescriptor extends RenderPassAttachmentDescriptor {
+    clear_depth: number;
+}
+
+declare interface RenderPassStencilAttachmentDescriptor extends RenderPassAttachmentDescriptor {
+    clear_stencil: number;
 }
 
 declare interface RenderPassDescriptor {
     color_attachment_at(index: number): RenderPassColorAttachmentDescriptor;
     depth_attachment: RenderPassDepthAttachmentDescriptor;
+    stencil_attachment: RenderPassStencilAttachmentDescriptor;
 }
 
 // this might be unnecessary requirement
@@ -306,12 +311,12 @@ declare interface RenderPipelineColorAttachmentDescriptor {
     rgb_blend_operation: BlendOperation;
     alpha_blend_operation: BlendOperation;
 
-    color_write: boolean;
+    // color_write: boolean; // is color mask int metal
 }
 
-declare interface ComputePipelineDescriptor {}
+declare class ComputePipelineDescriptor {}
 
-declare interface RenderPipelineDescriptor {
+declare class RenderPipelineDescriptor {
     label: string;
 
     sample_count: number;
@@ -323,7 +328,7 @@ declare interface RenderPipelineDescriptor {
     stencil_attachment_pixel_format: DepthStencilFormat
 }
 
-declare interface DepthStencilDescriptor {
+declare class DepthStencilDescriptor {
     depth_write: boolean;
     compare_function: DepthCompareFunction;
 }
@@ -357,11 +362,8 @@ declare interface Device {
     create_texture(descriptor: TextureDescriptor): GPUTexture;
     create_library_from_source(source: string): Library | null;
 
-    create_depth_stencil_descriptor(): DepthStencilDescriptor;
-    create_depth_stencil_state(descriptor: DepthStencilDescriptor): DepthStencilState | null;
-    create_render_pipeline_descriptor(): RenderPipelineDescriptor;
     create_render_pipeline_state(descriptor: RenderPipelineDescriptor): RenderPipelineState | null;
-    create_compute_pipeline_descriptor(): RenderPipelineDescriptor;
+    create_depth_stencil_state(descriptor: DepthStencilDescriptor): DepthStencilState | null;
     create_compute_pipeline_state(descriptor: ComputePipelineDescriptor): ComputePipelineState | null;
 
     prefer_frame_per_second(fps: number): void;

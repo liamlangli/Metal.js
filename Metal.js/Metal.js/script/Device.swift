@@ -37,7 +37,99 @@ import MetalKit
         let gpu_ptr = UnsafeMutableRawPointer(buffer.contents()).bindMemory(to: UInt8.self, capacity: size)
         memcpy(gpu_ptr, ptr, size)
     }
+}
 
+@objc protocol TextureDescriptorProtocol : JSExport {
+    var type: Int { get set }
+    var pixel_format: Int { get set }
+    var width: Int { get set }
+    var height: Int { get set }
+    var depth: Int { get set }
+    var minmap_level_count: Int { get set }
+    var sample_count: Int { get set }
+    var array_length: Int { get set }
+    var option: Int { get set }
+    var cpu_cache_mode: Int { get set }
+    var storage_mode: Int { get set }
+    var hazard_tracking_mode: Int { get set }
+    var usage: Int { get set }
+    var allow_gpu_optimized_contents: Bool { get set }
+}
+@objc public class TextureDescriptor : NSObject, TextureDescriptorProtocol {
+    public var type: Int {
+        get { return Int(desc.textureType.rawValue) }
+        set { desc.textureType = MTLTextureType(rawValue: UInt(newValue)) ?? .type2D }
+    }
+    
+    public var pixel_format: Int {
+        get { return Int(desc.pixelFormat.rawValue) }
+        set { desc.pixelFormat = MTLPixelFormat(rawValue: UInt(newValue)) ?? .rgba8Unorm }
+    }
+    
+    public var width: Int {
+        get { return desc.width }
+        set { desc.width = newValue }
+    }
+    
+    public var height: Int {
+        get { return desc.width }
+        set { desc.height = newValue }
+    }
+    
+    public var depth: Int {
+        get { return desc.depth }
+        set { desc.depth = newValue }
+    }
+    
+    public var minmap_level_count: Int {
+        get { return desc.mipmapLevelCount }
+        set { desc.mipmapLevelCount = newValue }
+    }
+    
+    public var sample_count: Int {
+        get { return desc.sampleCount }
+        set { desc.sampleCount = newValue }
+    }
+    
+    public var array_length: Int {
+        get { return desc.arrayLength }
+        set {desc.arrayLength = newValue }
+    }
+    
+    public var option: Int {
+        get { return Int(desc.resourceOptions.rawValue) }
+        set { desc.resourceOptions = MTLResourceOptions(rawValue: UInt(newValue)) }
+    }
+    
+    public var cpu_cache_mode: Int {
+        get { return Int(desc.cpuCacheMode.rawValue) }
+        set { desc.cpuCacheMode = MTLCPUCacheMode(rawValue: UInt(newValue))! }
+    }
+    
+    public var storage_mode: Int {
+        get { return Int(desc.storageMode.rawValue) }
+        set { desc.storageMode = MTLStorageMode(rawValue: UInt(newValue))! }
+    }
+    
+    public var hazard_tracking_mode: Int {
+        get { return Int(desc.hazardTrackingMode.rawValue) }
+        set { desc.hazardTrackingMode = MTLHazardTrackingMode(rawValue: UInt(newValue))! }
+    }
+    
+    public var usage: Int {
+        get { return Int(desc.usage.rawValue) }
+        set { desc.usage = MTLTextureUsage(rawValue: UInt(newValue)) }
+    }
+    
+    var allow_gpu_optimized_contents: Bool {
+        get { return desc.allowGPUOptimizedContents }
+        set { desc.allowGPUOptimizedContents = newValue }
+    }
+    
+    var desc: MTLTextureDescriptor
+    public init(_ desc: MTLTextureDescriptor?) {
+        self.desc = desc ?? MTLTextureDescriptor()
+    }
 }
 
 @objc protocol DeviceProtocol : JSExport {
@@ -45,7 +137,11 @@ import MetalKit
     func create_library(_ path: String) -> MTLLibrary?
     func create_library_default() -> MTLLibrary
     
-    func create_buffer(_ size: Int, _ options: UInt) -> GPUBuffer;
+    func create_buffer(_ size: Int, _ options: UInt) -> GPUBuffer
+    func create_texture(_ desc: TextureDescriptor) -> GPUTexture
+//    func create_depth_stencil_descriptor() -> Depth
+    
+    func prefer_frame_per_second(_ fps: Double) -> Void
 }
 
 @objc public class Device : NSObject, DeviceProtocol {
@@ -79,7 +175,6 @@ import MetalKit
         let buffer = device.makeBuffer(length: size, options: MTLResourceOptions(rawValue: options))
         return GPUBuffer(buffer!)
     }
-    
     
 }
 
@@ -131,7 +226,7 @@ import MetalKit
     }
 }
 
-@objc public class Texture : NSObject, JSExport {
+@objc public class GPUTexture : NSObject, JSExport {
     public let texture: MTLTexture
     public init(_ texture: MTLTexture) {
         self.texture = texture
@@ -157,86 +252,19 @@ import MetalKit
     }
 }
 
-@objc public protocol PassAttachmentDescriptorProtocol : JSExport {
-    var texture: Texture? { get set }
-    var level: Int { get set }
-    var slice: Int { get set }
-    var load_action: Int { get set }
-    var store_action: Int { get set }
-}
-
-@objc public protocol PassColorAttachmentDescriptorProtocol : PassAttachmentDescriptorProtocol {
-    var clear_color: Color { get set }
-}
-
-@objc public class PassColorAttachmentDescriptor: NSObject, PassColorAttachmentDescriptorProtocol {
-    public var clear_color: Color {
-        get { return Color(desc.clearColor) }
-        set { desc.clearColor = newValue.color }
-    }
-    
-    public var texture: Texture? {
-        get {
-            if self.desc.texture == nil {
-                return nil
-            } else {
-                return Texture(desc.texture!)
-            }
-        }
-        set {
-            if let texture = newValue {
-                desc.texture = texture.texture;
-            }
-        }
-    }
-    
-    public var level: Int {
-        get { return desc.level }
-        set { desc.level = newValue }
-    }
-    
-    public var slice: Int {
-        get { return desc.slice }
-        set { desc.slice = newValue }
-    }
-    
-    public var load_action: Int {
-        get { return Int(desc.loadAction.rawValue) }
-        set { desc.loadAction = MTLLoadAction(rawValue: UInt(newValue)) ?? .dontCare }
-    }
-    
-    public var store_action: Int {
-        get { return Int(desc.storeAction.rawValue) }
-        set { desc.storeAction = MTLStoreAction(rawValue: UInt(newValue)) ?? .dontCare }
-    }
-    
-    public var desc: MTLRenderPassColorAttachmentDescriptor
-    public override init() {
-        desc = MTLRenderPassColorAttachmentDescriptor()
+@objc public class GPUProgram : NSObject, JSExport {
+    let function: MTLFunction
+    public init(_ function: MTLFunction) {
+        self.function = function
     }
 }
 
-@objc public protocol RenderPassDescriptor : JSExport {
-    func color_attachment_at(index: Int) -> PassColorAttachmentDescriptor
+let create_device: @convention(block) () -> Device = {
+    return Device(MTLCreateSystemDefaultDevice()!)
 }
 
-@objc public protocol BackBufferProtocol : JSExport {
-    var render_pass_descriptor: RenderPassDescriptor { get }
-    var drawable: Drawable { get }
-}
-
-@objc public class BackBuffer: NSObject, JSExport {
-    public let view: MTKView
-    public let desc: MTLRenderPassDescriptor
+public func register_device(_ context: JSContext) {
+    context.setObject(create_device, forKeyedSubscript: "create_device" as NSString)
     
-    public init(_ view: MTKView, _ desc: MTLRenderPassDescriptor) {
-        self.view = view;
-        self.desc = desc;
-    }
-}
-
-@objc public class Drawable: NSObject, JSExport {
-    public init(_ drawable: CALayer) {
-        
-    }
+    context.setObject(Device.self, forKeyedSubscript: "Device" as NSString)
 }

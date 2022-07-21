@@ -10,10 +10,6 @@ import JavaScriptCore
 import Metal
 import QuartzCore
 
-let create_device: @convention(block) () -> Device = {
-    return Device(MTLCreateSystemDefaultDevice()!)
-}
-
 var tick_set: Set<JSValue> = Set()
 let request_swapchain_callback: @convention(block) (_ value: JSValue) -> Void = { value in
     if !tick_set.contains(where: { _value in _value.isEqual(to: value) }) {
@@ -33,12 +29,12 @@ public func get_context() -> JSContext {
 }
 
 public func runtime_export() {
-    register_console(context)
-
-    context.setObject(Device.self, forKeyedSubscript: "Device" as NSString)
-    context.setObject(create_device, forKeyedSubscript: "create_device" as NSString)
     context.setObject(request_swapchain_callback, forKeyedSubscript: "request_swapchain_callback" as NSString)
     context.setObject(cancal_swapchain_callback, forKeyedSubscript: "cancel_swapchain_callback" as NSString)
+    
+    register_device(context)
+    register_console(context)
+    register_render(context)
     
     context.exceptionHandler = { context, exception in
         if let exc = exception {
