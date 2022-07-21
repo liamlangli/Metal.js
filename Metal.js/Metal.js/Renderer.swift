@@ -129,7 +129,6 @@ class Renderer: NSObject, MTKViewDelegate {
         let vertexFunction = library?.makeFunction(name: "vertexShader")
         let fragmentFunction = library?.makeFunction(name: "fragmentShader")
 
-        let pip = MTLComputePassDescriptor
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
         pipelineDescriptor.label = "RenderPipeline"
         pipelineDescriptor.sampleCount = metalKitView.sampleCount

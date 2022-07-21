@@ -186,7 +186,7 @@ declare const StoreAndMultisampleResolve: StoreAction;
 declare const StoreUnknown: StoreAction;
 declare const CustomSampleDepthStore: StoreAction;
 
-declare interface BlendFactor {};
+declare interface BlendFactor {}
 declare const Zero: BlendFactor;
 declare const One: BlendFactor;
 
@@ -206,9 +206,8 @@ declare const BlendColor: BlendFactor;
 declare const OneMinusBlendColor: BlendFactor;
 declare const BlendAlpha: BlendFactor;
 declare const OneMinusBlendAlpha: BlendFactor;
-declare const Zero: BlendFactor;
 
-declare interface BlendOperation {};
+declare interface BlendOperation {}
 declare const Add: BlendOperation;
 declare const Subtract: BlendOperation;
 declare const ReverseSubtract: BlendOperation;
@@ -270,7 +269,7 @@ declare interface Library {
     create_function(name: string): GPUProgram;
 }
 
-declare interface AttachmentDescriptor {
+declare interface PassAttachmentDescriptor {
     texture: GPUTexture;
     level: number;
     slice: number;
@@ -278,11 +277,11 @@ declare interface AttachmentDescriptor {
     store_action: StoreAction;
 }
 
-declare interface RenderPassColorAttachmentDescriptor extends AttachmentDescriptor {
+declare interface RenderPassColorAttachmentDescriptor extends PassAttachmentDescriptor {
     clear_color: Color;
 }
 
-declare interface RenderPassDepthAttachmentDescriptor extends AttachmentDescriptor {
+declare interface RenderPassDepthAttachmentDescriptor extends PassAttachmentDescriptor {
     clear_color: Color;
 }
 

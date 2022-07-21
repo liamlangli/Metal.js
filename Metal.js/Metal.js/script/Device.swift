@@ -8,6 +8,8 @@
 import Foundation
 import JavaScriptCore
 import Metal
+import QuartzCore
+import MetalKit
 
 @objc protocol GPUBufferProtocol : JSExport {
     func upload(_ data: JSValue) -> Void
@@ -77,6 +79,8 @@ import Metal
         let buffer = device.makeBuffer(length: size, options: MTLResourceOptions(rawValue: options))
         return GPUBuffer(buffer!)
     }
+    
+    
 }
 
 @objc protocol LibraryProtocol {
@@ -110,8 +114,9 @@ import Metal
 
 @objc public class RenderCommandEncoder: NSObject, JSExport {
     let encoder: MTLRenderCommandEncoder!
-    public init(_ buffer: MTLCommandBuffer, desc: MTLRenderPassDescriptor) {
-        self.encoder = buffer.makeRenderCommandEncoder(descriptor: desc)
+
+    public init(_ buffer: MTLCommandBuffer, _ back_buffer: BackBuffer) {
+        self.encoder = buffer.makeRenderCommandEncoder(descriptor: back_buffer.desc)
     }
 }
 
@@ -121,7 +126,117 @@ import Metal
         self.buffer = queue.makeCommandBuffer()
     }
     
-    public func create_render_command_encoder() {
+    public func create_render_command_encoder(_ back_buffer: BackBuffer) -> RenderCommandEncoder {
+        return RenderCommandEncoder(self.buffer, back_buffer)
+    }
+}
+
+@objc public class Texture : NSObject, JSExport {
+    public let texture: MTLTexture
+    public init(_ texture: MTLTexture) {
+        self.texture = texture
+    }
+}
+
+@objc public protocol ColorProtocol : JSExport {
+    var r: Double { get set }
+    var g: Double { get set }
+    var b: Double { get set }
+    var a: Double { get set }
+}
+
+@objc public class Color : NSObject, ColorProtocol {
+    public var r: Double { get { return color.red } set { color.red = newValue } }
+    public var g: Double { get { return color.green } set { color.green = newValue } }
+    public var b: Double { get { return color.blue } set { color.blue = newValue } }
+    public var a: Double { get { return color.alpha } set { color.alpha = newValue } }
+    
+    public var color: MTLClearColor
+    public init(_ color: MTLClearColor?) {
+        self.color = color ?? MTLClearColor()
+    }
+}
+
+@objc public protocol PassAttachmentDescriptorProtocol : JSExport {
+    var texture: Texture? { get set }
+    var level: Int { get set }
+    var slice: Int { get set }
+    var load_action: Int { get set }
+    var store_action: Int { get set }
+}
+
+@objc public protocol PassColorAttachmentDescriptorProtocol : PassAttachmentDescriptorProtocol {
+    var clear_color: Color { get set }
+}
+
+@objc public class PassColorAttachmentDescriptor: NSObject, PassColorAttachmentDescriptorProtocol {
+    public var clear_color: Color {
+        get { return Color(desc.clearColor) }
+        set { desc.clearColor = newValue.color }
+    }
+    
+    public var texture: Texture? {
+        get {
+            if self.desc.texture == nil {
+                return nil
+            } else {
+                return Texture(desc.texture!)
+            }
+        }
+        set {
+            if let texture = newValue {
+                desc.texture = texture.texture;
+            }
+        }
+    }
+    
+    public var level: Int {
+        get { return desc.level }
+        set { desc.level = newValue }
+    }
+    
+    public var slice: Int {
+        get { return desc.slice }
+        set { desc.slice = newValue }
+    }
+    
+    public var load_action: Int {
+        get { return Int(desc.loadAction.rawValue) }
+        set { desc.loadAction = MTLLoadAction(rawValue: UInt(newValue)) ?? .dontCare }
+    }
+    
+    public var store_action: Int {
+        get { return Int(desc.storeAction.rawValue) }
+        set { desc.storeAction = MTLStoreAction(rawValue: UInt(newValue)) ?? .dontCare }
+    }
+    
+    public var desc: MTLRenderPassColorAttachmentDescriptor
+    public override init() {
+        desc = MTLRenderPassColorAttachmentDescriptor()
+    }
+}
+
+@objc public protocol RenderPassDescriptor : JSExport {
+    func color_attachment_at(index: Int) -> PassColorAttachmentDescriptor
+}
+
+@objc public protocol BackBufferProtocol : JSExport {
+    var render_pass_descriptor: RenderPassDescriptor { get }
+    var drawable: Drawable { get }
+}
+
+@objc public class BackBuffer: NSObject, JSExport {
+    public let view: MTKView
+    public let desc: MTLRenderPassDescriptor
+    
+    public init(_ view: MTKView, _ desc: MTLRenderPassDescriptor) {
+        self.view = view;
+        self.desc = desc;
+    }
+}
+
+@objc public class Drawable: NSObject, JSExport {
+    public init(_ drawable: CALayer) {
         
     }
 }
