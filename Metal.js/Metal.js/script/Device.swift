@@ -132,24 +132,35 @@ import MetalKit
     }
 }
 
+@objc public class GPUTexture : NSObject, JSExport {
+    public let texture: MTLTexture
+    public init(_ texture: MTLTexture) {
+        self.texture = texture
+    }
+}
+
 @objc protocol DeviceProtocol : JSExport {
     func create_command_queue() -> CommandQueue
-    func create_library_from_source(_ source: String) -> MTLLibrary?
+    func create_library_from_source(_ source: String) -> Library?
     func create_buffer(_ size: Int, _ options: UInt) -> GPUBuffer
     func create_texture(_ desc: TextureDescriptor) -> GPUTexture?
     
     func create_render_pipeline_state(_ desc: RenderPipelineDescriptor) -> RenderPipelineState?
     func create_depth_stencil_state(_ desc: DepthStencilDescriptor) -> DepthStencilState?
+    
+    func create_render_pipeline_descriptor() -> RenderPipelineDescriptor
+    func create_depth_stencil_descriptor() -> DepthStencilDescriptor
 }
 
 @objc public class Device : NSObject, DeviceProtocol {
+    
     public func create_command_queue() -> CommandQueue {
         return CommandQueue(device)
     }
 
-    public func create_library_from_source(_ source: String) -> MTLLibrary? {
+    public func create_library_from_source(_ source: String) -> Library? {
         do {
-            return try device.makeLibrary(source: source, options: nil)
+            return Library(try device.makeLibrary(source: source, options: nil))
         } catch let error {
             print("shader compile error: \(error.localizedDescription)")
             return nil
@@ -190,6 +201,14 @@ import MetalKit
         return nil
     }
     
+    public func create_render_pipeline_descriptor() -> RenderPipelineDescriptor {
+        return RenderPipelineDescriptor(nil)
+    }
+    
+    public func create_depth_stencil_descriptor() -> DepthStencilDescriptor {
+        return DepthStencilDescriptor(nil)
+    }
+    
     let device: MTLDevice!
     public init(_ device: MTLDevice!) {
         self.device = device
@@ -197,27 +216,40 @@ import MetalKit
     
 }
 
-@objc protocol LibraryProtocol {
-    func make_function(_ name: String) -> MTLFunction?
+@objc public class GPUProgram : NSObject, JSExport {
+    let function: MTLFunction
+    public init(_ function: MTLFunction) {
+        self.function = function
+    }
+}
+
+@objc protocol LibraryProtocol : JSExport {
+    func create_function(_ name: String) -> GPUProgram?
 }
 @objc public class Library : NSObject, LibraryProtocol {
+    public func create_function(_ name: String) -> GPUProgram? {
+        if let program = library.makeFunction(name: name) {
+            return GPUProgram(program)
+        }
+        return nil
+    }
+    
     let library: MTLLibrary
     public init(_ library: MTLLibrary) {
         self.library = library
     }
-    
-    func make_function(_ name: String) -> Optional<MTLFunction> {
-        return library.makeFunction(name: name)
-    }
 }
 
 @objc protocol CommandQueueProtocol : JSExport {
-    func create_command_buffer() -> CommandBuffer
+    func create_command_buffer() -> CommandBuffer?
 }
 
 @objc public class CommandQueue: NSObject, CommandQueueProtocol {
-    public func create_command_buffer() -> CommandBuffer {
-        return CommandBuffer(queue)
+    public func create_command_buffer() -> CommandBuffer? {
+        if let buffer = queue.makeCommandBuffer() {
+            return CommandBuffer(buffer)
+        }
+        return nil
     }
     
     let queue: MTLCommandQueue!
@@ -347,7 +379,7 @@ import MetalKit
 
 @objc protocol CommandBufferProtocol : JSExport {
     func create_render_command_encoder(_ desc: RenderPassDescriptor) -> RenderCommandEncoder?
-    func presend(_ drawable: Drawable) -> Void
+    func present(_ drawable: Drawable) -> Void
     func commit() -> Void
 }
 @objc public class CommandBuffer: NSObject, CommandBufferProtocol {
@@ -355,7 +387,7 @@ import MetalKit
         return RenderCommandEncoder(self.buffer, desc.desc)
     }
     
-    public func presend(_ drawable: Drawable) {
+    public func present(_ drawable: Drawable) {
         buffer.present(drawable.drawable)
     }
     
@@ -364,15 +396,8 @@ import MetalKit
     }
 
     let buffer: MTLCommandBuffer!
-    public init(_ queue: MTLCommandQueue) {
-        self.buffer = queue.makeCommandBuffer()
-    }
-}
-
-@objc public class GPUTexture : NSObject, JSExport {
-    public let texture: MTLTexture
-    public init(_ texture: MTLTexture) {
-        self.texture = texture
+    public init(_ command_buffer: MTLCommandBuffer) {
+        buffer = command_buffer
     }
 }
 
@@ -395,13 +420,6 @@ import MetalKit
     }
 }
 
-@objc public class GPUProgram : NSObject, JSExport {
-    let function: MTLFunction
-    public init(_ function: MTLFunction) {
-        self.function = function
-    }
-}
-
 let create_device: @convention(block) () -> Device = {
     return Device(MTLCreateSystemDefaultDevice()!)
 }
@@ -410,6 +428,7 @@ public func register_device(_ context: JSContext) {
     context.setObject(create_device, forKeyedSubscript: "create_device" as NSString)
     
     context.setObject(Device.self, forKeyedSubscript: "Device" as NSString)
+    context.setObject(Library.self, forKeyedSubscript: "Library" as NSString)
     context.setObject(CommandQueue.self, forKeyedSubscript: "CommandQueue" as NSString)
     context.setObject(CommandBuffer.self, forKeyedSubscript: "CommandBuffer" as NSString)
     context.setObject(RenderCommandEncoder.self, forKeyedSubscript: "RenderCommandEncoder" as NSString)

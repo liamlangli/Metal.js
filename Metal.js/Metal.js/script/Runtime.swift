@@ -45,8 +45,8 @@ public func runtime_export() {
 }
 
 public func runtime_initialize() {
-    runtime_evaluate("api/index.js")
     runtime_export()
+    runtime_evaluate("api/index.js")
 }
 
 public func runtime_evaluate(_ path: String) {
@@ -64,17 +64,14 @@ public func runtime_evaluate(_ path: String) {
 }
 
 var last_time: Double = 0.0
-public func runtime_tick(_ view: MTKView) {
+public func runtime_tick(_ back_buffer: BackBuffer) {
     var delta = 0.016;
     let t = CACurrentMediaTime()
     if last_time != 0.0 { delta = t - last_time }
     last_time = t;
     
-    if let desc = view.currentRenderPassDescriptor {
-        let back_buffer = BackBuffer(view, desc)
-        for fn in tick_set {
-            let time = JSValue(double: delta, in: context)!
-            fn.call(withArguments: [time, back_buffer])
-        }
+    for fn in tick_set {
+        let time = JSValue(double: delta, in: context)!
+        fn.call(withArguments: [time, back_buffer])
     }
 }

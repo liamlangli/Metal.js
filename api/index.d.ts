@@ -316,9 +316,9 @@ declare interface RenderPipelineColorAttachmentDescriptor {
     // color_write: boolean; // is color mask int metal
 }
 
-declare class ComputePipelineDescriptor {}
+declare interface ComputePipelineDescriptor {}
 
-declare class RenderPipelineDescriptor {
+declare interface  RenderPipelineDescriptor {
     label: string;
 
     sample_count: number;
@@ -330,7 +330,7 @@ declare class RenderPipelineDescriptor {
     stencil_attachment_pixel_format: DepthStencilFormat
 }
 
-declare class DepthStencilDescriptor {
+declare interface DepthStencilDescriptor {
     depth_write: boolean;
     compare_function: DepthCompareFunction;
 }
@@ -367,6 +367,10 @@ declare interface Device {
     create_render_pipeline_state(descriptor: RenderPipelineDescriptor): RenderPipelineState | null;
     create_depth_stencil_state(descriptor: DepthStencilDescriptor): DepthStencilState | null;
     // create_compute_pipeline_state(descriptor: ComputePipelineDescriptor): ComputePipelineState | null;
+
+    create_render_pipeline_descriptor(): RenderPipelineDescriptor;
+    create_depth_stencil_descriptor(): DepthStencilDescriptor;
+    // create_compute_pipeline_descriptor(): RenderPipelineDescriptor;
 
     // prefer_frame_per_second(fps: number): void;
 }

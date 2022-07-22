@@ -154,7 +154,7 @@ import MetalKit
     
     public var stencil_attachment_pixel_format: Int {
         get { return Int(desc.stencilAttachmentPixelFormat.rawValue) }
-        set { desc.depthAttachmentPixelFormat = MTLPixelFormat(rawValue: UInt(newValue)) ?? .depth32Float_stencil8 }
+        set { desc.stencilAttachmentPixelFormat = MTLPixelFormat(rawValue: UInt(newValue)) ?? .depth32Float_stencil8 }
     }
     
     let desc: MTLRenderPipelineDescriptor
@@ -320,11 +320,26 @@ import MetalKit
 @objc protocol BackBufferProtocol : JSExport {
     var render_pass_descriptor: RenderPassDescriptor { get }
     var drawable: Drawable? { get }
+    var command_buffer: CommandBuffer { get }
+    var color_pixel_format: Int { get }
+    var depth_stencil_pixel_format: Int { get }
 }
 
 @objc public class BackBuffer: NSObject, BackBufferProtocol {
+    public var color_pixel_format: Int {
+        get { return Int(view.colorPixelFormat.rawValue) }
+    }
+    
+    public var depth_stencil_pixel_format: Int {
+        get { return Int(view.depthStencilPixelFormat.rawValue) }
+    }
+    
+    public var command_buffer: CommandBuffer {
+        return CommandBuffer(cmd_buffer)
+    }
+    
     public var render_pass_descriptor: RenderPassDescriptor {
-        get { RenderPassDescriptor(desc) }
+        get { RenderPassDescriptor(view.currentRenderPassDescriptor) }
     }
     
     public var drawable: Drawable? {
@@ -336,12 +351,12 @@ import MetalKit
         }
     }
     
-    public let view: MTKView
-    public let desc: MTLRenderPassDescriptor
+    let view: MTKView
+    let cmd_buffer: MTLCommandBuffer
     
-    public init(_ view: MTKView, _ desc: MTLRenderPassDescriptor) {
+    public init(_ view: MTKView, _ command_buffer: MTLCommandBuffer) {
         self.view = view
-        self.desc = desc
+        self.cmd_buffer = command_buffer
     }
 }
 

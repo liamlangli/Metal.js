@@ -1,6 +1,6 @@
 {
   "name": "@union_native/metal.js",
-  "version": "0.0.10",
+  "version": "0.1.3",
   "description": "metal.js javascript binding export.",
   "main": "index.js",
   "types": "index.d.ts",
