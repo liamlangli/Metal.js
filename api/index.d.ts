@@ -219,12 +219,13 @@ declare interface RenderCommandEncoder {
 
     set_viewport(x: number, y: number, width: number, height: number, near: number, far: number): void;
     set_cull_mode(mode: CullMode): void;
+    set_depth_clip_mode(mode: DepthClipMode): void;
     set_front_facing(facing: Winding): void;
     set_render_pipeline_state(pipeline_state: RenderPipelineState): void;
     set_depth_stencil_state(depth_stencil_state: DepthStencilState): void;
 
     push_debug_group(name: string): void;
-    pop_debug_group(name: string): void;
+    pop_debug_group(): void;
 
     set_vertex_buffer(buffer: GPUBuffer, offset: number, index: number): void;
     set_vertex_texture(texture: GPUTexture, index: number): void;
@@ -246,9 +247,10 @@ declare interface ComputeCommandEncoder {
 
 declare interface CommandBuffer {
     create_render_command_encoder(render_pass_descriptor: RenderPassDescriptor): RenderCommandEncoder;
-    create_compute_command_encoder(): ComputeCommandEncoder;
+    // create_compute_command_encoder(): ComputeCommandEncoder;
 
     present(drawable: Drawable): void;
+    commit(): void;
 }
 
 declare interface CommandQueue {
@@ -364,9 +366,9 @@ declare interface Device {
 
     create_render_pipeline_state(descriptor: RenderPipelineDescriptor): RenderPipelineState | null;
     create_depth_stencil_state(descriptor: DepthStencilDescriptor): DepthStencilState | null;
-    create_compute_pipeline_state(descriptor: ComputePipelineDescriptor): ComputePipelineState | null;
+    // create_compute_pipeline_state(descriptor: ComputePipelineDescriptor): ComputePipelineState | null;
 
-    prefer_frame_per_second(fps: number): void;
+    // prefer_frame_per_second(fps: number): void;
 }
 
 declare function create_device(): Device;

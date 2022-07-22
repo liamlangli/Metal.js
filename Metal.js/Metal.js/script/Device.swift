@@ -134,37 +134,26 @@ import MetalKit
 
 @objc protocol DeviceProtocol : JSExport {
     func create_command_queue() -> CommandQueue
-    func create_library(_ path: String) -> MTLLibrary?
-    func create_library_default() -> MTLLibrary
-    
+    func create_library_from_source(_ source: String) -> MTLLibrary?
     func create_buffer(_ size: Int, _ options: UInt) -> GPUBuffer
-    func create_texture(_ desc: TextureDescriptor) -> GPUTexture
-//    func create_depth_stencil_descriptor() -> Depth
+    func create_texture(_ desc: TextureDescriptor) -> GPUTexture?
     
-    func prefer_frame_per_second(_ fps: Double) -> Void
+    func create_render_pipeline_state(_ desc: RenderPipelineDescriptor) -> RenderPipelineState?
+    func create_depth_stencil_state(_ desc: DepthStencilDescriptor) -> DepthStencilState?
 }
 
 @objc public class Device : NSObject, DeviceProtocol {
-    let device: MTLDevice!
-    public init(_ device: MTLDevice!) {
-        self.device = device
-    }
-    
-    func create_command_queue() -> CommandQueue {
+    public func create_command_queue() -> CommandQueue {
         return CommandQueue(device)
     }
-    
-    func create_library(_ path: String) ->  MTLLibrary? {
-        return nil
-    }
-    
-    func create_library_from_source(_ source: String) -> MTLLibrary? {
+
+    public func create_library_from_source(_ source: String) -> MTLLibrary? {
         do {
             return try device.makeLibrary(source: source, options: nil)
         } catch let error {
             print("shader compile error: \(error.localizedDescription)")
+            return nil
         }
-        return nil
     }
     
     func create_library_default() -> MTLLibrary {
@@ -174,6 +163,36 @@ import MetalKit
     func create_buffer(_ size: Int, _ options: UInt) -> GPUBuffer {
         let buffer = device.makeBuffer(length: size, options: MTLResourceOptions(rawValue: options))
         return GPUBuffer(buffer!)
+    }
+    
+    public func create_texture(_ desc: TextureDescriptor) -> GPUTexture? {
+        if let texture = device.makeTexture(descriptor: desc.desc) {
+            return GPUTexture(texture)
+        }
+        return nil
+    }
+    
+    public func create_render_pipeline_state(_ desc: RenderPipelineDescriptor) -> RenderPipelineState? {
+        do {
+            let state = try device.makeRenderPipelineState(descriptor: desc.desc)
+            return RenderPipelineState(state)
+        } catch let error {
+            print("create_render_pipeline_state failed \(error.localizedDescription)")
+            return nil
+        }
+
+    }
+    
+    public func create_depth_stencil_state(_ desc: DepthStencilDescriptor) -> DepthStencilState? {
+        if let state = device.makeDepthStencilState(descriptor: desc.desc) {
+            return DepthStencilState(state)
+        }
+        return nil
+    }
+    
+    let device: MTLDevice!
+    public init(_ device: MTLDevice!) {
+        self.device = device
     }
     
 }
@@ -192,37 +211,161 @@ import MetalKit
     }
 }
 
-@objc public protocol CommandQueueProtocol {
+@objc protocol CommandQueueProtocol : JSExport {
     func create_command_buffer() -> CommandBuffer
 }
 
 @objc public class CommandQueue: NSObject, CommandQueueProtocol {
+    public func create_command_buffer() -> CommandBuffer {
+        return CommandBuffer(queue)
+    }
+    
     let queue: MTLCommandQueue!
     public init(_ device: MTLDevice!) {
         queue = device.makeCommandQueue()
     }
-    
-    public func create_command_buffer() -> CommandBuffer {
-        return CommandBuffer(queue)
-    }
 }
 
-@objc public class RenderCommandEncoder: NSObject, JSExport {
+@objc protocol RenderCommandEncoderProtocol : JSExport {
+    var label: String { get set }
+
+    func set_viewport(_ x: Double, _ y: Double, _ width: Double, _ height: Double, _ near: Double, _ far: Double) -> Void
+    func set_cull_mode(_ mode: Int) -> Void
+    func set_depth_clip_mode(_ mode: Int) -> Void
+    func set_front_facing(_ facing: Int) -> Void
+    func set_render_pipeline_state(_ pipeline_state: RenderPipelineState) -> Void
+    func set_depth_stencil_state(_ depth_stencil_state: DepthStencilState) -> Void
+
+    func push_debug_group(_ name: String) -> Void
+    func pop_debug_group(_ name: String) -> Void
+
+    func set_vertex_buffer(_ buffer: GPUBuffer, _ offset: Int, _ index: Int) -> Void
+    func set_vertex_texture(_ texture: GPUTexture, _ index: Int) -> Void
+    func set_fragment_buffer(_ buffer: GPUBuffer, _ offset: Int, _ index: Int) -> Void
+    func set_fragment_texture(_ texture: GPUTexture, _ index: Int) -> Void
+
+    func draw_primitive(_ type: Int, _ start: Int, _ count: Int) -> Void
+    func draw_primitive(_ type: Int, _ start: Int, _ count: Int, _ instance_count: Int) -> Void
+    func draw_primitive_indexed(_ type: Int, _ index_count: Int, _ index_type: Int, _ buffer: GPUBuffer, _ buffer_offset: Int) -> Void
+    func draw_primitive_indexed(_ type: Int, _ index_count: Int, _ index_type: Int, _ buffer: GPUBuffer, _ buffer_offset: Int, _ instance_count: Int) -> Void
+
+    // TODO indirect buffer draw
+    func end_encoding() -> Void
+}
+
+@objc public class RenderCommandEncoder: NSObject, RenderCommandEncoderProtocol {
+    public var label: String {
+        get { return encoder.label ?? ""}
+        set { encoder.label = newValue}
+    }
+    
+    public func set_viewport(_ x: Double, _ y: Double, _ width: Double, _ height: Double, _ near: Double, _ far: Double) {
+        encoder.setViewport(MTLViewport(originX: x, originY: y, width: width, height: height, znear: near, zfar: far))
+    }
+    
+    public func set_cull_mode(_ mode: Int) {
+        encoder.setCullMode(MTLCullMode(rawValue: UInt(mode))!)
+    }
+    
+    public func set_depth_clip_mode(_ mode: Int) {
+        encoder.setDepthClipMode(MTLDepthClipMode(rawValue: UInt(mode))!)
+    }
+    
+    public func set_front_facing(_ facing: Int) {
+        encoder.setFrontFacing(MTLWinding(rawValue: UInt(facing))!)
+    }
+    
+    public func set_render_pipeline_state(_ pipeline_state: RenderPipelineState) {
+        encoder.setRenderPipelineState(pipeline_state.state)
+    }
+    
+    public func set_depth_stencil_state(_ depth_stencil_state: DepthStencilState) {
+        encoder.setDepthStencilState(depth_stencil_state.state)
+    }
+    
+    public func push_debug_group(_ name: String) {
+        encoder.pushDebugGroup(name)
+    }
+    
+    public func pop_debug_group(_ name: String) {
+        encoder.popDebugGroup()
+    }
+    
+    public func set_vertex_buffer(_ buffer: GPUBuffer, _ offset: Int, _ index: Int) {
+        encoder.setVertexBuffer(buffer.buffer, offset: offset, index: index)
+    }
+    
+    public func set_vertex_texture(_ texture: GPUTexture, _ index: Int) {
+        encoder.setVertexTexture(texture.texture, index: index)
+    }
+    
+    public func set_fragment_buffer(_ buffer: GPUBuffer, _ offset: Int, _ index: Int) {
+        encoder.setFragmentBuffer(buffer.buffer, offset: offset, index: index)
+    }
+    
+    public func set_fragment_texture(_ texture: GPUTexture, _ index: Int) {
+        encoder.setFragmentTexture(texture.texture, index: index)
+    }
+    
+    public func draw_primitive(_ type: Int, _ start: Int, _ count: Int) {
+        encoder.drawPrimitives(type: MTLPrimitiveType(rawValue: UInt(type))!, vertexStart: start, vertexCount: count)
+    }
+    
+    public func draw_primitive(_ type: Int, _ start: Int, _ count: Int, _ instance_count: Int) {
+        encoder.drawPrimitives(type: MTLPrimitiveType(rawValue: UInt(type))!, vertexStart: start, vertexCount: count, instanceCount: instance_count)
+    }
+    
+    public func draw_primitive_indexed(_ type: Int, _ index_count: Int, _ index_type: Int, _ buffer: GPUBuffer, _ buffer_offset: Int) {
+        encoder.drawIndexedPrimitives(
+            type: MTLPrimitiveType(rawValue: UInt(type))!,
+            indexCount: index_count,
+            indexType: MTLIndexType(rawValue: UInt(index_type))!,
+            indexBuffer: buffer.buffer,
+            indexBufferOffset: buffer_offset)
+    }
+    
+    public func draw_primitive_indexed(_ type: Int, _ index_count: Int, _ index_type: Int, _ buffer: GPUBuffer, _ buffer_offset: Int, _ instance_count: Int) {
+        encoder.drawIndexedPrimitives(
+            type: MTLPrimitiveType(rawValue: UInt(type))!,
+            indexCount: index_count,
+            indexType: MTLIndexType(rawValue: UInt(index_type))!,
+            indexBuffer: buffer.buffer,
+            indexBufferOffset: buffer_offset,
+            instanceCount: instance_count)
+    }
+    
+    public func end_encoding() {
+        encoder.endEncoding()
+    }
+    
     let encoder: MTLRenderCommandEncoder!
 
-    public init(_ buffer: MTLCommandBuffer, _ back_buffer: BackBuffer) {
-        self.encoder = buffer.makeRenderCommandEncoder(descriptor: back_buffer.desc)
+    public init(_ buffer: MTLCommandBuffer, _ desc: MTLRenderPassDescriptor) {
+        self.encoder = buffer.makeRenderCommandEncoder(descriptor: desc)
     }
 }
 
-@objc public class CommandBuffer: NSObject, JSExport {
+@objc protocol CommandBufferProtocol : JSExport {
+    func create_render_command_encoder(_ desc: RenderPassDescriptor) -> RenderCommandEncoder?
+    func presend(_ drawable: Drawable) -> Void
+    func commit() -> Void
+}
+@objc public class CommandBuffer: NSObject, CommandBufferProtocol {
+    public func create_render_command_encoder(_ desc: RenderPassDescriptor) -> RenderCommandEncoder? {
+        return RenderCommandEncoder(self.buffer, desc.desc)
+    }
+    
+    public func presend(_ drawable: Drawable) {
+        buffer.present(drawable.drawable)
+    }
+    
+    public func commit() {
+        buffer.commit()
+    }
+
     let buffer: MTLCommandBuffer!
     public init(_ queue: MTLCommandQueue) {
         self.buffer = queue.makeCommandBuffer()
-    }
-    
-    public func create_render_command_encoder(_ back_buffer: BackBuffer) -> RenderCommandEncoder {
-        return RenderCommandEncoder(self.buffer, back_buffer)
     }
 }
 
@@ -267,4 +410,12 @@ public func register_device(_ context: JSContext) {
     context.setObject(create_device, forKeyedSubscript: "create_device" as NSString)
     
     context.setObject(Device.self, forKeyedSubscript: "Device" as NSString)
+    context.setObject(CommandQueue.self, forKeyedSubscript: "CommandQueue" as NSString)
+    context.setObject(CommandBuffer.self, forKeyedSubscript: "CommandBuffer" as NSString)
+    context.setObject(RenderCommandEncoder.self, forKeyedSubscript: "RenderCommandEncoder" as NSString)
+    context.setObject(GPUBuffer.self, forKeyedSubscript: "GPUBuffer" as NSString)
+    context.setObject(GPUTexture.self, forKeyedSubscript: "GPUTexture" as NSString)
+    context.setObject(GPUProgram.self, forKeyedSubscript: "GPUProgram" as NSString)
+
+    context.setObject(Color.self, forKeyedSubscript: "Color" as NSString)
 }

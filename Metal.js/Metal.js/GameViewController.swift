@@ -41,7 +41,6 @@ class GameViewController: NSViewController {
 
         mtkView.delegate = renderer
         
-        
         runtime_initialize()
         runtime_evaluate("example/public/index.js")
     }

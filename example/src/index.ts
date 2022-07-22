@@ -7,12 +7,12 @@ typedef struct
     float4 position [[position]];
 } VertexOut;
 
-vertex ColorInOut base_vert(
-    uint vertex_id [[vertex_id]]
-    constant simd_float3 *in [[stage_in]])
+vertex VertexOut base_vert(
+    uint vertex_id [[vertex_id]],
+    constant simd_float3 *in [[buffer(0)]])
 {
     VertexOut out;
-    float4 position = float4(in[vertex_id], 1.0);
+    out.position = float4(in[vertex_id], 1.0);
     return out;
 }
 
@@ -35,7 +35,7 @@ function main() {
     ]);
     buffer.upload(data);
 
-    let pipeline_state: PipelineState;
+    let pipeline_state: RenderPipelineState;
     let depth_stencil_state: DepthStencilState;
 
     function tick(time: number, back_buffer: BackBuffer) {
@@ -45,10 +45,10 @@ function main() {
         const encoder = command_buffer.create_render_command_encoder(desc);
 
         if (!pipeline_state) {
-            const pipeline_desc = {} as PipelineDescriptor;
-            pipeline_desc.vertex_function = library.make_function('base_vert');
-            pipeline_desc.fragment_function = library.make_function('frag_vert');
-            pipeline_state = device.create_pipeline_state(pipeline_desc)!;
+            const pipeline_desc = new RenderPipelineDescriptor();
+            pipeline_desc.vertex_function = library.create_function('base_vert');
+            pipeline_desc.fragment_function = library.create_function('frag_vert');
+            pipeline_state = device.create_render_pipeline_state(pipeline_desc)!;
         }
 
         if (!depth_stencil_state) {

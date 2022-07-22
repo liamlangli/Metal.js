@@ -213,7 +213,7 @@ class Renderer: NSObject, MTKViewDelegate {
 
         _ = inFlightSemaphore.wait(timeout: DispatchTime.distantFuture)
         
-        runtime_tick()
+        runtime_tick(view)
         
         if let commandBuffer = commandQueue.makeCommandBuffer() {
             let semaphore = inFlightSemaphore

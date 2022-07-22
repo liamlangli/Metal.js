@@ -9,6 +9,7 @@ import Foundation
 import JavaScriptCore
 import Metal
 import QuartzCore
+import MetalKit
 
 var tick_set: Set<JSValue> = Set()
 let request_swapchain_callback: @convention(block) (_ value: JSValue) -> Void = { value in
@@ -63,14 +64,17 @@ public func runtime_evaluate(_ path: String) {
 }
 
 var last_time: Double = 0.0
-public func runtime_tick() {
+public func runtime_tick(_ view: MTKView) {
     var delta = 0.016;
     let t = CACurrentMediaTime()
     if last_time != 0.0 { delta = t - last_time }
     last_time = t;
     
-    for fn in tick_set {
-        let time = JSValue(double: delta, in: context)!
-        fn.call(withArguments: [time])
+    if let desc = view.currentRenderPassDescriptor {
+        let back_buffer = BackBuffer(view, desc)
+        for fn in tick_set {
+            let time = JSValue(double: delta, in: context)!
+            fn.call(withArguments: [time, back_buffer])
+        }
     }
 }

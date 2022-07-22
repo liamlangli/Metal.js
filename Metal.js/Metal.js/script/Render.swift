@@ -71,6 +71,27 @@ import MetalKit
     }
 }
 
+@objc protocol DepthStencilDescriptorProtocol : JSExport {
+    var depth_write: Bool { get set }
+    var compare_function: Int { get set }
+}
+@objc public class DepthStencilDescriptor : NSObject, DepthStencilDescriptorProtocol {
+    public var depth_write: Bool {
+        get { return desc.isDepthWriteEnabled }
+        set { desc.isDepthWriteEnabled = newValue }
+    }
+    
+    public var compare_function: Int {
+        get { return Int(desc.depthCompareFunction.rawValue) }
+        set { desc.depthCompareFunction = MTLCompareFunction(rawValue: UInt(newValue))! }
+    }
+    
+    let desc: MTLDepthStencilDescriptor
+    public init(_ desc: MTLDepthStencilDescriptor?) {
+        self.desc = desc ?? MTLDepthStencilDescriptor()
+    }
+}
+
 @objc protocol RenderPipelineDescriptorProtocol : JSExport {
     var label: String { get set }
     var sample_count: Int { get set }
@@ -136,9 +157,34 @@ import MetalKit
         set { desc.depthAttachmentPixelFormat = MTLPixelFormat(rawValue: UInt(newValue)) ?? .depth32Float_stencil8 }
     }
     
-    var desc: MTLRenderPipelineDescriptor
-    public override init() {
-        desc = MTLRenderPipelineDescriptor()
+    let desc: MTLRenderPipelineDescriptor
+    public init(_ desc: MTLRenderPipelineDescriptor?) {
+        self.desc = desc ?? MTLRenderPipelineDescriptor()
+    }
+}
+
+@objc public class RenderPipelineState : NSObject, JSExport {
+    let state: MTLRenderPipelineState
+    public init(_ state: MTLRenderPipelineState) {
+        self.state = state
+    }
+}
+
+@objc public class DepthStencilState : NSObject, JSExport {
+    let state: MTLDepthStencilState
+    public init(_ state: MTLDepthStencilState) {
+        self.state = state
+    }
+}
+
+@objc protocol ComputePipelineProtocol : JSExport {
+    
+}
+
+@objc public class ComputerPipelineState : NSObject, JSExport {
+    let state: MTLComputePipelineState
+    public init(_ state: MTLComputePipelineState) {
+        self.state = state
     }
 }
 
@@ -156,7 +202,7 @@ import MetalKit
             if self.desc.texture == nil {
                 return nil
             } else {
-                return Texture(desc.texture!)
+                return GPUTexture(desc.texture!)
             }
         }
         set {
@@ -317,4 +363,11 @@ public func register_render(_ context: JSContext) {
     
     context.setObject(RenderPipelineDescriptor.self, forKeyedSubscript: "RenderPipelineDescriptor" as NSString)
     context.setObject(RenderPipelineColorAttachmentDescriptor.self, forKeyedSubscript: "RenderPipelineColorAttachmentDescriptor" as NSString)
+    context.setObject(RenderPipelineState.self, forKeyedSubscript: "RenderPipelineState" as NSString)
+    context.setObject(DepthStencilState.self, forKeyedSubscript: "DepthStencilState" as NSString)
+
+    context.setObject(ComputerPipelineState.self, forKeyedSubscript: "ComputerPipelineState" as NSString)
+
+    context.setObject(RenderPassDepthAttachmentDescriptor.self, forKeyedSubscript: "RenderPassDepthAttachmentDescriptor" as NSString)
+    context.setObject(RenderPassStencilAttachmentDescriptor.self, forKeyedSubscript: "RenderPassStencilAttachmentDescriptor" as NSString)
 }
