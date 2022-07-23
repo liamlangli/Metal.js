@@ -15,6 +15,8 @@ class Renderer: NSObject, MTKViewDelegate {
     public let device: MTLDevice
     public let command_queue: MTLCommandQueue
     let in_flight_semaphore = DispatchSemaphore(value: 3)
+    
+    public let back_buffer: BackBuffer
     init?(_ view: MTKView) {
         self.device = view.device!
         self.command_queue = device.makeCommandQueue()!
@@ -23,6 +25,7 @@ class Renderer: NSObject, MTKViewDelegate {
         view.colorPixelFormat = .bgra8Unorm_srgb
         view.sampleCount = 1
         
+        back_buffer = BackBuffer(view)
         super.init()
     }
 
@@ -31,11 +34,11 @@ class Renderer: NSObject, MTKViewDelegate {
     
         if let command_buffer = command_queue.makeCommandBuffer() {
             let semaphore = in_flight_semaphore
-            command_buffer.addCompletedHandler { (_ commandBuffer) -> Swift.Void in
+            command_buffer.addCompletedHandler { (_ command_buffer) -> Swift.Void in
                 semaphore.signal()
             }
 
-            let back_buffer = BackBuffer(view, command_buffer)
+            back_buffer.set_command_buffer(command_buffer)
             runtime_tick(back_buffer)
         }
 

@@ -384,7 +384,7 @@ import MetalKit
 }
 @objc public class CommandBuffer: NSObject, CommandBufferProtocol {
     public func create_render_command_encoder(_ desc: RenderPassDescriptor) -> RenderCommandEncoder? {
-        return RenderCommandEncoder(self.buffer, desc.desc)
+        return RenderCommandEncoder(buffer, desc.desc)
     }
     
     public func present(_ drawable: Drawable) {
@@ -395,7 +395,7 @@ import MetalKit
         buffer.commit()
     }
 
-    let buffer: MTLCommandBuffer!
+    public var buffer: MTLCommandBuffer!
     public init(_ command_buffer: MTLCommandBuffer) {
         buffer = command_buffer
     }

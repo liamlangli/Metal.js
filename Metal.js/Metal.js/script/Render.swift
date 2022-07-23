@@ -320,7 +320,7 @@ import MetalKit
 @objc protocol BackBufferProtocol : JSExport {
     var render_pass_descriptor: RenderPassDescriptor { get }
     var drawable: Drawable? { get }
-    var command_buffer: CommandBuffer { get }
+    var command_buffer: CommandBuffer? { get }
     var color_pixel_format: Int { get }
     var depth_stencil_pixel_format: Int { get }
 }
@@ -334,34 +334,52 @@ import MetalKit
         get { return Int(view.depthStencilPixelFormat.rawValue) }
     }
     
-    public var command_buffer: CommandBuffer {
-        return CommandBuffer(cmd_buffer)
+    var _command_buffer: CommandBuffer? = nil
+    public var command_buffer: CommandBuffer? {
+        get { return _command_buffer }
+    }
+
+    public func set_command_buffer(_ command_buffer: MTLCommandBuffer) {
+        if _command_buffer == nil {
+            _command_buffer = CommandBuffer(command_buffer)
+        }
+        _command_buffer!.buffer = command_buffer
     }
     
+    let _render_pass_descriptor: RenderPassDescriptor
     public var render_pass_descriptor: RenderPassDescriptor {
-        get { RenderPassDescriptor(view.currentRenderPassDescriptor) }
+        get {
+            _render_pass_descriptor.desc = view.currentRenderPassDescriptor!
+            return _render_pass_descriptor
+        }
     }
     
+    let _drawable: Drawable
     public var drawable: Drawable? {
         get {
             if let drawable = view.currentDrawable {
-                return Drawable(drawable)
+                _drawable.set_drawable(drawable)
+                return _drawable
             }
             return nil
         }
     }
     
     let view: MTKView
-    let cmd_buffer: MTLCommandBuffer
-    
-    public init(_ view: MTKView, _ command_buffer: MTLCommandBuffer) {
+    public init(_ view: MTKView) {
         self.view = view
-        self.cmd_buffer = command_buffer
+        _drawable = Drawable(view.currentDrawable!)
+        _render_pass_descriptor = RenderPassDescriptor(view.currentRenderPassDescriptor!)
     }
 }
 
 @objc public class Drawable: NSObject, JSExport {
-    let drawable: CAMetalDrawable
+    var drawable: CAMetalDrawable
+
+    public func set_drawable(_ drawable: CAMetalDrawable) {
+        self.drawable = drawable
+    }
+    
     public init(_ drawable: CAMetalDrawable) {
         self.drawable = drawable
     }

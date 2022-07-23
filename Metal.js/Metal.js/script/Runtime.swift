@@ -74,4 +74,6 @@ public func runtime_tick(_ back_buffer: BackBuffer) {
         let time = JSValue(double: delta, in: context)!
         fn.call(withArguments: [time, back_buffer])
     }
+    
+    JSGarbageCollect(context.jsGlobalContextRef)
 }
