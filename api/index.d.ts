@@ -214,6 +214,10 @@ declare const ReverseSubtract: BlendOperation;
 declare const Min: BlendOperation;
 declare const Max: BlendOperation;
 
+declare interface DispatchType {}
+declare const Serial: DispatchType;
+declare const Concurrent: DispatchType;
+
 declare interface RenderCommandEncoder {
     label: string;
 
@@ -295,6 +299,29 @@ declare interface RenderPassDescriptor {
     color_attachment_at(index: number): RenderPassColorAttachmentDescriptor;
     depth_attachment: RenderPassDepthAttachmentDescriptor;
     stencil_attachment: RenderPassStencilAttachmentDescriptor;
+}
+
+declare interface CounterSampleBuffer {
+    label: string;
+    sample_count: number;
+}
+
+declare interface ComputePassSampleBufferAttachmentDescriptor {
+    sample_buffer: CounterSampleBuffer;
+    encoder_sample_start_index: number;
+    encoder_sample_end_index: number;
+}
+
+declare interface ComputePassDescriptor {
+    dispatch_type: DispatchType;
+    get_sample_buffer_attachment_at(index: number): ComputePassSampleBufferAttachmentDescriptor;
+}
+
+declare interface ComputePipelineDescriptor {
+    label: string;
+    compute_function: GPUProgram;
+    // thread_group_size_is_multiple_of_thread_execution_width: boolean;
+    // max_total_threads_per_thread_group: number;
 }
 
 // this might be unnecessary requirement

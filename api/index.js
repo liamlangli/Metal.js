@@ -175,3 +175,6 @@ const Subtract = 1;
 const ReverseSubtract = 2;
 const Min = 3;
 const Max = 4;
+
+const Serial = 0;
+const Concurrent = 1;

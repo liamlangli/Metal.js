@@ -298,7 +298,6 @@ import MetalKit
 }
 
 @objc public class RenderPassDescriptor : NSObject, RenderPassDescriptorProtocol {
-
     public func color_attachment_at(_ index: Int) -> RenderPassColorAttachmentDescriptor {
         return RenderPassColorAttachmentDescriptor(desc.colorAttachments[index])
     }
@@ -314,6 +313,89 @@ import MetalKit
     public var desc: MTLRenderPassDescriptor
     public init(_ desc: MTLRenderPassDescriptor?) {
         self.desc = desc ?? MTLRenderPassDescriptor()
+    }
+}
+
+@objc protocol CounterSampleBufferProtocol : JSExport {
+    var label: String { get }
+    var sample_count: Int { get }
+}
+
+@objc class CounterSampleBuffer: NSObject, CounterSampleBufferProtocol {
+    public var label: String {
+        get { return buffer.label }
+    }
+    
+    public var sample_count: Int {
+        get { return buffer.sampleCount }
+    }
+    
+    var buffer: MTLCounterSampleBuffer
+    public init(_ buffer: MTLCounterSampleBuffer) {
+        self.buffer = buffer
+    }
+}
+
+@objc protocol ComputePassSampleBufferAttachmentDescriptorProtocol : JSExport {
+    var sample_buffer: CounterSampleBuffer? { get }
+    var encoder_sample_start_index: Int { get set }
+    var encoder_sample_end_index: Int { get set }
+}
+
+@objc class ComputePassSampleBufferAttachmentDescriptor : NSObject, ComputePassSampleBufferAttachmentDescriptorProtocol {
+
+    public var encoder_sample_start_index: Int {
+        get { return desc.startOfEncoderSampleIndex }
+        set { desc.startOfEncoderSampleIndex = newValue }
+    }
+    
+    public var encoder_sample_end_index: Int {
+        get { return desc.endOfEncoderSampleIndex }
+        set { desc.endOfEncoderSampleIndex = newValue }
+    }
+    
+    public var sample_buffer: CounterSampleBuffer? {
+        get {
+            if let buffer = desc.sampleBuffer {
+                return CounterSampleBuffer(buffer)
+            }
+            return nil
+        }
+    }
+    
+    var desc: MTLComputePassSampleBufferAttachmentDescriptor
+    public init(_ desc: MTLComputePassSampleBufferAttachmentDescriptor) {
+        self.desc = desc
+    }
+    
+}
+
+@objc protocol ComputePassDescriptorProtocol : JSExport {
+    var dispatch_type: Int { get set }
+    func get_sample_buffer_attachment_at(_ index: Int) -> ComputePassSampleBufferAttachmentDescriptor
+}
+
+@objc class ComputePassDescriptor : NSObject, ComputePassDescriptorProtocol {
+    public var dispatch_type: Int {
+        get { return Int(desc.dispatchType.rawValue) }
+        set { desc.dispatchType = MTLDispatchType(rawValue: UInt(newValue))! }
+    }
+    
+    public func get_sample_buffer_attachment_at(_ index: Int) -> ComputePassSampleBufferAttachmentDescriptor {
+        return ComputePassSampleBufferAttachmentDescriptor(desc.sampleBufferAttachments[index])
+    }
+    
+    var desc: MTLComputePassDescriptor
+    public init(_ desc: MTLComputePassDescriptor?) {
+        self.desc = desc ?? MTLComputePassDescriptor()
+    }
+}
+
+@objc class ComputePipelineDescriptor : NSObject {
+    
+    var desc: MTLComputePipelineDescriptor
+    public init(_ desc: MTLComputePipelineDescriptor) {
+        self.desc = desc
     }
 }
 
@@ -403,4 +485,8 @@ public func register_render(_ context: JSContext) {
 
     context.setObject(RenderPassDepthAttachmentDescriptor.self, forKeyedSubscript: "RenderPassDepthAttachmentDescriptor" as NSString)
     context.setObject(RenderPassStencilAttachmentDescriptor.self, forKeyedSubscript: "RenderPassStencilAttachmentDescriptor" as NSString)
+    
+    context.setObject(CounterSampleBuffer.self, forKeyedSubscript: "CounterSampleBuffer" as NSString)
+    context.setObject(ComputePassSampleBufferAttachmentDescriptor.self, forKeyedSubscript: "ComputePassSampleBufferAttachmentDescriptor" as NSString)
+    context.setObject(ComputePassDescriptor.self, forKeyedSubscript: "ComputePassDescriptor" as NSString)
 }
