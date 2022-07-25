@@ -148,6 +148,7 @@ import MetalKit
     func create_render_pipeline_state(_ desc: RenderPipelineDescriptor) -> RenderPipelineState?
     func create_depth_stencil_state(_ desc: DepthStencilDescriptor) -> DepthStencilState?
     
+    func create_texture_descriptor() -> TextureDescriptor
     func create_render_pipeline_descriptor() -> RenderPipelineDescriptor
     func create_depth_stencil_descriptor() -> DepthStencilDescriptor
 }
@@ -207,6 +208,10 @@ import MetalKit
     
     public func create_depth_stencil_descriptor() -> DepthStencilDescriptor {
         return DepthStencilDescriptor(nil)
+    }
+    
+    public func create_texture_descriptor() -> TextureDescriptor {
+        return TextureDescriptor(nil)
     }
     
     let device: MTLDevice!

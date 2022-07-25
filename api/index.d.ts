@@ -368,6 +368,7 @@ declare interface Device {
     create_depth_stencil_state(descriptor: DepthStencilDescriptor): DepthStencilState | null;
     // create_compute_pipeline_state(descriptor: ComputePipelineDescriptor): ComputePipelineState | null;
 
+    create_texture_descriptor(): TextureDescriptor;
     create_render_pipeline_descriptor(): RenderPipelineDescriptor;
     create_depth_stencil_descriptor(): DepthStencilDescriptor;
     // create_compute_pipeline_descriptor(): RenderPipelineDescriptor;
