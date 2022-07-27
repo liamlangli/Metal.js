@@ -1,5 +1,5 @@
 import { Float3 } from "../math/simd";
-import { CIE_2_DEG_COLOR_MATCHING_FUNCTIONS, IRRADIANCE_TEXTURE_HEIGHT, IRRADIANCE_TEXTURE_WIDTH, MAX_LUMINOUS_EFFICACY, SCATTERING_TEXTURE_MU_SIZE, SCATTERING_TEXTURE_MU_S_SIZE, SCATTERING_TEXTURE_NU_SIZE, SCATTERING_TEXTURE_R_SIZE, TRANSMITTANCE_TEXTURE_HEIGHT, TRANSMITTANCE_TEXTURE_WIDTH, XYZ_TO_SRGB } from "./constants";
+import { CIE_2_DEG_COLOR_MATCHING_FUNCTIONS, IRRADIANCE_TEXTURE_HEIGHT, IRRADIANCE_TEXTURE_WIDTH, MAX_LUMINOUS_EFFICACY, SCATTERING_TEXTURE_DEPTH, SCATTERING_TEXTURE_HEIGHT, SCATTERING_TEXTURE_MU_SIZE, SCATTERING_TEXTURE_MU_S_SIZE, SCATTERING_TEXTURE_NU_SIZE, SCATTERING_TEXTURE_R_SIZE, SCATTERING_TEXTURE_WIDTH, TRANSMITTANCE_TEXTURE_HEIGHT, TRANSMITTANCE_TEXTURE_WIDTH, XYZ_TO_SRGB } from "./constants";
 import { definitions_shader } from "./definitions";
 import { functions_shader } from "./functions";
 
@@ -40,10 +40,11 @@ export class Model {
 
     transmittance_texture_: GPUTexture
     scattering_texture_: GPUTexture;
-    optional_single_mie_scattering_texture_: GPUTexture;
+    optional_single_mie_scattering_texture_: GPUTexture | null;
     irradiance_texture_: GPUTexture;
 
     constructor(
+        device: Device,
         wavelengths: number [],
         solar_irradiance: number [],
     
@@ -166,6 +167,33 @@ export class Model {
                         `${sun_k.z}` + ");\n" +
                     functions_shader;
         }
+
+        let desc = device.create_texture_descriptor();
+        desc.type = Texture2D;
+        desc.width = TRANSMITTANCE_TEXTURE_WIDTH;
+        desc.height = TRANSMITTANCE_TEXTURE_HEIGHT;
+        desc.pixel_format = RGBA32Float;
+        this.transmittance_texture_ = device.create_texture(desc);
+
+        desc = device.create_texture_descriptor();
+        desc.type = Texture3D;
+        desc.width = SCATTERING_TEXTURE_WIDTH;
+        desc.height = SCATTERING_TEXTURE_HEIGHT;
+        desc.depth = SCATTERING_TEXTURE_DEPTH;
+        desc.pixel_format = RGBA32Float;
+        this.scattering_texture_ = device.create_texture(desc);
+        if (combine_scattering_textures) {
+            this.optional_single_mie_scattering_texture_ = null;
+        } else {
+            this.optional_single_mie_scattering_texture_ = device.create_texture(desc);
+        }
+
+        desc = device.create_texture_descriptor();
+        desc.type = Texture2D;
+        desc.width = IRRADIANCE_TEXTURE_WIDTH;
+        desc.height = IRRADIANCE_TEXTURE_HEIGHT;
+        desc.pixel_format = RGBA32Float;
+        this.irradiance_texture_ = device.create_texture(desc);
     }
 }
 
