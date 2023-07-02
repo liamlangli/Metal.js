@@ -1,15 +1,15 @@
 //
 //  GameViewController.swift
-//  Metal.js
+//  Metal.js.ios
 //
-//  Created by Lang on 2022/7/19.
+//  Created by Lang on 2023/7/2.
 //
 
-import Cocoa
+import UIKit
 import MetalKit
 
-// Our macOS specific view controller
-class GameViewController: NSViewController {
+// Our iOS specific view controller
+class GameViewController: UIViewController {
 
     var renderer: Renderer!
     var mtkView: MTKView!
@@ -17,30 +17,30 @@ class GameViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let mtkView = self.view as? MTKView else {
-            print("View attached to GameViewController is not an MTKView")
+        guard let mtkView = view as? MTKView else {
+            print("View of Gameview controller is not an MTKView")
             return
         }
 
         // Select the device to render with.  We choose the default device
         guard let defaultDevice = MTLCreateSystemDefaultDevice() else {
-            print("Metal is not supported on this device")
+            print("Metal is not supported")
             return
         }
-
+        
         mtkView.device = defaultDevice
+        mtkView.backgroundColor = UIColor.black
 
         guard let newRenderer = Renderer(mtkView) else {
             print("Renderer cannot be initialized")
             return
         }
 
-        mtkView.drawableSize = CGSize(width: 1080, height: 720)
         renderer = newRenderer
         renderer.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
 
         mtkView.delegate = renderer
-
+        
         runtime_initialize()
         runtime_evaluate("asset/api/index.js")
         runtime_evaluate("asset/example/index.js")

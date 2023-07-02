@@ -12,6 +12,7 @@
         "ESNext",
         "webworker"
       ],
-      "types": ["@union_native/metal.js"]
-    }
+      "types": ["../Metal.js/js/api/index.d.ts"]
+    },
+    
   }

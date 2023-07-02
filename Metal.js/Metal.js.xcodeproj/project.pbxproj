@@ -7,15 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C3A578E2888197D007C5AD4 /* api in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3C3A578D2888197D007C5AD4 /* api */; };
 		3C3A57902889A9DE007C5AD4 /* Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A578F2889A9DE007C5AD4 /* Render.swift */; };
-		3C5E30FC2886F5D200C9CD9B /* example in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3CE6C11C2886F4AE00C893F4 /* example */; };
 		3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FD2887018B00C9CD9B /* Console.swift */; };
+		3C7AF8C52A51B922005A516B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8C42A51B922005A516B /* AppDelegate.swift */; };
+		3C7AF8CA2A51B922005A516B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8C92A51B922005A516B /* GameViewController.swift */; };
+		3C7AF8CC2A51B922005A516B /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8CB2A51B922005A516B /* Shaders.metal */; };
+		3C7AF8CF2A51B922005A516B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7AF8CD2A51B922005A516B /* Main.storyboard */; };
+		3C7AF8D42A51B924005A516B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C7AF8D22A51B924005A516B /* LaunchScreen.storyboard */; };
+		3C7AF8DA2A51BC1E005A516B /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0FA2886DE5F00C893F4 /* Renderer.swift */; };
+		3C7AF8DB2A51BC1E005A516B /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C1122886E53E00C893F4 /* Device.swift */; };
+		3C7AF8DC2A51BC1E005A516B /* Runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C1142886E5F100C893F4 /* Runtime.swift */; };
+		3C7AF8DD2A51BC1E005A516B /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FD2887018B00C9CD9B /* Console.swift */; };
+		3C7AF8DE2A51BC1E005A516B /* Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A578F2889A9DE007C5AD4 /* Render.swift */; };
+		3C7AF8FF2A51C2A7005A516B /* ui.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8EB2A51C2A7005A516B /* ui.metal */; };
+		3C7AF9002A51C2A7005A516B /* ui.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8EB2A51C2A7005A516B /* ui.metal */; };
+		3C7AF90F2A51C85B005A516B /* ui_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF90D2A51C85B005A516B /* ui_draw.c */; };
+		3C7AF9102A51C85B005A516B /* ui_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF90D2A51C85B005A516B /* ui_draw.c */; };
+		3CC4CAE02A51C93900F2BEE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4CADF2A51C93900F2BEE4 /* Assets.xcassets */; };
+		3CC4CAE22A51C94D00F2BEE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE12A51C94D00F2BEE4 /* Assets.xcassets */; };
+		3CC4CAE62A51CC5900F2BEE4 /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE52A51CC5900F2BEE4 /* ui.c */; };
+		3CC4CAE72A51CEE700F2BEE4 /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE52A51CC5900F2BEE4 /* ui.c */; };
+		3CC4CAEA2A51D16700F2BEE4 /* asset in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE92A51D16700F2BEE4 /* asset */; };
+		3CC4CAEB2A51D16700F2BEE4 /* asset in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE92A51D16700F2BEE4 /* asset */; };
 		3CE6C0F72886DE5F00C893F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0F62886DE5F00C893F4 /* AppDelegate.swift */; };
 		3CE6C0F92886DE5F00C893F4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0F82886DE5F00C893F4 /* GameViewController.swift */; };
 		3CE6C0FB2886DE5F00C893F4 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0FA2886DE5F00C893F4 /* Renderer.swift */; };
 		3CE6C0FD2886DE5F00C893F4 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0FC2886DE5F00C893F4 /* Shaders.metal */; };
-		3CE6C1002886DE6200C893F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CE6C0FF2886DE6200C893F4 /* Assets.xcassets */; };
 		3CE6C1032886DE6200C893F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CE6C1012886DE6200C893F4 /* Main.storyboard */; };
 		3CE6C10D2886DE7C00C893F4 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE6C10B2886DE7C00C893F4 /* Metal.framework */; };
 		3CE6C10E2886DE7C00C893F4 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE6C10C2886DE7C00C893F4 /* MetalKit.framework */; };
@@ -31,24 +48,37 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3C3A578E2888197D007C5AD4 /* api in CopyFiles */,
-				3C5E30FC2886F5D200C9CD9B /* example in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3C3A578D2888197D007C5AD4 /* api */ = {isa = PBXFileReference; lastKnownFileType = folder; name = api; path = ../api; sourceTree = "<group>"; };
 		3C3A578F2889A9DE007C5AD4 /* Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Render.swift; sourceTree = "<group>"; };
 		3C5E30FD2887018B00C9CD9B /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
+		3C7AF8C22A51B922005A516B /* Metal.js.ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal.js.ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C7AF8C42A51B922005A516B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3C7AF8C62A51B922005A516B /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bridge.h; sourceTree = "<group>"; };
+		3C7AF8C92A51B922005A516B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		3C7AF8CB2A51B922005A516B /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		3C7AF8CE2A51B922005A516B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3C7AF8D32A51B924005A516B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3C7AF8EB2A51C2A7005A516B /* ui.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ui.metal; sourceTree = "<group>"; };
+		3C7AF9082A51C504005A516B /* ui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
+		3C7AF90C2A51C7AD005A516B /* ui_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui_types.h; sourceTree = "<group>"; };
+		3C7AF90D2A51C85B005A516B /* ui_draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_draw.c; sourceTree = "<group>"; };
+		3C7AF90E2A51C85B005A516B /* ui_draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui_draw.h; sourceTree = "<group>"; };
+		3CC4CADF2A51C93900F2BEE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3CC4CAE12A51C94D00F2BEE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3CC4CAE32A51CB0C00F2BEE4 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		3CC4CAE42A51CB2A00F2BEE4 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		3CC4CAE52A51CC5900F2BEE4 /* ui.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
+		3CC4CAE92A51D16700F2BEE4 /* asset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = asset; sourceTree = "<group>"; };
 		3CE6C0F32886DE5F00C893F4 /* Metal.js.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal.js.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE6C0F62886DE5F00C893F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CE6C0F82886DE5F00C893F4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		3CE6C0FA2886DE5F00C893F4 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		3CE6C0FC2886DE5F00C893F4 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		3CE6C0FE2886DE5F00C893F4 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
-		3CE6C0FF2886DE6200C893F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CE6C1022886DE6200C893F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3CE6C1042886DE6200C893F4 /* Metal_js.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Metal_js.entitlements; sourceTree = "<group>"; };
 		3CE6C10B2886DE7C00C893F4 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
@@ -56,10 +86,16 @@
 		3CE6C10F2886DE8200C893F4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		3CE6C1122886E53E00C893F4 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		3CE6C1142886E5F100C893F4 /* Runtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runtime.swift; sourceTree = "<group>"; };
-		3CE6C11C2886F4AE00C893F4 /* example */ = {isa = PBXFileReference; lastKnownFileType = folder; name = example; path = ../example; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3C7AF8BF2A51B922005A516B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3CE6C0F02886DE5F00C893F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -73,13 +109,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C7AF8BD2A51B736005A516B /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				3C7AF8EB2A51C2A7005A516B /* ui.metal */,
+				3C7AF9082A51C504005A516B /* ui.h */,
+				3C7AF90E2A51C85B005A516B /* ui_draw.h */,
+				3C7AF90D2A51C85B005A516B /* ui_draw.c */,
+				3C7AF90C2A51C7AD005A516B /* ui_types.h */,
+				3CC4CAE52A51CC5900F2BEE4 /* ui.c */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		3C7AF8C32A51B922005A516B /* Metal.js.ios */ = {
+			isa = PBXGroup;
+			children = (
+				3C7AF8C42A51B922005A516B /* AppDelegate.swift */,
+				3C7AF8C92A51B922005A516B /* GameViewController.swift */,
+				3C7AF8CB2A51B922005A516B /* Shaders.metal */,
+				3CC4CADF2A51C93900F2BEE4 /* Assets.xcassets */,
+				3C7AF8CD2A51B922005A516B /* Main.storyboard */,
+				3C7AF8D22A51B924005A516B /* LaunchScreen.storyboard */,
+				3CC4CAE32A51CB0C00F2BEE4 /* ShaderTypes.h */,
+			);
+			path = Metal.js.ios;
+			sourceTree = "<group>";
+		};
+		3C7AF8D82A51B9D5005A516B /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				3CE6C0FA2886DE5F00C893F4 /* Renderer.swift */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
 		3CE6C0EA2886DE5F00C893F4 = {
 			isa = PBXGroup;
 			children = (
-				3C3A578D2888197D007C5AD4 /* api */,
-				3CE6C11C2886F4AE00C893F4 /* example */,
+				3C7AF8D82A51B9D5005A516B /* platform */,
+				3C7AF8BD2A51B736005A516B /* ui */,
+				3CE6C1112886E52E00C893F4 /* script */,
 				3CE6C0F52886DE5F00C893F4 /* Metal.js */,
+				3C7AF8C32A51B922005A516B /* Metal.js.ios */,
+				3C7AF8C62A51B922005A516B /* bridge.h */,
 				3CE6C0F42886DE5F00C893F4 /* Products */,
+				3CC4CAE92A51D16700F2BEE4 /* asset */,
 				3CE6C10A2886DE7C00C893F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				3CE6C0F32886DE5F00C893F4 /* Metal.js.app */,
+				3C7AF8C22A51B922005A516B /* Metal.js.ios.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,15 +171,13 @@
 		3CE6C0F52886DE5F00C893F4 /* Metal.js */ = {
 			isa = PBXGroup;
 			children = (
-				3CE6C1112886E52E00C893F4 /* script */,
 				3CE6C0F62886DE5F00C893F4 /* AppDelegate.swift */,
 				3CE6C0F82886DE5F00C893F4 /* GameViewController.swift */,
-				3CE6C0FA2886DE5F00C893F4 /* Renderer.swift */,
 				3CE6C0FC2886DE5F00C893F4 /* Shaders.metal */,
-				3CE6C0FE2886DE5F00C893F4 /* ShaderTypes.h */,
-				3CE6C0FF2886DE6200C893F4 /* Assets.xcassets */,
+				3CC4CAE12A51C94D00F2BEE4 /* Assets.xcassets */,
 				3CE6C1012886DE6200C893F4 /* Main.storyboard */,
 				3CE6C1042886DE6200C893F4 /* Metal_js.entitlements */,
+				3CC4CAE42A51CB2A00F2BEE4 /* ShaderTypes.h */,
 			);
 			path = Metal.js;
 			sourceTree = "<group>";
@@ -132,6 +206,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3C7AF8C12A51B922005A516B /* Metal.js.ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C7AF8D52A51B924005A516B /* Build configuration list for PBXNativeTarget "Metal.js.ios" */;
+			buildPhases = (
+				3C7AF8BE2A51B922005A516B /* Sources */,
+				3C7AF8BF2A51B922005A516B /* Frameworks */,
+				3C7AF8C02A51B922005A516B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Metal.js.ios;
+			productName = Metal.js.ios;
+			productReference = 3C7AF8C22A51B922005A516B /* Metal.js.ios.app */;
+			productType = "com.apple.product-type.application";
+		};
 		3CE6C0F22886DE5F00C893F4 /* Metal.js */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CE6C1072886DE6200C893F4 /* Build configuration list for PBXNativeTarget "Metal.js" */;
@@ -157,9 +248,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					3C7AF8C12A51B922005A516B = {
+						CreatedOnToolsVersion = 15.0;
+					};
 					3CE6C0F22886DE5F00C893F4 = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -179,16 +273,29 @@
 			projectRoot = "";
 			targets = (
 				3CE6C0F22886DE5F00C893F4 /* Metal.js */,
+				3C7AF8C12A51B922005A516B /* Metal.js.ios */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3C7AF8C02A51B922005A516B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C7AF8D42A51B924005A516B /* LaunchScreen.storyboard in Resources */,
+				3CC4CAE02A51C93900F2BEE4 /* Assets.xcassets in Resources */,
+				3C7AF8CF2A51B922005A516B /* Main.storyboard in Resources */,
+				3CC4CAEB2A51D16700F2BEE4 /* asset in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3CE6C0F12886DE5F00C893F4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CE6C1002886DE6200C893F4 /* Assets.xcassets in Resources */,
+				3CC4CAE22A51C94D00F2BEE4 /* Assets.xcassets in Resources */,
+				3CC4CAEA2A51D16700F2BEE4 /* asset in Resources */,
 				3CE6C1032886DE6200C893F4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,10 +303,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3C7AF8BE2A51B922005A516B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CC4CAE72A51CEE700F2BEE4 /* ui.c in Sources */,
+				3C7AF9102A51C85B005A516B /* ui_draw.c in Sources */,
+				3C7AF8DA2A51BC1E005A516B /* Renderer.swift in Sources */,
+				3C7AF8DB2A51BC1E005A516B /* Device.swift in Sources */,
+				3C7AF8DC2A51BC1E005A516B /* Runtime.swift in Sources */,
+				3C7AF8DD2A51BC1E005A516B /* Console.swift in Sources */,
+				3C7AF9002A51C2A7005A516B /* ui.metal in Sources */,
+				3C7AF8DE2A51BC1E005A516B /* Render.swift in Sources */,
+				3C7AF8CC2A51B922005A516B /* Shaders.metal in Sources */,
+				3C7AF8CA2A51B922005A516B /* GameViewController.swift in Sources */,
+				3C7AF8C52A51B922005A516B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3CE6C0EF2886DE5F00C893F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C7AF90F2A51C85B005A516B /* ui_draw.c in Sources */,
 				3CE6C1132886E53E00C893F4 /* Device.swift in Sources */,
 				3CE6C0FD2886DE5F00C893F4 /* Shaders.metal in Sources */,
 				3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */,
@@ -208,12 +334,30 @@
 				3CE6C0FB2886DE5F00C893F4 /* Renderer.swift in Sources */,
 				3CE6C1152886E5F100C893F4 /* Runtime.swift in Sources */,
 				3CE6C0F72886DE5F00C893F4 /* AppDelegate.swift in Sources */,
+				3C7AF8FF2A51C2A7005A516B /* ui.metal in Sources */,
+				3CC4CAE62A51CC5900F2BEE4 /* ui.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		3C7AF8CD2A51B922005A516B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3C7AF8CE2A51B922005A516B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3C7AF8D22A51B924005A516B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3C7AF8D32A51B924005A516B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		3CE6C1012886DE6200C893F4 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -225,10 +369,95 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3C7AF8D62A51B924005A516B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 584W9873CW;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				INFOPLIST_KEY_CFBundleDisplayName = Metal.js;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = metal;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.liamlangli.Metal-js-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/bridge.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3C7AF8D72A51B924005A516B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 584W9873CW;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				INFOPLIST_KEY_CFBundleDisplayName = Metal.js;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = metal;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.liamlangli.Metal-js-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/bridge.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		3CE6C1052886DE6200C893F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -258,6 +487,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -289,6 +519,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -318,6 +549,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -347,10 +579,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 584W9873CW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -362,7 +596,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.liamlangli.Metal-js";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/ShaderTypes.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/bridge.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -376,10 +610,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 584W9873CW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -391,7 +627,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.liamlangli.Metal-js";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/ShaderTypes.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/bridge.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -399,6 +635,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3C7AF8D52A51B924005A516B /* Build configuration list for PBXNativeTarget "Metal.js.ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C7AF8D62A51B924005A516B /* Debug */,
+				3C7AF8D72A51B924005A516B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3CE6C0EE2886DE5F00C893F4 /* Build configuration list for PBXProject "Metal.js" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

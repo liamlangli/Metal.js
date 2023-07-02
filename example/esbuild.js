@@ -8,7 +8,7 @@ build({
     treeShaking: true,
     sourcemap: true,
     incremental: true,
-    outdir: "public",
+    outdir: "../Metal.js/js/example",
     external: [""],
     watch: {
         onRebuild(error, result) {
