@@ -14,5 +14,9 @@
         "struct",
         "swapchain",
         "Unorm"
-    ]
+    ],
+    "files.associations": {
+        "*.pbjson": "json",
+        "ui_buffer.h": "c"
+    }
 }

@@ -12,7 +12,7 @@
         "ESNext",
         "webworker"
       ],
-      "types": ["../Metal.js/js/api/index.d.ts"]
+      "types": ["../Metal.js/asset/api/index.d.ts"]
     },
     
   }

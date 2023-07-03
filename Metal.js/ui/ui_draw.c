@@ -1,26 +1,6 @@
 #include "ui.h"
 
-enum ui_corner {
-    TOP_LEFT = 0 << 24,
-    TOP_RIGHT = 1 << 24,
-    BOTTOM_LEFT = 2 << 24,
-    BOTTOM_RIGHT = 3 << 24,
-};
-
-enum ui_primitive_type {
-    UI_PRIMITIVE_TYPE_TRIANGLE = 1 << 26,
-    UI_PRIMITIVE_TYPE_TRIANGLE_TEXTURED = 2 << 26,
-    UI_PRIMITIVE_TYPE_RECTANGLE = 3 << 26,
-    UI_PRIMITIVE_TYPE_RECTANGLE_TEXTURED = 4 << 26,
-    UI_PRIMITIVE_TYPE_SCREEN = 7 << 26,
-    UI_PRIMITIVE_TYPE_ICON = 8 << 26,
-    UI_PRIMITIVE_TYPE_ATLAS = 9 << 26,
-    UI_PRIMITIVE_TYPE_DASH = 10 << 26,
-    UI_PRIMITIVE_TYPE_ENTITY = 11 << 26,
-    UI_PRIMITIVE_TYPE_DASH_ANIMATED = 12 << 26,
-    UI_PRIMITIVE_TYPE_GLYPH = 32 << 26,
-    UI_PRIMITIVE_TYPE_GLYPH_CODE = 33 << 26,
-};
+#include <stdint.h>
 
 enum ui_clip_result {
     CLIP_RESULT_DISCARD = 0,
@@ -36,38 +16,11 @@ static const f32 rr_cos[4] = {
     1.2566370614359172f
 };
 
-typedef struct ui_primitive_layer_t {
-    f32* vertices;
-    u32* indices;
-
-    u32 vertex_count;
-    u32 index_count;
-
-    u32 last_vertex_count;
-    u32 last_index_count;
-} ui_primitive_layer_t;
-
 const i32 MAX_UI_PRIMITIVE_LAYERS = 4;
 
 typedef struct ui_primitive_buffer_t {
     ui_primitive_layer_t layers[4];
 } ui_primitive_buffer_t;
-
-static inline u32 encode_vertex_id(enum ui_primitive_type type, enum ui_corner corner, u32 index) {
-    return type | corner | (index >> 2);
-}
-
-static inline u32 decode_vertex_type(u32 id) {
-    return (id >> 26) & 0x3f;
-}
-
-static inline u32 decode_vertex_corner(u32 id) {
-    return (id >> 24) & 0x3;
-}
-
-static inline u32 decode_vertex_index(u32 id) {
-    return (id & 0x3ffffff) << 2;
-}
 
 static inline enum ui_clip_result clip_rect(rect_t rect, rect_t clip) {
     if(rect.x + rect.w < clip.x || rect.x > clip.x + clip.w ||
@@ -127,19 +80,6 @@ typedef struct polyline_t {
 } polyline_t;
 
 static polyline_t __polyline;
-
-
-// struct 
-static u32 stroke_polyline(void) {
-    u32 prev_index = UINT32_MAX;
-    u32 next_index = UINT32_MAX;
-    u32 num_point = __polyline.num_point;
-    return 0;
-}
-
-static u32 fill_polyline(void) {
-    return 0;
-}
 
 static void round_rect_corner(float2_t *points, u32 offset, float2_t center, float2_t c, float2_t s) {
     points[offset + 0] = (float2_t){center.x + c.x * rr_cos[0] + s.x * rr_cos[3], center.y + c.y * rr_cos[0] + s.y * rr_cos[3]};
@@ -216,4 +156,16 @@ static void round_rect_path(rect_t rect, float4_t radiuses) {
         num_point += 6;
     }
     __polyline.num_point = num_point;
+}
+
+// struct
+static u32 stroke_polyline(void) {
+    u32 prev_index = UINT32_MAX;
+    u32 next_index = UINT32_MAX;
+    u32 num_point = __polyline.num_point;
+    return 0;
+}
+
+static u32 fill_polyline(void) {
+    return 0;
 }

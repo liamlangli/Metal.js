@@ -410,6 +410,8 @@ declare interface BackBuffer {
     render_pass_descriptor: RenderPassDescriptor;
     drawable: Drawable;
     command_buffer: CommandBuffer;
+    color_pixel_format: PixelFormat;
+    depth_stencil_pixel_format: DepthStencilFormat;
 }
 
 declare type TickFunc = (time: number, back_buffer: BackBuffer) => void;

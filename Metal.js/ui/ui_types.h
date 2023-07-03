@@ -55,3 +55,9 @@ typedef struct float3_t {
 typedef struct float4_t {
     f32 x, y, z, w;
 } float4_t;
+
+typedef struct ui_style_t {
+    f32 line_width;
+    f32 feather;
+    color_srgb_t color, hover, active, outline;
+} ui_style_t;

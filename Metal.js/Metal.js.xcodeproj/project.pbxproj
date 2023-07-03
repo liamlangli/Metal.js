@@ -56,6 +56,7 @@
 /* Begin PBXFileReference section */
 		3C3A578F2889A9DE007C5AD4 /* Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Render.swift; sourceTree = "<group>"; };
 		3C5E30FD2887018B00C9CD9B /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
+		3C62B3692A53341A0067594C /* ui_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui_buffer.h; sourceTree = "<group>"; };
 		3C7AF8C22A51B922005A516B /* Metal.js.ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal.js.ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C7AF8C42A51B922005A516B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C7AF8C62A51B922005A516B /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bridge.h; sourceTree = "<group>"; };
@@ -67,7 +68,6 @@
 		3C7AF9082A51C504005A516B /* ui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
 		3C7AF90C2A51C7AD005A516B /* ui_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui_types.h; sourceTree = "<group>"; };
 		3C7AF90D2A51C85B005A516B /* ui_draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_draw.c; sourceTree = "<group>"; };
-		3C7AF90E2A51C85B005A516B /* ui_draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui_draw.h; sourceTree = "<group>"; };
 		3CC4CADF2A51C93900F2BEE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CC4CAE12A51C94D00F2BEE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CC4CAE32A51CB0C00F2BEE4 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
@@ -112,9 +112,9 @@
 		3C7AF8BD2A51B736005A516B /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				3C62B3692A53341A0067594C /* ui_buffer.h */,
 				3C7AF8EB2A51C2A7005A516B /* ui.metal */,
 				3C7AF9082A51C504005A516B /* ui.h */,
-				3C7AF90E2A51C85B005A516B /* ui_draw.h */,
 				3C7AF90D2A51C85B005A516B /* ui_draw.c */,
 				3C7AF90C2A51C7AD005A516B /* ui_types.h */,
 				3CC4CAE52A51CC5900F2BEE4 /* ui.c */,

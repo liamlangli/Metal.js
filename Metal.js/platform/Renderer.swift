@@ -16,7 +16,10 @@ public class Renderer: NSObject, MTKViewDelegate {
     public let command_queue: MTLCommandQueue
     let in_flight_semaphore = DispatchSemaphore(value: 3)
     
-    public let ui_context: UnsafeMutablePointer<ui_api>;
+    public let ui_context: UnsafeMutablePointer<ui_context_o>
+    
+    public let ui_primitive_buffer: MTLBuffer!
+    public let ui_index_buffer: MTLBuffer!
     
     public let back_buffer: BackBuffer
     init?(_ view: MTKView) {
@@ -29,7 +32,10 @@ public class Renderer: NSObject, MTKViewDelegate {
         
         back_buffer = BackBuffer(view)
         
-        ui_context = create_ui_context()
+        ui_context = ui_api.pointee.create()!;
+        
+        ui_primitive_buffer = device.makeBuffer(bytesNoCopy: ui_context.pointee.primitive_data, length: Int(ui_context.pointee.primitive_data_size))!
+        ui_index_buffer = device.makeBuffer(bytesNoCopy: ui_context.pointee.index_data, length: Int(ui_context.pointee.index_data_size))!
         
         super.init()
     }
