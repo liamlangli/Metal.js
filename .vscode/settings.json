@@ -17,6 +17,7 @@
     ],
     "files.associations": {
         "*.pbjson": "json",
-        "ui_buffer.h": "c"
+        "ui_buffer.h": "c",
+        "string.h": "c"
     }
 }

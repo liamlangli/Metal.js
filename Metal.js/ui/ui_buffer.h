@@ -21,7 +21,8 @@ enum ui_primitive_type {
 };
 
 typedef struct ui_vertex_rect_t {
-    f32 x, y, w, h;
+    float2_t point;
+    f32 w, h;
     color_srgb_t color;
     u32 clip;
     u32 texture_id;
@@ -29,7 +30,7 @@ typedef struct ui_vertex_rect_t {
 } ui_vertex_rect_t;
 
 typedef struct ui_vertex_triangle_t {
-    f32 x, y;
+    float2_t point;
     f32 alpha;
     f32 dash_offset;
     color_srgb_t color;
@@ -50,6 +51,13 @@ typedef struct ui_vertex_tile_end_t {
     u32 _place_holder_[5];
 } ui_vertex_tile_end_t;
 
+typedef union {
+    ui_vertex_rect_t rect_vertex;
+    ui_vertex_triangle_t triangle_vertex;
+    ui_vertex_tile_begin_t tile_begin_vertex;
+    ui_vertex_tile_end_t tile_end;
+} ui_vertex_t;
+
 typedef struct ui_primitive_layer_t {
     f32 *primitive_data;
     u32 *index_data;
@@ -57,6 +65,10 @@ typedef struct ui_primitive_layer_t {
     u32 primitive_offset;
     u32 index_offset;
 } ui_primitive_layer_t;
+
+static u32 ui_primitive_layer_write_vertex(ui_primitive_layer_t *layer, ui_vertex_t *vertex);
+
+static u32 ui_primitive_layer_write_index(ui_primitive_layer_t *layer, u32 index);
 
 static inline u32 ui_encode_vertex_id(u32 primitive_type, u32 corner, u32 offset) {
     return (primitive_type | corner | (offset >> 2));

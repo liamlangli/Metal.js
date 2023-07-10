@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C3817612A5ADF4800ACAD50 /* ui_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C3817602A5ADF4800ACAD50 /* ui_buffer.c */; };
+		3C3817622A5ADF4800ACAD50 /* ui_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C3817602A5ADF4800ACAD50 /* ui_buffer.c */; };
 		3C3A57902889A9DE007C5AD4 /* Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A578F2889A9DE007C5AD4 /* Render.swift */; };
 		3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FD2887018B00C9CD9B /* Console.swift */; };
 		3C7AF8C52A51B922005A516B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8C42A51B922005A516B /* AppDelegate.swift */; };
@@ -54,6 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3C3817602A5ADF4800ACAD50 /* ui_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_buffer.c; sourceTree = "<group>"; };
 		3C3A578F2889A9DE007C5AD4 /* Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Render.swift; sourceTree = "<group>"; };
 		3C5E30FD2887018B00C9CD9B /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
 		3C62B3692A53341A0067594C /* ui_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui_buffer.h; sourceTree = "<group>"; };
@@ -113,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				3C62B3692A53341A0067594C /* ui_buffer.h */,
+				3C3817602A5ADF4800ACAD50 /* ui_buffer.c */,
 				3C7AF8EB2A51C2A7005A516B /* ui.metal */,
 				3C7AF9082A51C504005A516B /* ui.h */,
 				3C7AF90D2A51C85B005A516B /* ui_draw.c */,
@@ -310,6 +314,7 @@
 				3CC4CAE72A51CEE700F2BEE4 /* ui.c in Sources */,
 				3C7AF9102A51C85B005A516B /* ui_draw.c in Sources */,
 				3C7AF8DA2A51BC1E005A516B /* Renderer.swift in Sources */,
+				3C3817622A5ADF4800ACAD50 /* ui_buffer.c in Sources */,
 				3C7AF8DB2A51BC1E005A516B /* Device.swift in Sources */,
 				3C7AF8DC2A51BC1E005A516B /* Runtime.swift in Sources */,
 				3C7AF8DD2A51BC1E005A516B /* Console.swift in Sources */,
@@ -328,6 +333,7 @@
 				3C7AF90F2A51C85B005A516B /* ui_draw.c in Sources */,
 				3CE6C1132886E53E00C893F4 /* Device.swift in Sources */,
 				3CE6C0FD2886DE5F00C893F4 /* Shaders.metal in Sources */,
+				3C3817612A5ADF4800ACAD50 /* ui_buffer.c in Sources */,
 				3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */,
 				3CE6C0F92886DE5F00C893F4 /* GameViewController.swift in Sources */,
 				3C3A57902889A9DE007C5AD4 /* Render.swift in Sources */,

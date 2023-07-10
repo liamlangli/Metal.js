@@ -36,6 +36,9 @@ typedef double f64;
 #define MACRO_OFFSET_OF_MEMEBER(structure, member) (u32)((char *)&((structure *)0)->member - (char *)0)
 #define MACRO_SIZEOF_MEMBER(structure, member) ((u32)sizeof(((structure *)0)->member))
 
+#define MACRO_ARRAY_COUNT(a) (sizeof(a) / sizeof(a[0]))
+#define MACRO_ARRAY_END(a) ((a) + TM_ARRAY_COUNT(a))
+
 typedef struct rect_t {
     f32 x, y, w, h;
 } rect_t;

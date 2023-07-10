@@ -1,6 +1,8 @@
 #include "ui.h"
+#include "ui_simd.h"
 
 #include <stdint.h>
+#include <string.h>
 
 enum ui_clip_result {
     CLIP_RESULT_DISCARD = 0,
@@ -21,6 +23,10 @@ const i32 MAX_UI_PRIMITIVE_LAYERS = 4;
 typedef struct ui_primitive_buffer_t {
     ui_primitive_layer_t layers[4];
 } ui_primitive_buffer_t;
+
+static inline f32 u8_to_color_float(u8 c) {
+    return ((f32)c) / 255.f;
+}
 
 static inline enum ui_clip_result clip_rect(rect_t rect, rect_t clip) {
     if(rect.x + rect.w < clip.x || rect.x > clip.x + clip.w ||
@@ -70,16 +76,25 @@ static inline u32 next(u32 i, u32 n, bool closed) {
 }
 
 typedef struct polyline_t {
-    bool closed;
+    bool closed, dashed;
     u32 clip;
-    f32 width, feather;
+    f32 width, feather, dash_offset;
     color_srgb_t color;
 
-    u32 num_point;
+    u32 point_count;
     float2_t points[64];
 } polyline_t;
 
 static polyline_t __polyline;
+
+typedef struct round_rect_t {
+    bool dashed;
+    u32 clip;
+    f32 width, feather, dash_offset;
+    color_srgb_t color;
+    float4_t radiuses;
+    rect_t rect;
+} round_rect_t;
 
 static void round_rect_corner(float2_t *points, u32 offset, float2_t center, float2_t c, float2_t s) {
     points[offset + 0] = (float2_t){center.x + c.x * rr_cos[0] + s.x * rr_cos[3], center.y + c.y * rr_cos[0] + s.y * rr_cos[3]};
@@ -103,10 +118,11 @@ static void round_rect_path(rect_t rect, float4_t radiuses) {
     float2_t *data = __polyline.points;
     u32 offset = 0;
 
-    u32 num_point = 0;
+
+    u32 point_count = 0;
     if (radiuses.x <= EPSILON) {
         data[offset++] = p0;
-        num_point++;
+        point_count++;
     } else {
         data[offset++] = (float2_t){ rect.x, p0.y };
         float2_t c = (float2_t){ -radiuses.x, 0.f };
@@ -114,12 +130,12 @@ static void round_rect_path(rect_t rect, float4_t radiuses) {
         round_rect_corner(data, offset, p0, c, s);
         offset += 4;
         data[offset++] = (float2_t){ p0.x, rect.y };
-        num_point += 6;
+        point_count += 6;
     }
 
     if (radiuses.y <= EPSILON) {
         data[offset++] = p1;
-        num_point++;
+        point_count++;
     } else {
         data[offset++] = (float2_t){ rect.x + rect.w, p1.y };
         float2_t c = (float2_t){ 0.f, -radiuses.y };
@@ -127,12 +143,12 @@ static void round_rect_path(rect_t rect, float4_t radiuses) {
         round_rect_corner(data, offset, p1, c, s);
         offset += 4;
         data[offset++] = (float2_t){ p1.x, rect.y };
-        num_point += 6;
+        point_count += 6;
     }
 
     if (radiuses.w <= EPSILON) {
         data[offset++] = p3;
-        num_point++;
+        point_count++;
     } else {
         data[offset++] = (float2_t){ rect.x + rect.w, p3.y };
         float2_t c = (float2_t){ radiuses.w, 0.f };
@@ -140,12 +156,12 @@ static void round_rect_path(rect_t rect, float4_t radiuses) {
         round_rect_corner(data, offset, p3, c, s);
         offset += 4;
         data[offset++] = (float2_t){ p3.x, rect.y + rect.h };
-        num_point += 6;
+        point_count += 6;
     }
 
     if (radiuses.z <= EPSILON) {
         data[offset++] = p2;
-        num_point++;
+        point_count++;
     } else {
         data[offset++] = (float2_t){ rect.x, p2.y };
         float2_t c = (float2_t){ 0.f, radiuses.z };
@@ -153,16 +169,148 @@ static void round_rect_path(rect_t rect, float4_t radiuses) {
         round_rect_corner(data, offset, p2, c, s);
         offset += 4;
         data[offset++] = (float2_t){ p2.x, rect.y + rect.h };
-        num_point += 6;
+        point_count += 6;
     }
-    __polyline.num_point = num_point;
+    __polyline.point_count = point_count;
 }
 
 // struct
-static u32 stroke_polyline(void) {
+static u32 stroke_polyline(enum ui_primitive_type type, ui_primitive_layer_t *layer) {
     u32 prev_index = UINT32_MAX;
     u32 next_index = UINT32_MAX;
-    u32 num_point = __polyline.num_point;
+    float2_t prev_point, next_point, point;
+
+    const bool closed = __polyline.closed;
+    const u32 point_data_count = __polyline.point_count;
+    const u32 point_count = point_data_count + (closed ? 1 : 0);
+    const u32 stride = 2;
+    const float2_t *points = __polyline.points;
+    const f32 width = __polyline.width;
+    const f32 feather = __polyline.feather;
+    const f32 alpha =  u8_to_color_float(__polyline.color.a);
+
+    const f32 w = width > feather ? (width - feather) * 0.5f : 0.f;
+    const f32 a = width > feather ? feather : width;
+
+
+    ui_vertex_triangle_t vertex = { 0 };
+    vertex.color = __polyline.color;
+    vertex.clip = __polyline.clip;
+    vertex.dash_offset = __polyline.dash_offset;
+
+    struct edge_t
+    {
+        uint32_t e[4];
+    };
+    struct edge_t last_edge = { 0 };
+
+    for (u32 i = 0; i < point_count; ++i) {
+        const u32 point_index = i % point_data_count;
+        prev_index = prev(point_index, point_data_count, closed);
+        while (prev_index != UINT32_MAX &&
+               prev_index != point_index &&
+               memcmp(&points[prev_index], &points[point_index], sizeof(float2_t)) == 0)
+            prev_index = prev(prev_index, point_data_count, closed);
+        next_index = next(point_index, point_data_count, closed);
+        while (next_index != UINT32_MAX &&
+               next_index != point_index &&
+               memcmp(&points[next_index], &points[next_index], sizeof(float2_t)) == 0)
+            next_index = next(next_index, point_data_count, closed);
+
+        if (point_index == prev_index || point_index == next_index) continue;
+        if (prev_index == UINT32_MAX && next_index == UINT32_MAX) continue;
+
+        prev_point = prev_index == UINT32_MAX ? (float2_t){ .x = 0, .y = 0} : points[prev_index];
+        point = points[point_index];
+        next_point = next_index == UINT32_MAX ? (float2_t){ .x = 0, .y = 0} : points[next_index];
+
+        if (prev_index == UINT32_MAX) {
+            float2_t v = float2_normalize(float2_sub(next_point, point));
+            float2_t left = {.x = v.y, .y = -v.x};
+
+            vertex.point = float2_add(float2_mul(left, w + a), point);
+            vertex.alpha = 0.f;
+            u32 offset = ui_primitive_layer_write_vertex(layer, (ui_vertex_t*)&vertex);
+
+            vertex.point = float2_add(float2_mul(left, w), point);
+            vertex.alpha = alpha;
+            ui_primitive_layer_write_vertex(layer, (ui_vertex_t*)&vertex);
+
+            vertex.point = float2_add(float2_mul(left, -w), point);
+            vertex.alpha = alpha;
+            ui_primitive_layer_write_vertex(layer, (ui_vertex_t*)&vertex);
+
+            vertex.point = float2_add(float2_mul(left, -w - a), point);
+            vertex.alpha = 0.f;
+
+            last_edge = (struct edge_t){ offset, offset + stride, offset + stride * 2, offset + stride * 3 };
+
+            // u32 offset = buffer.
+        } else if (next_index == UINT32_MAX) {
+            float2_t v = float2_normalize(float2_sub(point, prev_point));
+            float2_t left = {.x = v.y, .y = -v.x};
+
+            vertex.point = float2_add(float2_mul(left, w + a), point);
+            vertex.alpha = 0.f;
+            u32 offset = ui_primitive_layer_write_vertex(layer, (ui_vertex_t*)&vertex);
+
+            vertex.point = float2_add(float2_mul(left, w), point);
+            vertex.alpha = alpha;
+            ui_primitive_layer_write_vertex(layer, (ui_vertex_t*)&vertex);
+
+            vertex.point = float2_add(float2_mul(left, -w), point);
+            vertex.alpha = alpha;
+            ui_primitive_layer_write_vertex(layer, (ui_vertex_t*)&vertex);
+
+            vertex.point = float2_add(float2_mul(left, -w - a), point);
+            vertex.alpha = 0.f;
+
+            struct edge_t edge = (struct edge_t){ offset, offset + stride, offset + stride * 2, offset + stride * 3 };
+
+            if (point_index != UINT32_MAX) {
+                const u32 v[8] = { last_edge.e[0], last_edge.e[1], last_edge.e[2], edge.e[0], edge.e[1], edge.e[2], edge.e[3], last_edge.e[3] };
+                const u32 tri[18] = { 0U, 4, 5, 0U, 5, 1, 1U, 5, 6, 1U, 6, 2, 2U, 6, 7, 2U, 7, 3 };
+                for (u32 j = 0; j < MACRO_ARRAY_COUNT(tri); ++j) {
+                    ui_primitive_layer_write_index(layer, ui_encode_vertex_id(type, 0, v[tri[j]]));
+                }
+            }
+
+            memcpy(&last_edge, &edge, sizeof(struct edge_t));
+        } else {
+            float2_t v0 = float2_normalize(float2_sub(point, prev_point));
+            float2_t v1 = float2_normalize(float2_sub(next_point, point));
+            float2_t left0 = {.x = v0.y, .y = -v0.x};
+            float2_t left1 = {.x = v1.y, .y = -v1.x};
+
+            float2_t left = float2_normalize(float2_add(left0, left1));
+            float2_t right = float2_normalize(float2_sub(left0, left1));
+
+            float2_t p0 = float2_add(float2_mul(left, w + a), point);
+            float2_t p1 = float2_add(float2_mul(left, w), point);
+            float2_t p2 = float2_add(float2_mul(right, w), point);
+            float2_t p3 = float2_add(float2_mul(right, w + a), point);
+
+            vertex.point = p0;
+            vertex.alpha = 0.f;
+            u32 offset = ui_primitive_layer_write_vertex(layer, (ui_vertex_t*)&vertex);
+
+            vertex.point = p1;
+            vertex.alpha = alpha;
+            ui_primitive_layer_write_vertex(layer, (ui_vertex_t*)&vertex);
+
+            vertex.point = p2;
+            vertex.alpha = alpha;
+            ui_primitive_layer_write_vertex(layer, (ui_vertex_t*)&vertex);
+
+            vertex.point = p3;
+            vertex.alpha = 0.f;
+
+            last_edge = (struct edge_t){ offset, offset + stride, offset + stride * 2, offset + stride * 3 };
+
+            // todo curve direction
+        }
+    }
+
     return 0;
 }
 
