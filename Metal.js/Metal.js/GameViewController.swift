@@ -13,6 +13,7 @@ class GameViewController: NSViewController {
 
     var renderer: Renderer!
     var mtkView: MTKView!
+//    var input: NSIn
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,5 @@ class GameViewController: NSViewController {
         mtkView.delegate = renderer
 
         runtime_initialize()
-        runtime_evaluate("asset/api/index.js")
-        runtime_evaluate("asset/example/index.js")
     }
 }

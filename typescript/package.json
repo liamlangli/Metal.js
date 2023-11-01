@@ -1,7 +1,8 @@
 {
-  "name": "@union_native/example",
-  "version": "0.0.1",
+  "name": "@union_native/metal.js",
+  "version": "0.1.5",
   "main": "src/index.ts",
+  "types": "types/index.d.ts",
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -10,7 +11,7 @@
   },
   "devDependencies": {
     "esbuild": "^0.14.49",
-    "typescript": "^4.7.4"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@union_native/metal.js": "^0.1.4"

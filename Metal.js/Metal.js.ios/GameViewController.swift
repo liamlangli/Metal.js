@@ -42,7 +42,5 @@ class GameViewController: UIViewController {
         mtkView.delegate = renderer
         
         runtime_initialize()
-        runtime_evaluate("asset/api/index.js")
-        runtime_evaluate("asset/example/index.js")
     }
 }

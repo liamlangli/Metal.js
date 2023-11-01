@@ -1,3 +1,6 @@
+
+import { Back, BackBuffer, CounterClockwise, DepthStencilState, Device, LessEqual, RenderPipelineState, ResourceStorageModeShared, Triangle } from "../src";
+
 const shader_source: string = `
 #include <metal_stdlib>
 #include <simd/simd.h>
@@ -21,10 +24,8 @@ fragment float4 base_frag(VertexOut in [[stage_in]])
     return float4(0.3, 0.4, 0.5, 1.0);
 }
 `
-
 function main() {
-    // create device & 
-    const device = create_device();
+    const device = create_device() as Device;
     const library = device.create_library_from_source(shader_source)!;
     const buffer = device.create_buffer(48, ResourceStorageModeShared)
     const data = new Float32Array([

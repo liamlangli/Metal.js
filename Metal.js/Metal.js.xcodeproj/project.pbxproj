@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C3817612A5ADF4800ACAD50 /* ui_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C3817602A5ADF4800ACAD50 /* ui_buffer.c */; };
-		3C3817622A5ADF4800ACAD50 /* ui_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C3817602A5ADF4800ACAD50 /* ui_buffer.c */; };
 		3C3A57902889A9DE007C5AD4 /* Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A578F2889A9DE007C5AD4 /* Render.swift */; };
 		3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FD2887018B00C9CD9B /* Console.swift */; };
 		3C7AF8C52A51B922005A516B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8C42A51B922005A516B /* AppDelegate.swift */; };
@@ -21,16 +19,8 @@
 		3C7AF8DC2A51BC1E005A516B /* Runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C1142886E5F100C893F4 /* Runtime.swift */; };
 		3C7AF8DD2A51BC1E005A516B /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FD2887018B00C9CD9B /* Console.swift */; };
 		3C7AF8DE2A51BC1E005A516B /* Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A578F2889A9DE007C5AD4 /* Render.swift */; };
-		3C7AF8FF2A51C2A7005A516B /* ui.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8EB2A51C2A7005A516B /* ui.metal */; };
-		3C7AF9002A51C2A7005A516B /* ui.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8EB2A51C2A7005A516B /* ui.metal */; };
-		3C7AF90F2A51C85B005A516B /* ui_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF90D2A51C85B005A516B /* ui_draw.c */; };
-		3C7AF9102A51C85B005A516B /* ui_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF90D2A51C85B005A516B /* ui_draw.c */; };
 		3CC4CAE02A51C93900F2BEE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4CADF2A51C93900F2BEE4 /* Assets.xcassets */; };
 		3CC4CAE22A51C94D00F2BEE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE12A51C94D00F2BEE4 /* Assets.xcassets */; };
-		3CC4CAE62A51CC5900F2BEE4 /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE52A51CC5900F2BEE4 /* ui.c */; };
-		3CC4CAE72A51CEE700F2BEE4 /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE52A51CC5900F2BEE4 /* ui.c */; };
-		3CC4CAEA2A51D16700F2BEE4 /* asset in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE92A51D16700F2BEE4 /* asset */; };
-		3CC4CAEB2A51D16700F2BEE4 /* asset in Resources */ = {isa = PBXBuildFile; fileRef = 3CC4CAE92A51D16700F2BEE4 /* asset */; };
 		3CE6C0F72886DE5F00C893F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0F62886DE5F00C893F4 /* AppDelegate.swift */; };
 		3CE6C0F92886DE5F00C893F4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0F82886DE5F00C893F4 /* GameViewController.swift */; };
 		3CE6C0FB2886DE5F00C893F4 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE6C0FA2886DE5F00C893F4 /* Renderer.swift */; };
@@ -56,10 +46,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3C3817602A5ADF4800ACAD50 /* ui_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_buffer.c; sourceTree = "<group>"; };
+		13EE61402AF2DD8F0046F566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		3C3A578F2889A9DE007C5AD4 /* Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Render.swift; sourceTree = "<group>"; };
 		3C5E30FD2887018B00C9CD9B /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
-		3C62B3692A53341A0067594C /* ui_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui_buffer.h; sourceTree = "<group>"; };
 		3C7AF8C22A51B922005A516B /* Metal.js.ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal.js.ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C7AF8C42A51B922005A516B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C7AF8C62A51B922005A516B /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bridge.h; sourceTree = "<group>"; };
@@ -67,16 +56,10 @@
 		3C7AF8CB2A51B922005A516B /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		3C7AF8CE2A51B922005A516B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3C7AF8D32A51B924005A516B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3C7AF8EB2A51C2A7005A516B /* ui.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ui.metal; sourceTree = "<group>"; };
-		3C7AF9082A51C504005A516B /* ui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
-		3C7AF90C2A51C7AD005A516B /* ui_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui_types.h; sourceTree = "<group>"; };
-		3C7AF90D2A51C85B005A516B /* ui_draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_draw.c; sourceTree = "<group>"; };
 		3CC4CADF2A51C93900F2BEE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CC4CAE12A51C94D00F2BEE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CC4CAE32A51CB0C00F2BEE4 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 		3CC4CAE42A51CB2A00F2BEE4 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
-		3CC4CAE52A51CC5900F2BEE4 /* ui.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
-		3CC4CAE92A51D16700F2BEE4 /* asset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = asset; sourceTree = "<group>"; };
 		3CE6C0F32886DE5F00C893F4 /* Metal.js.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal.js.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE6C0F62886DE5F00C893F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CE6C0F82886DE5F00C893F4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -112,23 +95,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3C7AF8BD2A51B736005A516B /* ui */ = {
-			isa = PBXGroup;
-			children = (
-				3C62B3692A53341A0067594C /* ui_buffer.h */,
-				3C3817602A5ADF4800ACAD50 /* ui_buffer.c */,
-				3C7AF8EB2A51C2A7005A516B /* ui.metal */,
-				3C7AF9082A51C504005A516B /* ui.h */,
-				3C7AF90D2A51C85B005A516B /* ui_draw.c */,
-				3C7AF90C2A51C7AD005A516B /* ui_types.h */,
-				3CC4CAE52A51CC5900F2BEE4 /* ui.c */,
-			);
-			path = ui;
-			sourceTree = "<group>";
-		};
 		3C7AF8C32A51B922005A516B /* Metal.js.ios */ = {
 			isa = PBXGroup;
 			children = (
+				13EE61402AF2DD8F0046F566 /* Info.plist */,
 				3C7AF8C42A51B922005A516B /* AppDelegate.swift */,
 				3C7AF8C92A51B922005A516B /* GameViewController.swift */,
 				3C7AF8CB2A51B922005A516B /* Shaders.metal */,
@@ -152,13 +122,11 @@
 			isa = PBXGroup;
 			children = (
 				3C7AF8D82A51B9D5005A516B /* platform */,
-				3C7AF8BD2A51B736005A516B /* ui */,
 				3CE6C1112886E52E00C893F4 /* script */,
 				3CE6C0F52886DE5F00C893F4 /* Metal.js */,
 				3C7AF8C32A51B922005A516B /* Metal.js.ios */,
 				3C7AF8C62A51B922005A516B /* bridge.h */,
 				3CE6C0F42886DE5F00C893F4 /* Products */,
-				3CC4CAE92A51D16700F2BEE4 /* asset */,
 				3CE6C10A2886DE7C00C893F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -290,7 +258,6 @@
 				3C7AF8D42A51B924005A516B /* LaunchScreen.storyboard in Resources */,
 				3CC4CAE02A51C93900F2BEE4 /* Assets.xcassets in Resources */,
 				3C7AF8CF2A51B922005A516B /* Main.storyboard in Resources */,
-				3CC4CAEB2A51D16700F2BEE4 /* asset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +266,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CC4CAE22A51C94D00F2BEE4 /* Assets.xcassets in Resources */,
-				3CC4CAEA2A51D16700F2BEE4 /* asset in Resources */,
 				3CE6C1032886DE6200C893F4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,14 +277,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CC4CAE72A51CEE700F2BEE4 /* ui.c in Sources */,
-				3C7AF9102A51C85B005A516B /* ui_draw.c in Sources */,
 				3C7AF8DA2A51BC1E005A516B /* Renderer.swift in Sources */,
-				3C3817622A5ADF4800ACAD50 /* ui_buffer.c in Sources */,
 				3C7AF8DB2A51BC1E005A516B /* Device.swift in Sources */,
 				3C7AF8DC2A51BC1E005A516B /* Runtime.swift in Sources */,
 				3C7AF8DD2A51BC1E005A516B /* Console.swift in Sources */,
-				3C7AF9002A51C2A7005A516B /* ui.metal in Sources */,
 				3C7AF8DE2A51BC1E005A516B /* Render.swift in Sources */,
 				3C7AF8CC2A51B922005A516B /* Shaders.metal in Sources */,
 				3C7AF8CA2A51B922005A516B /* GameViewController.swift in Sources */,
@@ -330,18 +292,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C7AF90F2A51C85B005A516B /* ui_draw.c in Sources */,
 				3CE6C1132886E53E00C893F4 /* Device.swift in Sources */,
 				3CE6C0FD2886DE5F00C893F4 /* Shaders.metal in Sources */,
-				3C3817612A5ADF4800ACAD50 /* ui_buffer.c in Sources */,
 				3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */,
 				3CE6C0F92886DE5F00C893F4 /* GameViewController.swift in Sources */,
 				3C3A57902889A9DE007C5AD4 /* Render.swift in Sources */,
 				3CE6C0FB2886DE5F00C893F4 /* Renderer.swift in Sources */,
 				3CE6C1152886E5F100C893F4 /* Runtime.swift in Sources */,
 				3CE6C0F72886DE5F00C893F4 /* AppDelegate.swift in Sources */,
-				3C7AF8FF2A51C2A7005A516B /* ui.metal in Sources */,
-				3CC4CAE62A51CC5900F2BEE4 /* ui.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,11 +342,12 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 584W9873CW;
+				DEVELOPMENT_TEAM = 6BTW5P2GK5;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Metal.js;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -396,8 +355,8 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = metal;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -426,11 +385,12 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 584W9873CW;
+				DEVELOPMENT_TEAM = 6BTW5P2GK5;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Metal.js;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -438,8 +398,8 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = metal;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -580,17 +540,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = Metal.js/Metal_js.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 584W9873CW;
+				DEVELOPMENT_TEAM = 6BTW5P2GK5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -611,17 +572,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = Metal.js/Metal_js.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 584W9873CW;
+				DEVELOPMENT_TEAM = 6BTW5P2GK5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

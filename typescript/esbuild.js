@@ -8,12 +8,12 @@ build({
     treeShaking: true,
     sourcemap: true,
     incremental: true,
-    outdir: "../Metal.js/js/example",
+    outdir: "./dist",
     external: [""],
     watch: {
         onRebuild(error, result) {
             if (error) console.error("watch build failed:", error)
-            else console.log("watch build succeeded:", result)      
+            else console.log("watch build succeeded:", result)
         }
     }
 }).catch(() => process.exit(1))
