@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13EE61442AF323D50046F566 /* metalscript in Frameworks */ = {isa = PBXBuildFile; productRef = 13EE61432AF323D50046F566 /* metalscript */; };
 		3C3A57902889A9DE007C5AD4 /* Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A578F2889A9DE007C5AD4 /* Render.swift */; };
 		3C5E30FE2887018B00C9CD9B /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E30FD2887018B00C9CD9B /* Console.swift */; };
 		3C7AF8C52A51B922005A516B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AF8C42A51B922005A516B /* AppDelegate.swift */; };
@@ -89,6 +90,7 @@
 				3CE6C1102886DE8200C893F4 /* JavaScriptCore.framework in Frameworks */,
 				3CE6C10D2886DE7C00C893F4 /* Metal.framework in Frameworks */,
 				3CE6C10E2886DE7C00C893F4 /* MetalKit.framework in Frameworks */,
+				13EE61442AF323D50046F566 /* metalscript in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +211,9 @@
 			dependencies = (
 			);
 			name = Metal.js;
+			packageProductDependencies = (
+				13EE61432AF323D50046F566 /* metalscript */,
+			);
 			productName = Metal.js;
 			productReference = 3CE6C0F32886DE5F00C893F4 /* Metal.js.app */;
 			productType = "com.apple.product-type.application";
@@ -240,6 +245,9 @@
 				Base,
 			);
 			mainGroup = 3CE6C0EA2886DE5F00C893F4;
+			packageReferences = (
+				13EE61422AF323D50046F566 /* XCRemoteSwiftPackageReference "Metal" */,
+			);
 			productRefGroup = 3CE6C0F42886DE5F00C893F4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -631,6 +639,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		13EE61422AF323D50046F566 /* XCRemoteSwiftPackageReference "Metal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/liamlangli/Metal.js";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		13EE61432AF323D50046F566 /* metalscript */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 13EE61422AF323D50046F566 /* XCRemoteSwiftPackageReference "Metal" */;
+			productName = metalscript;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3CE6C0EB2886DE5F00C893F4 /* Project object */;
 }
