@@ -11,3 +11,5 @@ project.xcworkspace/
 xcuserdata/
 *.xcscmblueprint
 *.xccheckout
+
+.build

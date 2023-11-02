@@ -1,0 +1,52 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:Metal.js}",
+            "name": "Debug Metal.js",
+            "program": "${workspaceFolder:Metal.js}/.build/debug/Metal.js",
+            "preLaunchTask": "swift: Build Debug Metal.js"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:Metal.js}",
+            "name": "Release Metal.js",
+            "program": "${workspaceFolder:Metal.js}/.build/release/Metal.js",
+            "preLaunchTask": "swift: Build Release Metal.js"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:Metal.js}",
+            "name": "Debug metalscriptclient",
+            "program": "${workspaceFolder:Metal.js}/.build/debug/metalscriptclient",
+            "preLaunchTask": "swift: Build Debug metalscriptclient"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:Metal.js}",
+            "name": "Release metalscriptclient",
+            "program": "${workspaceFolder:Metal.js}/.build/release/metalscriptclient",
+            "preLaunchTask": "swift: Build Release metalscriptclient"
+        }
+    ]
+}

@@ -388,7 +388,7 @@ export interface RenderPipelineState {}
 export interface ComputePipelineState {}
 export interface DepthStencilState {}
 
-export interface Device {
+export interface MetalScriptDevice {
     create_command_queue(): CommandQueue;
     create_buffer(size: number, options: ResourceOption): GPUBuffer;
     create_texture(descriptor: TextureDescriptor): GPUTexture;

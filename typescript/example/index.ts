@@ -1,5 +1,5 @@
 
-import { Back, BackBuffer, CounterClockwise, DepthStencilState, Device, LessEqual, RenderPipelineState, ResourceStorageModeShared, Triangle } from "../src";
+import { Back, BackBuffer, CounterClockwise, DepthStencilState, LessEqual, MetalScriptDevice, RenderPipelineState, ResourceStorageModeShared, Triangle } from "../src";
 
 const shader_source: string = `
 #include <metal_stdlib>
@@ -25,7 +25,7 @@ fragment float4 base_frag(VertexOut in [[stage_in]])
 }
 `
 function main() {
-    const device = create_device() as Device;
+    const device = metal_create_device() as MetalScriptDevice;
     const library = device.create_library_from_source(shader_source)!;
     const buffer = device.create_buffer(48, ResourceStorageModeShared)
     const data = new Float32Array([
@@ -78,7 +78,7 @@ function main() {
         command_buffer.present(back_buffer.drawable);
         command_buffer.commit();
     }
-    request_swapchain_callback(tick);
+    metal_request_swapchain_callback(tick);
 }
 
 main();
