@@ -467,6 +467,10 @@ import MetalKit
         task.resume()
     }
 
+    public func eval(_ script: String) {
+        context.evaluateScript(script)
+    }
+
     let device: MTLDevice!
     let context: JSContext!
     var tick_set = Set<JSValue>()

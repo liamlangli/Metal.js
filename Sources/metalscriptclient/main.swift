@@ -2,7 +2,10 @@ import metalscript
 import MetalKit
 
 func main() {
-    let device = MetalScriptDevice(MTLCreateSystemDefaultDevice()!)
+    let app = NSApplication.shared
+    let delegate = AppDelegate()
+    app.delegate = delegate
+    app.run()
 }
 
-main()
+main();
