@@ -23,6 +23,7 @@ class MetalScriptViewController: NSViewController {
             return
         }
         self.renderer = renderer
+        renderer.script_device.load_script("http://localhost:3000/public/package/os/index.js")
     }
 }
 

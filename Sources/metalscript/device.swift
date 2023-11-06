@@ -467,6 +467,25 @@ import MetalKit
         task.resume()
     }
 
+    public func load_script_async(_ url: String) async throws ->  String? {
+        guard let url = URL(string: url) else {
+            print("Invalid URL")
+            return nil
+        }
+
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            if let script = String(data: data, encoding: .utf8) {
+                return script
+            } else {
+                print("Error: Failed to decode script data")
+            }
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+        return nil
+    }
+
     public func eval(_ script: String) {
         context.evaluateScript(script)
     }
