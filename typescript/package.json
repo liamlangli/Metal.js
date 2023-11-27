@@ -1,16 +1,17 @@
 {
   "name": "@union_native/metal.js",
   "version": "0.1.6",
+  "type": "module",
   "main": "src/index.ts",
   "types": "types/index.d.ts",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "node esbuild.js",
-    "build": "node esbuild.build.js"
+    "dev": "node build.js",
+    "build": "node build.production.js"
   },
   "devDependencies": {
-    "esbuild": "^0.14.49",
+    "esbuild": "^0.19.8",
     "typescript": "^5.2.2"
   }
 }
