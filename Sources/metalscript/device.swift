@@ -57,6 +57,7 @@ import MetalKit
     var usage: Int { get set }
     var allow_gpu_optimized_contents: Bool { get set }
 }
+
 @objc public class TextureDescriptor : NSObject, TextureDescriptorProtocol {
     public var type: Int {
         get { return Int(desc.textureType.rawValue) }
@@ -364,7 +365,16 @@ import MetalKit
 }
 
 @objc public class MetalScriptDevice : NSObject, MetalScriptDeviceProtocol {
-
+    private static var _instance: MetalScriptDevice!
+    public static var shared: MetalScriptDevice {
+        get {
+            if _instance == nil {
+                _instance = MetalScriptDevice(MTLCreateSystemDefaultDevice())
+            }
+            return _instance;
+        }
+    }
+        
     public func create_command_queue() -> CommandQueue {
         return CommandQueue(device)
     }
@@ -451,6 +461,8 @@ import MetalKit
             return
         }
 
+        print("try to load script \(url.absoluteString)")
+
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
@@ -458,6 +470,7 @@ import MetalKit
             }
 
             if let script = String(data: data, encoding: .utf8) {
+                print(script)
                 self.context.evaluateScript(script)
             } else {
                 print("Error: Failed to decode script data")
@@ -467,23 +480,23 @@ import MetalKit
         task.resume()
     }
 
-    public func load_script_async(_ url: String) async throws ->  String? {
+    public func load_script_async(_ url: String) async throws -> Void {
         guard let url = URL(string: url) else {
             print("Invalid URL")
-            return nil
+            return
         }
 
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let script = String(data: data, encoding: .utf8) {
-                return script
+                context.evaluateScript(script)
             } else {
                 print("Error: Failed to decode script data")
             }
         } catch {
             print("Error: \(error.localizedDescription)")
         }
-        return nil
+        return
     }
 
     public func eval(_ script: String) {
@@ -505,7 +518,7 @@ import MetalKit
             }
         }
 
-        context.setObject(metal_script_create_device, forKeyedSubscript: "metal_script_create_device" as NSString)
+        context.setObject(metal_create_device, forKeyedSubscript: "metal_create_device" as NSString)
         context.setObject(MetalScriptDevice.self, forKeyedSubscript: "MetalScriptDevice" as NSString)
         context.setObject(Library.self, forKeyedSubscript: "Library" as NSString)
         context.setObject(CommandQueue.self, forKeyedSubscript: "CommandQueue" as NSString)
@@ -540,6 +553,6 @@ import MetalKit
     }
 }
 
-let metal_script_create_device: @convention(block) () -> MetalScriptDevice = {
-    return MetalScriptDevice(MTLCreateSystemDefaultDevice()!)
+let metal_create_device: @convention(block) () -> MetalScriptDevice = {
+    return MetalScriptDevice.shared
 }

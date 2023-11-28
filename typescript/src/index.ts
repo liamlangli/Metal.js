@@ -403,6 +403,8 @@ export interface MetalScriptDevice {
     create_depth_stencil_descriptor(): DepthStencilDescriptor;
     // create_compute_pipeline_descriptor(): RenderPipelineDescriptor;
 
+    request_swapchain_callback(tick: (time: number, back_buffer: BackBuffer) => void): void;
+    cancel_swapchain_callback(tick: (time: number, back_buffer: BackBuffer) => void): void;
     // prefer_frame_per_second(fps: number): void;
 }
 

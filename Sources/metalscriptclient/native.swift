@@ -6,24 +6,32 @@ class MetalScriptViewController: NSViewController {
 
     var mtkView: MTKView!
     var renderer: MetalScriptRenderer!
-
+    
     override func loadView() {
-        mtkView = MTKView()
-        mtkView.device = MTLCreateSystemDefaultDevice()
-        self.view = mtkView
-
-        mtkView.enableSetNeedsDisplay = true
-        mtkView.isPaused = true
+        self.view = mtkView   
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let renderer = MetalScriptRenderer(mtkView) else {
-            print("Renderer cannot be initialized")
-            return
+        mtkView.isPaused = false
+    }
+    
+    public func post_init() {
+        mtkView = MTKView()
+        mtkView.device = MTLCreateSystemDefaultDevice()
+        
+        renderer = MetalScriptRenderer(mtkView)
+        renderer.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
+        mtkView.delegate = renderer
+    }
+    
+    public func load_script(_ url: String) async {
+        do {
+            try await renderer.script_device.load_script_async(url)
         }
-        self.renderer = renderer
-        renderer.script_device.load_script("http://localhost:3000/public/package/os/index.js")
+        catch let err {
+            print(err)
+        }
     }
 }
 
@@ -33,17 +41,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1080, height: 720),
-                          styleMask: [.titled, .closable, .resizable],
+                          styleMask: [.titled, .closable, .resizable, .miniaturizable],
                           backing: .buffered,
                           defer: false)
-        window.title = "Metal Script Client"
-        window.center()
-        window.makeKeyAndOrderFront(nil)
-        window.appearance = NSAppearance(named: .darkAqua)
-
-        controller = MetalScriptViewController()
         window.contentView = controller.view
         window.delegate = self
+        
+        window.title = "Metal Script Client"
+        window.center()
+        window.orderFrontRegardless()
+        window.appearance = NSAppearance(named: .darkAqua)
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
@@ -59,6 +66,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func windowDidResignKey(_ notification: Notification) {
         if let window = notification.object as? NSWindow {
             window.level = .normal
+        }
+    }
+    
+    public func load_script(_ url: String) async {
+        do {
+            try await self.controller.renderer.script_device.load_script_async(url)
+        }
+        catch let err {
+            print(err)
         }
     }
 }

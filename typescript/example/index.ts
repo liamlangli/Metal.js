@@ -25,6 +25,7 @@ fragment float4 base_frag(VertexOut in [[stage_in]])
 }
 `
 function main() {
+    console.log('script eval');
     const device = metal_create_device() as MetalScriptDevice;
     const library = device.create_library_from_source(shader_source)!;
     const buffer = device.create_buffer(48, ResourceStorageModeShared)
@@ -54,20 +55,12 @@ function main() {
             pipeline_state = device.create_render_pipeline_state(pipeline_desc)!;
         }
 
-        if (!depth_stencil_state) {
-            const depth_stencil_desc = device.create_depth_stencil_descriptor();
-            depth_stencil_desc.depth_write = true;
-            depth_stencil_desc.compare_function = LessEqual;
-            depth_stencil_state = device.create_depth_stencil_state(depth_stencil_desc)!;
-        }
-
         // push debug scope
         encoder.push_debug_group("render triangle");
 
         encoder.set_cull_mode(Back);
         encoder.set_front_facing(CounterClockwise);
         encoder.set_render_pipeline_state(pipeline_state);
-        encoder.set_depth_stencil_state(depth_stencil_state);
 
         encoder.set_vertex_buffer(buffer, 0, 0);
         encoder.draw_primitive(Triangle, 0, 3);
@@ -76,9 +69,8 @@ function main() {
         encoder.end_encoding();
 
         command_buffer.present(back_buffer.drawable);
-        command_buffer.commit();
     }
-    metal_request_swapchain_callback(tick);
+    device.request_swapchain_callback(tick);
 }
 
 main();
