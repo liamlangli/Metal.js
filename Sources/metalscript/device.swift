@@ -11,6 +11,27 @@ import Metal
 import QuartzCore
 import MetalKit
 
+@objc protocol GPUFenceProtocol: JSExport {
+    var device: MetalScriptDevice { get }
+    var label: String? { get set }
+}
+
+@objc public class GPUFence: NSObject, GPUFenceProtocol {
+    var fence: MTLFence!
+    public init(_ fence: MTLFence) {
+        self.fence = fence
+    }
+    
+    public var device: MetalScriptDevice {
+        get { return MetalScriptDevice.shared }
+    }
+    
+    public var label: String? {
+        get { return fence.label }
+        set { fence.label = newValue }
+    }
+}
+
 @objc protocol GPUBufferProtocol : JSExport {
     func upload(_ data: JSValue) -> Void
 }
@@ -312,6 +333,8 @@ import MetalKit
     public func create_render_command_encoder(_ desc: RenderPassDescriptor) -> RenderCommandEncoder? {
         return RenderCommandEncoder(buffer, desc.desc)
     }
+    
+//    public func create_acceleration_structure_command_encoder(_ dest:  )
 
     public func present(_ drawable: Drawable) {
         buffer.present(drawable.drawable)
@@ -517,13 +540,14 @@ import MetalKit
                 print("JS Exception \(exc)")
             }
         }
-
+        
         context.setObject(metal_create_device, forKeyedSubscript: "metal_create_device" as NSString)
         context.setObject(MetalScriptDevice.self, forKeyedSubscript: "MetalScriptDevice" as NSString)
         context.setObject(Library.self, forKeyedSubscript: "Library" as NSString)
         context.setObject(CommandQueue.self, forKeyedSubscript: "CommandQueue" as NSString)
         context.setObject(CommandBuffer.self, forKeyedSubscript: "CommandBuffer" as NSString)
         context.setObject(RenderCommandEncoder.self, forKeyedSubscript: "RenderCommandEncoder" as NSString)
+        context.setObject(GPUFence.self, forKeyedSubscript: "GPUFence" as NSString)
         context.setObject(GPUBuffer.self, forKeyedSubscript: "GPUBuffer" as NSString)
         context.setObject(GPUTexture.self, forKeyedSubscript: "GPUTexture" as NSString)
         context.setObject(GPUProgram.self, forKeyedSubscript: "GPUProgram" as NSString)

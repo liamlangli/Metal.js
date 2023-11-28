@@ -69,6 +69,7 @@ import Metal
 
 @objc public protocol AccelerationStructureDescriptor {
     var usage: UInt { get set }
+    var real: MTLAccelerationStructureDescriptor { get }
 }
 
 @available(macOS 13.0, *)
@@ -76,6 +77,10 @@ import Metal
     var descriptor: MTLPrimitiveAccelerationStructureDescriptor!
     init(descriptor: MTLPrimitiveAccelerationStructureDescriptor) {
         self.descriptor = descriptor
+    }
+    
+    public var real: MTLAccelerationStructureDescriptor {
+        get { return descriptor }
     }
     
     var geometry_descriptors: JSValue? {
@@ -131,6 +136,28 @@ import Metal
     }
 }
 
+@objc public class AccelerarionStructureSizes: NSObject {
+    var sizes: MTLAccelerationStructureSizes!
+    
+    init(sizes: MTLAccelerationStructureSizes!) {
+        self.sizes = sizes
+    }
+    
+    public var acceleration_structure_size: Int {
+        set { sizes.accelerationStructureSize = newValue }
+        get { return sizes.accelerationStructureSize }
+    }
+    
+    public var build_scratch_buffer_size: Int {
+        set { sizes.buildScratchBufferSize = newValue }
+        get { return sizes.buildScratchBufferSize }
+    }
+    
+    public var refit_scratch_buffer_size: Int {
+        set { sizes.refitScratchBufferSize = newValue }
+        get { return sizes.refitScratchBufferSize }
+    }
+}
 
 @available(macOS 13.0, *)
 @objc public class AccelerationStructure: NSObject {
@@ -149,10 +176,63 @@ import Metal
 }
 
 @available(macOS 13.0, *)
+@objc public class AccelerationStructurePassSampleBufferAttachmentDescriptor: NSObject {
+    var descriptor: MTLAccelerationStructurePassSampleBufferAttachmentDescriptor!
+    init(descriptor: MTLAccelerationStructurePassSampleBufferAttachmentDescriptor!) {
+        self.descriptor = descriptor
+    }
+}
+
+@available(macOS 13.0, *)
+@objc public class AccelerationStructurePassDescriptor: NSObject {
+    var descriptor: MTLAccelerationStructurePassDescriptor!
+    init(descriptor: MTLAccelerationStructurePassDescriptor!) {
+        self.descriptor = descriptor
+    }
+    
+    
+}
+
+@available(macOS 13.0, *)
 @objc public class AccelerationStructureCommandEncoder: NSObject {
     var encoder: MTLAccelerationStructureCommandEncoder!
     
     public func build(_ structure: AccelerationStructure, _ descriptor: AccelerationStructureDescriptor, scratch_buffer: GPUBuffer, scratch_buffer_offset: Int) {
-        
+        encoder.build(accelerationStructure: structure.structure, descriptor: descriptor.real, scratchBuffer: scratch_buffer.buffer, scratchBufferOffset: scratch_buffer_offset)
+    }
+    
+    public func refit(_ src: AccelerationStructure, _ descriptor: AccelerationStructureDescriptor, _ dst: AccelerationStructure?, scratch_buffer: GPUBuffer?, scratch_buffer_offset: Int) {
+        encoder.refit(sourceAccelerationStructure: src.structure, descriptor: descriptor.real, destinationAccelerationStructure: dst?.structure, scratchBuffer: scratch_buffer?.buffer, scratchBufferOffset: scratch_buffer_offset)
+    }
+    
+    public func refit(_ src: AccelerationStructure, _ descriptor: AccelerationStructureDescriptor, _ dst: AccelerationStructure?, scratch_buffer: GPUBuffer?, scratch_buffer_offset: Int, options: UInt) {
+        var mask = MTLAccelerationStructureRefitOptions(rawValue: 0)
+        if (options & 1) != 0 { mask.insert(.vertexData)}
+        if (options & 2) != 0 { mask.insert(.perPrimitiveData)}
+        encoder.refit(sourceAccelerationStructure: src.structure, descriptor: descriptor.real, destinationAccelerationStructure: dst?.structure, scratchBuffer: scratch_buffer?.buffer, scratchBufferOffset: scratch_buffer_offset, options: mask)
+    }
+    
+    public func copy(_ src: AccelerationStructure, _ dst: AccelerationStructure) {
+        encoder.copy(sourceAccelerationStructure: src.structure, destinationAccelerationStructure: dst.structure)
+    }
+    
+    public func write_compacted_size(_ structure: AccelerationStructure, _ dst: GPUBuffer, _ offset: Int) {
+        encoder.writeCompactedSize(accelerationStructure: structure.structure, buffer: dst.buffer, offset: offset)
+    }
+    
+    public func write_compacted_size(_ structure: AccelerationStructure, _ dst: GPUBuffer, _ offset: Int, _ size_data_type: UInt) {
+        encoder.writeCompactedSize(accelerationStructure: structure.structure, buffer: dst.buffer, offset: offset, sizeDataType: MTLDataType(rawValue:size_data_type) ?? .float)
+    }
+    
+    public func copy_and_compact(_ src: AccelerationStructure, _ dst: AccelerationStructure) {
+        encoder.copyAndCompact(sourceAccelerationStructure: src.structure, destinationAccelerationStructure: dst.structure)
+    }
+    
+    public func update_fence(_ fence: GPUFence) {
+        encoder.updateFence(fence.fence)
+    }
+    
+    public func wait_for_fence(_ fence: GPUFence) {
+        encoder.waitForFence(fence.fence)
     }
 }
